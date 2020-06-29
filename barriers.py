@@ -1,18 +1,20 @@
 import pygame
 import globalvalues as gv
 
+
 class Barrier(object):
     instances = []
 
     def __init__(self,
-                 type=None,
+                 typ=None,
                  x_left=None,
                  y_top=None,
                  width=1,
                  height=1):
-        self.type = type
+        self.type = typ
         Barrier.instances.append(self)
-        self.rect = pygame.Rect(x_left * gv.scale, y_top * gv.scale, width * gv.scale, height * gv.scale)
+        s = gv.scale * 25
+        self.rect = pygame.Rect(x_left * s, y_top * s, width * s, height * s)
 
     @staticmethod
     def render_barriers(window,

@@ -75,7 +75,6 @@ level2 = ["E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E
           "E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E"]
 
 
-
 def compile_level(level):
     Barrier.instances = []
     x = 0
