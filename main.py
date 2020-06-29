@@ -3,7 +3,7 @@ import globalvalues as gv
 import start
 
 # Fenster
-window = pygame.display.set_mode((1600, 900), flags=pygame.RESIZABLE)
+window = pygame.display.set_mode((gv.width, gv.height))
 pygame.display.set_caption("Currentflow")
 
 # Game loop
