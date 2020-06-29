@@ -74,16 +74,18 @@ level2 = ["E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E
           "E - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - E",
           "E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E"]
 
+all_levels = [level1, level2]
 
-def compile_level(level):
+
+def assemble_level(index):
     Barrier.instances = []
     x = 0
     y = 0
-    for row in level:
-        for col in row:
-            if col == "E":
+    for row in all_levels[index]:
+        for char in row:
+            if char == "E":
                 Barrier("Blank", x, y)
-            elif col == " ":
+            elif char == " ":
                 continue
             x += 1
         y += 1

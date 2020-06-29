@@ -24,4 +24,5 @@ class Barrier(object):
             if barrier.type == "Edge":
                 window.blit(image, barrier.rect)
             elif barrier.type == "Blank":
-                pygame.draw.rect(window, color, barrier.rect)
+                pygame.draw.rect(window, color, (gv.L + barrier.rect[0], gv.T + barrier.rect[1],
+                                                 barrier.rect[2], barrier.rect[3], ))
