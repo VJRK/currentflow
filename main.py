@@ -6,6 +6,7 @@ import flow as fl
 import level
 import barriers
 import start
+from players import *
 
 # Fenster
 window = pygame.display.set_mode((gv.width, gv.height), flags=pygame.RESIZABLE)
@@ -17,7 +18,7 @@ max_fps = 60
 dt = clock.tick(max_fps)
 running = True
 
-level.compile_level(level.level2)
+flow, current = level.compile_level(level.level2)
 
 while running:
     for event in pygame.event.get():
@@ -32,13 +33,17 @@ while running:
         if gv.active_stage == 0:
             start.handleinput(event)
         else:
-            cu.handleinput(cu, event)
-            fl.handleinput(fl, event)
+            current.handleinput()
+            flow.handleinput()
+            #cu.handleinput(cu, event)
+            #fl.handleinput(fl, event)
 
     # Update
     if gv.active_stage != 0:
-        cu.update(cu, dt)
-        fl.update(fl, dt)
+        current.update(dt)
+        flow.update(dt)
+        #cu.update(cu, dt)
+        #fl.update(fl, dt)
 
     # Render
     window.fill((0, 0, 0))
@@ -46,9 +51,11 @@ while running:
     if gv.active_stage == 0:
         start.render(window)
     else:
-        cu.render(window)
-        barriers.Barrier.render_barriers(window)
-        fl.render(window)
+        barriers.Barrier.render(window)
+        current.render(window)
+        flow.render(window)
+        #cu.render(window)
+        #fl.render(window)
 
     # Canvas updaten
     pygame.display.update()

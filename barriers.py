@@ -17,9 +17,9 @@ class Barrier(object):
         self.rect = pygame.Rect(x_left * s, y_top * s, width * s, height * s)
 
     @staticmethod
-    def render_barriers(window,
-                        image=None,
-                        color=(255, 255, 255)):
+    def render(window,
+               image=None,
+               color=(255, 255, 255)):
         for barrier in Barrier.instances:
             if barrier.type == "Edge":
                 window.blit(image, barrier.rect)
