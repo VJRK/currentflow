@@ -1,4 +1,6 @@
 import pygame
+import globalvalues as gv
+import start
 
 # Fenster
 window = pygame.display.set_mode((1600, 900), flags=pygame.RESIZABLE)
@@ -16,8 +18,14 @@ while running:
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             running = False
 
+        # Eingabe
+        if gv.active_stage == 0:
+            start.handleinput(event)
+
     # Render
     window.fill((0, 0, 0))
+    if gv.active_stage == 0:
+        start.render(window)
 
     # Canvas updaten
     pygame.display.update()
