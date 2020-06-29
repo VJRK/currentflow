@@ -20,6 +20,7 @@ running = True
 
 flow, current = level.assemble_level(1)
 
+
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
