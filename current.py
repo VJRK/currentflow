@@ -2,8 +2,8 @@ import pygame
 import globalvalues as gv
 import utils
 
-posX = 10 * gb.scale
-posY = 10 * gb.scale
+posX = 10 * gv.scale
+posY = 10 * gv.scale
 velX = 0
 velY = 0
 accX = 0
