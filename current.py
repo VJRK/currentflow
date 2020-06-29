@@ -1,7 +1,8 @@
 import pygame
+import globalvalues as gb
 
-posX = 800
-posY = 800
+posX = 10 * gb.scale
+posY = 10 * gb.scale
 velX = 0
 velY = 0
 accX = 0

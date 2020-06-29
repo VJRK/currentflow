@@ -1,6 +1,8 @@
 import pygame
 import globalvalues as gv
 import current as cu
+from level import *
+from barriers import *
 import start
 
 # Fenster
@@ -12,6 +14,9 @@ clock = pygame.time.Clock()
 max_fps = 60
 dt = clock.tick(max_fps)
 running = True
+
+compile_level(level2)
+
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -35,6 +40,7 @@ while running:
         start.render(window)
     else:
         cu.render(window)
+        Barrier.render_barriers(window)
 
     # Canvas updaten
     pygame.display.update()
