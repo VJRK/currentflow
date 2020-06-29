@@ -24,5 +24,5 @@ def setdimensions(current_w, current_h):
     gv.B = gv.T + gv.height
 
     gv.scale = gv.width / 1600
-    gv.hitbox_cu = (64 * gv.scale, 64 * gv.scale)
-    gv.hitbox_fl = (64 * gv.scale, 64 * gv.scale)
+    gv.hitbox_cu = (32 * gv.scale, 48 * gv.scale)
+    gv.hitbox_fl = (40 * gv.scale, 32 * gv.scale)
