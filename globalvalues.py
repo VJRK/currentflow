@@ -8,6 +8,8 @@ R = 1600
 B = 900
 
 scale = 1.0
+hitbox_cu = (32, 48)
+hitbox_fl = (40, 32)
 
 gravity = 0.0098
 jump_speed = 1.3

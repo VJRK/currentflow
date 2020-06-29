@@ -18,7 +18,7 @@ max_fps = 60
 dt = clock.tick(max_fps)
 running = True
 
-flow, current = level.compile_level(level.level2)
+flow, current = level.assemble_level(1)
 
 while running:
     for event in pygame.event.get():
@@ -28,6 +28,7 @@ while running:
             running = False
         elif event.type == pygame.VIDEORESIZE:
             resize.setdimensions(event.size[0], event.size[1])
+            flow, current = level.assemble_level(1)
 
         # Eingabe
         if gv.active_stage == 0:
