@@ -2,13 +2,11 @@ import pygame
 import globalvalues as gv
 import utils
 
-posX = 10 * gv.scale
-posY = 10 * gv.scale
+posX = 600 * gv.scale
+posY = 450 * gv.scale
 velX = 0
 velY = 0
 accX = 0
-
-hitbox = (64, 64)
 
 
 def handleinput(self, event):
@@ -34,11 +32,11 @@ def handleinput(self, event):
 
 
 def update(self, dt):
-    self.posX += self.velX * dt
-    self.posX = utils.clamp(self.posX, gv.width - hitbox[0] / 2, hitbox[0] / 2)
+    self.posX += self.velX * dt * gv.scale
+    self.posX = utils.clamp(self.posX, gv.width - gv.hitbox_cu[0] / 2, gv.hitbox_cu[0] / 2)
 
-    self.posY += self.velY * dt
-    self.posY = utils.clamp(self.posY, gv.height - hitbox[1] / 2, hitbox[1] / 2)
+    self.posY += self.velY * dt * gv.scale
+    self.posY = utils.clamp(self.posY, gv.height - gv.hitbox_cu[1] / 2, gv.hitbox_cu[1] / 2)
 
     self.velX += self.accX * dt
     self.velX *= gv.friction
@@ -47,4 +45,5 @@ def update(self, dt):
 
 
 def render(window):
-    pygame.draw.rect(window, (0, 255, 255), (posX - hitbox[0] / 2, posY - hitbox[1] / 2, hitbox[0], hitbox[1]))
+    pygame.draw.rect(window, (0, 255, 255), (gv.L + posX - gv.hitbox_cu[0] / 2, gv.T + posY - gv.hitbox_cu[1] / 2,
+                                             gv.hitbox_cu[0], gv.hitbox_cu[1]))

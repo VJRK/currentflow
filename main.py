@@ -47,8 +47,8 @@ while running:
         start.render(window)
     else:
         cu.render(window)
-        barriers.Barrier.render_barriers(window)
         fl.render(window)
+        barriers.Barrier.render_barriers(window)
 
     # Canvas updaten
     pygame.display.update()
