@@ -1,6 +1,7 @@
 import pygame
 import globalvalues as gv
 import current as cu
+import flow as fl
 import start
 
 # Fenster
@@ -24,10 +25,12 @@ while running:
             start.handleinput(event)
         else:
             cu.handleinput(cu, event)
+            fl.handleinput(fl, event)
 
     # Update
     if gv.active_stage != 0:
         cu.update(cu, dt)
+        fl.update(fl, dt)
 
     # Render
     window.fill((0, 0, 0))
@@ -35,6 +38,7 @@ while running:
         start.render(window)
     else:
         cu.render(window)
+        fl.render(window)
 
     # Canvas updaten
     pygame.display.update()

@@ -2,7 +2,7 @@ import pygame
 import globalvalues as gv
 import utils
 
-posX = 600
+posX = 1000
 posY = 450
 velX = 0
 velY = 0
@@ -14,22 +14,22 @@ hitbox = (64, 64)
 def handleinput(self, event):
     # Taste gedrückt
     if event.type == pygame.KEYDOWN:
-        # A (links)
-        if event.key == pygame.K_a:
+        # Linke Pfeiltaste (links)
+        if event.key == pygame.K_LEFT:
             self.accX += -0.0025
-        # D (rechts)
-        elif event.key == pygame.K_d:
+        # Rechte Pfeiltaste (rechts)
+        elif event.key == pygame.K_RIGHT:
             self.accX += 0.0025
-        # W (springen)
-        elif event.key == pygame.K_w:
+        # Obere Pfeiltaste (springen)
+        elif event.key == pygame.K_UP:
             self.velY = -1
     # Taste losgelassen
     elif event.type == pygame.KEYUP:
-        # A (links)
-        if event.key == pygame.K_a:
+        # Linke Pfeiltaste (links)
+        if event.key == pygame.K_LEFT:
             self.accX += 0.0025
-        # D (rechts)
-        elif event.key == pygame.K_d:
+        # Rechte Pfeiltaste (rechts)
+        elif event.key == pygame.K_RIGHT:
             self.accX += -0.0025
 
 
@@ -47,4 +47,4 @@ def update(self, dt):
 
 
 def render(window):
-    pygame.draw.rect(window, (0, 255, 255), (posX - hitbox[0] / 2, posY - hitbox[1] / 2, hitbox[0], hitbox[1]))
+    pygame.draw.rect(window, (255, 255, 0), (posX - hitbox[0] / 2, posY - hitbox[1] / 2, hitbox[0], hitbox[1]))
