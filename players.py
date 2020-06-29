@@ -40,7 +40,7 @@ class Current:
 
         if abs(self.velX) <= gv.max_speed:
             self.velX += self.accX * dt
-        self.rect.x += self.velX * dt
+        self.rect.x += self.velX * dt * gv.scale
 
         collides = collisions.check_collisions(self.rect, Barrier.instances)
         for collide in collides:
@@ -54,7 +54,7 @@ class Current:
                 self.collision_types['left'] = True
 
         self.velY += gv.gravity * dt
-        self.rect.y += self.velY * dt
+        self.rect.y += self.velY * dt * gv.scale
 
         collides = collisions.check_collisions(self.rect, Barrier.instances)
         for collide in collides:
@@ -107,7 +107,7 @@ class Flow:
 
         if abs(self.velX) <= gv.max_speed:
             self.velX += self.accX * dt
-        self.rect.x += self.velX * dt
+        self.rect.x += self.velX * dt * gv.scale
 
         collides = collisions.check_collisions(self.rect, Barrier.instances)
         for collide in collides:
@@ -121,7 +121,7 @@ class Flow:
                 self.collision_types['left'] = True
 
         self.velY += gv.gravity * dt
-        self.rect.y += self.velY * dt
+        self.rect.y += self.velY * dt * gv.scale
 
         collides = collisions.check_collisions(self.rect, Barrier.instances)
         for collide in collides:
