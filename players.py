@@ -13,10 +13,9 @@ class Current:
                  width=1,
                  height=1):
         self.name = name
-        s = gv.scale * 25
-        self.posX = x_left * s
-        self.posY = y_top * s
-        self.hitbox = (width * s, height * s)
+        self.posX = x_left * gv.scale
+        self.posY = y_top * gv.scale
+        self.hitbox = (width * gv.scale, height * gv.scale)
         self.rect = pygame.Rect(self.posX, self.posY, self.hitbox[0], self.hitbox[1])
         self.collision_types = {'top': False, 'bottom': False, 'right': False, 'left': False}
         self.velX = 0
@@ -50,6 +49,9 @@ class Current:
 
         if abs(self.velX) <= gv.max_run_speed:
             self.velX += self.accX * dt
+            self.color = (255, 255, 0)
+        else:
+            self.color = (100, 100, 0)
         self.rect.x += self.velX * dt
         c.check_ramp_collisions(self, Barrier.ramps)
         c.check_horizontal_collisions(self, Barrier.instances)
@@ -69,10 +71,9 @@ class Flow:
                  width=1,
                  height=1):
         self.name = name
-        s = gv.scale * 25
-        self.posX = x_left * s
-        self.posY = y_top * s
-        self.hitbox = (width * s, height * s)
+        self.posX = x_left * gv.scale
+        self.posY = y_top * gv.scale
+        self.hitbox = (width * gv.scale, height * gv.scale)
         self.rect = pygame.Rect(self.posX, self.posY, self.hitbox[0], self.hitbox[1])
         self.collision_types = {'top': False, 'bottom': False, 'right': False, 'left': False}
         self.velX = 0

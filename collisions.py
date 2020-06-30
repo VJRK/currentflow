@@ -31,11 +31,11 @@ def check_ramp_collisions(entity, ramps):
         if collide_ramp.typ == "RampR":
             pos_height = rel_x + entity.rect.width
         if collide_ramp.typ == "RampL":
-            pos_height = 25 - rel_x
-        pos_height = min(pos_height, 25)
+            pos_height = gv.scale - rel_x
+        pos_height = min(pos_height, gv.scale)
         pos_height = max(pos_height, 0)
-        target_y = collide_ramp.rect.y + 25 - pos_height
-        if collide_ramp.typ == "RampR" and rel_x > 15 and entity.velX < 0:
+        target_y = collide_ramp.rect.y + gv.scale - pos_height
+        if collide_ramp.typ == "RampR" and rel_x > entity.rect.width and entity.velX < 0:
             entity.rect.left = collide_ramp.rect.right
             entity.velX = 0
             entity.collision_types['left'] = True
@@ -50,12 +50,12 @@ def check_ramp_collisions(entity, ramps):
         elif entity.rect.bottom > target_y:
             entity.rect.bottom = target_y
             entity.velY = 0
-            if entity.velX == 0 and collide_ramp.typ == "RampR" and rel_x < 25:
-                entity.velX = -.1
-                entity.velY = -.1
+            if entity.velX == 0 and collide_ramp.typ == "RampR" and rel_x < gv.scale:
+                entity.velX = -gv.slide_speed
+                entity.velY = -gv.slide_speed
             if entity.velX == 0 and collide_ramp.typ == "RampL":
-                entity.velX = .1
-                entity.velY = -.1
+                entity.velX = gv.slide_speed
+                entity.velY = -gv.slide_speed
         entity.collision_types['bottom'] = True
 
 

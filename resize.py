@@ -5,6 +5,16 @@ def setdimensions(current_w, current_h):
     ratio = current_w / current_h
     # Bei breiten Bildschirmen
     if ratio > 16 / 9:
+        gv.scale = int(current_h/36)
+    # Bei hohen Bildschrimen
+    elif ratio <= 16 / 9:
+        gv.scale = int(current_w/64)
+
+"""
+def setdimensions(current_w, current_h):
+    ratio = current_w / current_h
+    # Bei breiten Bildschirmen
+    if ratio > 16 / 9:
         gv.width = int(current_h * 16 / 9)
         gv.height = current_h
         gv.L = int((current_w - gv.width) / 2)
@@ -26,3 +36,4 @@ def setdimensions(current_w, current_h):
     gv.scale = gv.width / 1600
     gv.hitbox_cu = (32 * gv.scale, 48 * gv.scale)
     gv.hitbox_fl = (40 * gv.scale, 32 * gv.scale)
+"""""

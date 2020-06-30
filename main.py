@@ -1,8 +1,6 @@
 import pygame
 import globalvalues as gv
 import resize
-import current as cu
-import flow as fl
 import level
 import barriers as b
 import interactables as i
@@ -10,7 +8,10 @@ import start
 from players import *
 
 # Fenster
-window = pygame.display.set_mode((gv.width, gv.height), flags=pygame.RESIZABLE)
+pygame.init()
+width, height = pygame.display.Info().current_w, pygame.display.Info().current_h
+resize.setdimensions(width, height)
+window = pygame.display.set_mode((64 * gv.scale, 36 * gv.scale), flags=pygame.RESIZABLE)
 pygame.display.set_caption("CurrentFlow")
 
 # Game loop
@@ -29,7 +30,8 @@ while running:
             running = False
         elif event.type == pygame.VIDEORESIZE:
             resize.setdimensions(event.size[0], event.size[1])
-            flow, current = level.assemble_level(1)
+            window = pygame.display.set_mode((64 * gv.scale, 36 * gv.scale), flags=pygame.RESIZABLE)
+            flow, current = level.assemble_level(0)
 
         # Eingabe
         if gv.active_stage == 0:
@@ -37,8 +39,6 @@ while running:
         else:
             current.handleinput(event)
             flow.handleinput(event)
-            #cu.handleinput(cu, event)
-            #fl.handleinput(fl, event)
 
     # Update
     if gv.active_stage != 0:
@@ -48,12 +48,10 @@ while running:
             Button.update(button, dt)
         for door in Door.instances:
             Door.update(door, dt)
-        #cu.update(cu, dt)
-        #fl.update(fl, dt)
 
     # Render
     window.fill((0, 0, 0))
-    pygame.draw.rect(window, (33, 33, 33), (gv.L, gv.T, gv.width, gv.height))
+    pygame.draw.rect(window, (33, 33, 33), (0, 0, 64 * gv.scale, 36 * gv.scale))
     if gv.active_stage == 0:
         start.render(window)
     else:
@@ -63,8 +61,6 @@ while running:
         i.Fluid.render(window)
         i.Door.render(window)
         b.Barrier.render(window)
-        #cu.render(window)
-        #fl.render(window)
 
     # Canvas updaten
     pygame.display.update()
