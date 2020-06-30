@@ -13,7 +13,7 @@ def check_vertical_collisions(entity, blocks):
     for collide_wall in collide_walls:
         if entity.velY > 0:
             entity.rect.bottom = collide_wall.rect.top
-            if abs(entity.velX) < gv.base_speed and entity.velX != 0:
+            if abs(entity.velX) < gv.base_run_speed and entity.velX != 0:
                 entity.velX = 0
             entity.velY = 0
             entity.collision_types['bottom'] = True
@@ -56,7 +56,6 @@ def check_ramp_collisions(entity, ramps):
                 entity.velX = .1
                 entity.velY = -.1
         entity.collision_types['bottom'] = True
-        print(entity.velX)
 
 
 

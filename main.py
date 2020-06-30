@@ -10,7 +10,7 @@ from players import *
 
 # Fenster
 window = pygame.display.set_mode((gv.width, gv.height), flags=pygame.RESIZABLE)
-pygame.display.set_caption("Currentflow")
+pygame.display.set_caption("CurrenFlow")
 
 # Game loop
 clock = pygame.time.Clock()
@@ -19,7 +19,6 @@ dt = clock.tick(max_fps)
 running = True
 
 flow, current = level.assemble_level(1)
-
 
 while running:
     for event in pygame.event.get():
@@ -35,8 +34,8 @@ while running:
         if gv.active_stage == 0:
             start.handleinput(event)
         else:
-            current.handleinput()
-            flow.handleinput()
+            current.handleinput(event)
+            flow.handleinput(event)
             #cu.handleinput(cu, event)
             #fl.handleinput(fl, event)
 
