@@ -1,4 +1,5 @@
 import globalvalues as gv
+from interactables import Door
 
 def test_collisions(entity, blocks):
     collisions = []
@@ -80,3 +81,52 @@ def check_fluid_collisions(entity, fluids):
             entity.color = (100, 100, 100)
         elif collide_fluid.typ == "acid":
             entity.color = (100, 100, 100)
+
+
+def check_button_collision(entity, buttons):
+    collide_buttons = test_collisions(entity.rect, buttons)
+    if collide_buttons == []:
+        for button in buttons:
+            if entity.name == button.who_pressed:
+                button.pressed = False
+                for door in Door.instances:
+                    if button.tag == door.tag:
+                        door.open = False
+
+    for collide_button in collide_buttons:
+        for door in Door.instances:
+            if collide_button.tag == door.tag:
+                door.open = True
+
+        collide_button.pressed = True
+        collide_button.who_pressed = entity.name
+        collide_button.press_speed = .1
+
+        rel_x = entity.rect.x - collide_button.rect.x
+        if rel_x >= collide_button.rect.width-collide_button.rect.height:
+            pos_height = collide_button.rect.width - rel_x
+        elif rel_x <= -entity.rect.width+collide_button.rect.height:
+            pos_height = rel_x + entity.rect.width
+        else:
+            pos_height = collide_button.rect.height
+        target_y = collide_button.rect.top + collide_button.rect.height - pos_height
+
+        if entity.rect.bottom > target_y:
+            entity.rect.bottom = target_y
+            entity.velY = 0
+        entity.collision_types['bottom'] = True
+
+
+def check_door_collisions(entity, blocks):
+    collide_walls = test_collisions(entity.rect, blocks)
+    for collide_wall in collide_walls:
+        if entity.velY > 0:
+            entity.rect.bottom = collide_wall.rect.top
+            if abs(entity.velX) < gv.base_run_speed and entity.velX != 0:
+                entity.velX = 0
+            entity.velY = 0
+            entity.collision_types['bottom'] = True
+        elif entity.velY < 0:
+            entity.rect.top = collide_wall.rect.bottom
+            entity.velY = 0
+            entity.collision_types['top'] = True

@@ -22,7 +22,6 @@ class Barrier(object):
 
     @staticmethod
     def render(window,
-               image=None,
                color=(255, 255, 255)):
         for barrier in Barrier.instances:
             if barrier.typ == "Wall":

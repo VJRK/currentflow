@@ -4,8 +4,8 @@ import resize
 import current as cu
 import flow as fl
 import level
-import barriers
-import interactables
+import barriers as b
+import interactables as i
 import start
 from players import *
 
@@ -42,8 +42,12 @@ while running:
 
     # Update
     if gv.active_stage != 0:
-        current.update(dt)
         flow.update(dt)
+        current.update(dt)
+        for button in Button.instances:
+            Button.update(button, dt)
+        for door in Door.instances:
+            Door.update(door, dt)
         #cu.update(cu, dt)
         #fl.update(fl, dt)
 
@@ -53,10 +57,12 @@ while running:
     if gv.active_stage == 0:
         start.render(window)
     else:
+        i.Button.render(window)
         current.render(window)
         flow.render(window)
-        interactables.Fluid.render(window)
-        barriers.Barrier.render(window)
+        i.Fluid.render(window)
+        i.Door.render(window)
+        b.Barrier.render(window)
         #cu.render(window)
         #fl.render(window)
 

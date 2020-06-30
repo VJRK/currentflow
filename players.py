@@ -2,7 +2,7 @@ import pygame
 import globalvalues as gv
 import collisions as c
 from barriers import Barrier
-from interactables import Fluid
+from interactables import Fluid, Button, Door
 
 
 class Current:
@@ -46,6 +46,7 @@ class Current:
         self.velY += gv.gravity * dt
         self.rect.y += self.velY * dt
         c.check_vertical_collisions(self, Barrier.instances)
+        c.check_vertical_collisions(self, Door.instances)
 
         if abs(self.velX) <= gv.max_run_speed:
             self.velX += self.accX * dt
@@ -53,6 +54,8 @@ class Current:
         c.check_ramp_collisions(self, Barrier.ramps)
         c.check_horizontal_collisions(self, Barrier.instances)
         c.check_fluid_collisions(self, Fluid.instances)
+        c.check_button_collision(self, Button.instances)
+        c.check_horizontal_collisions(self, Door.instances)
 
     def render(self, window):
         pygame.draw.rect(window, self.color, (self.rect.x, self.rect.y, self.hitbox[0], self.hitbox[1]))
@@ -100,15 +103,16 @@ class Flow:
         self.velY += gv.gravity * dt
         self.rect.y += self.velY * dt
         c.check_vertical_collisions(self, Barrier.instances)
+        c.check_vertical_collisions(self, Door.instances)
 
         if abs(self.velX) <= gv.max_run_speed:
             self.velX += self.accX * dt
         self.rect.x += self.velX * dt
         c.check_ramp_collisions(self, Barrier.ramps)
         c.check_horizontal_collisions(self, Barrier.instances)
-
         c.check_fluid_collisions(self, Fluid.instances)
-
+        c.check_button_collision(self, Button.instances)
+        c.check_horizontal_collisions(self, Door.instances)
 
     def render(self, window):
         pygame.draw.rect(window, self.color, (self.rect.x, self.rect.y, self.hitbox[0], self.hitbox[1]))
