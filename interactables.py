@@ -1,6 +1,7 @@
 import pygame
 import globalvalues as gv
 import barriers as b
+import math
 
 
 class Fluid(object):
@@ -42,12 +43,12 @@ class Button(object):
         self.who_pressed = None
         self.press_speed = 0
         Button.instances.append(self)
-        self.y_top = (y_top + 1.05 - height) * gv.scale
+        self.y_top = math.ceil((y_top + 1 - height) * gv.scale)
         self.rect = pygame.Rect(x_left * gv.scale, self.y_top, width * gv.scale, height * gv.scale)
 
     def update(self, dt):
         if self.pressed:
-            if self.rect.height - 2 > self.rect.top - self.y_top:
+            if self.rect.top < self.y_top + self.rect.height - max((self.rect.height/3), 2):
                 self.rect.y += self.press_speed * dt
         else:
             if self.rect.top > self.y_top:
@@ -71,11 +72,13 @@ class Door:
                  height=2):
         self.tag = tag
         self.open = False
+        self.stuck = False
         Door.instances.append(self)
         self.y_top = y_top * gv.scale
         self.rect = pygame.Rect(x_left * gv.scale, self.y_top, width * gv.scale, height * gv.scale)
 
     def update(self, dt):
+        print(self.open, self.stuck)
         if self.open:
             if self.rect.bottom > self.y_top:
                 self.rect.y -= .2 * dt

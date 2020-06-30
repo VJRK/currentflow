@@ -117,16 +117,16 @@ def check_button_collision(entity, buttons):
         entity.collision_types['bottom'] = True
 
 
-def check_door_collisions(entity, blocks):
-    collide_walls = test_collisions(entity.rect, blocks)
-    for collide_wall in collide_walls:
+def check_door_collisions(entity, doors):
+    collide_doors = test_collisions(entity.rect, doors)
+    for collide_door in collide_doors:
         if entity.velY > 0:
-            entity.rect.bottom = collide_wall.rect.top
+            entity.rect.bottom = collide_door.rect.top
             if abs(entity.velX) < gv.base_run_speed and entity.velX != 0:
                 entity.velX = 0
             entity.velY = 0
             entity.collision_types['bottom'] = True
         elif entity.velY < 0:
-            entity.rect.top = collide_wall.rect.bottom
+            entity.rect.top = collide_door.rect.bottom
             entity.velY = 0
             entity.collision_types['top'] = True

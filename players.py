@@ -45,7 +45,7 @@ class Current:
         self.velY += gv.gravity * dt
         self.rect.y += self.velY * dt
         c.check_vertical_collisions(self, Barrier.instances)
-        c.check_vertical_collisions(self, Door.instances)
+        c.check_door_collisions(self, Door.instances)
 
         if abs(self.velX) <= gv.max_run_speed:
             self.velX += self.accX * dt
@@ -104,7 +104,7 @@ class Flow:
         self.velY += gv.gravity * dt
         self.rect.y += self.velY * dt
         c.check_vertical_collisions(self, Barrier.instances)
-        c.check_vertical_collisions(self, Door.instances)
+        c.check_door_collisions(self, Door.instances)
 
         if abs(self.velX) <= gv.max_run_speed:
             self.velX += self.accX * dt

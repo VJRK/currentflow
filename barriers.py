@@ -1,5 +1,6 @@
 import pygame
 import globalvalues as gv
+import math
 
 
 class Barrier(object):
@@ -17,15 +18,14 @@ class Barrier(object):
             Barrier.ramps.append(self)
         else:
             Barrier.instances.append(self)
-        self.rect = pygame.Rect(x_left * gv.scale, y_top * gv.scale, width * gv.scale, height * gv.scale)
+        self.rect = pygame.Rect(x_left * gv.scale, y_top * gv.scale, math.ceil(width * gv.scale), math.ceil(height * gv.scale))
 
     @staticmethod
     def render(window,
                color=(255, 255, 255)):
         for barrier in Barrier.instances:
             if barrier.typ == "Wall":
-                pygame.draw.rect(window, color, (barrier.rect.x, barrier.rect.y,
-                                                 barrier.rect.width, barrier.rect.height))
+                pygame.draw.rect(window, color, (barrier.rect.x, barrier.rect.y, barrier.rect.width, barrier.rect.height))
         for ramp in Barrier.ramps:
             if ramp.typ == "RampR":
                 pygame.draw.polygon(window, color, ((ramp.rect.x, ramp.rect.y + ramp.rect.height-1), (ramp.rect.x + ramp.rect.width-1, ramp.rect.y), (ramp.rect.x + ramp.rect.width-1, ramp.rect.y + ramp.rect.height-1)))

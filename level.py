@@ -166,9 +166,9 @@ def assemble_level(index):
             if char == "W":
                 Barrier("Wall", x, y)
             elif char == "T":
-                Barrier("Wall", x, y, height=.55)
+                Barrier("Wall", x, y, height=.5)
             elif char == "B":
-                Barrier("Wall", x, y+.5, height=.55)
+                Barrier("Wall", x, y+.5, height=.5)
 
             elif char == "R":
                 Barrier("RampR", x, y)
@@ -182,12 +182,12 @@ def assemble_level(index):
                 Barrier("Point", x, y+.01, height=.0001, width=.0001)
 
             elif char == "b":
-                Barrier("Wall", x, y+.7, height=.31)
+                Barrier("Wall", x, y+.7, height=.3)
             elif char == "a":
-                Barrier("Wall", x, y, width=.51)
+                Barrier("Wall", x, y, width=.5)
                 Barrier("RampL", x+.5, y)
             elif char == "c":
-                Barrier("Wall", x, y+.7, height=.31)
+                Barrier("Wall", x, y+.7, height=.3)
                 Barrier("RampR", x, y)
 
             elif char == "F":
