@@ -1,4 +1,4 @@
-def clamp(value, max_value, min_value):
+def clamp(value, max_value, min_value): # unnötig?
     if value > max_value:
         value = max_value
     elif value < min_value:

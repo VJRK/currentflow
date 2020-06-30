@@ -1,6 +1,6 @@
 import pygame
 import globalvalues as gv
-import collisions
+import collisions as c
 from barriers import Barrier
 
 
@@ -40,49 +40,13 @@ class Current:
 
         self.velY += gv.gravity * dt
         self.rect.y += self.velY * dt * gv.scale
-
-        collide_walls = collisions.check_collisions(self.rect, Barrier.instances)
-        for collide_wall in collide_walls:
-            if self.velY > 0:
-                self.rect.bottom = collide_wall.rect.top
-                self.velY = 0
-                self.collision_types['bottom'] = True
-            elif self.velY < 0:
-                self.rect.top = collide_wall.rect.bottom
-                self.velY = 0
-                self.collision_types['top'] = True
+        c.check_vertical_collisions(self, Barrier.instances)
 
         if abs(self.velX) <= gv.max_speed:
             self.velX += self.accX * dt
         self.rect.x += self.velX * dt * gv.scale
-
-        collide_ramps = collisions.check_collisions(self.rect, Barrier.ramps)
-        for collide_ramp in collide_ramps:
-            rel_x = self.rect.x - collide_ramp.rect.x
-            if collide_ramp.typ == "RampR":
-                pos_height = rel_x + self.rect.width
-            if collide_ramp.typ == "RampL":
-                pos_height = 25 - rel_x
-            pos_height = min(pos_height, 25)
-            pos_height = max(pos_height, 0)
-            target_y = collide_ramp.rect.y + 25 - pos_height
-            if self.rect.bottom > target_y:
-                self.rect.bottom = target_y
-                self.velY = 0
-                self.collision_types['bottom'] = True
-            print(self.rect.bottom, target_y, rel_x)
-
-        collide_walls = collisions.check_collisions(self.rect, Barrier.instances)
-        for collide_wall in collide_walls:
-            if self.velX > 0:
-                self.rect.right = collide_wall.rect.left
-                print("right wlall")
-                self.velX = 0
-                self.collision_types['right'] = True
-            elif self.velX < 0:
-                self.rect.left = collide_wall.rect.right
-                self.velX = 0
-                self.collision_types['left'] = True
+        c.check_ramp_collisions(self, Barrier.ramps)
+        c.check_horizontal_collisions(self, Barrier.instances)
 
     def render(self, window):
         pygame.draw.rect(window, (255, 255, 0), (self.rect.x, self.rect.y, self.hitbox[0], self.hitbox[1]))
@@ -124,49 +88,13 @@ class Flow:
 
         self.velY += gv.gravity * dt
         self.rect.y += self.velY * dt * gv.scale
-
-        collide_walls = collisions.check_collisions(self.rect, Barrier.instances)
-        for collide_wall in collide_walls:
-            if self.velY > 0:
-                self.rect.bottom = collide_wall.rect.top
-                self.velY = 0
-                self.collision_types['bottom'] = True
-            elif self.velY < 0:
-                self.rect.top = collide_wall.rect.bottom
-                self.velY = 0
-                self.collision_types['top'] = True
+        c.check_vertical_collisions(self, Barrier.instances)
 
         if abs(self.velX) <= gv.max_speed:
             self.velX += self.accX * dt
         self.rect.x += self.velX * dt * gv.scale
-
-        collide_ramps = collisions.check_collisions(self.rect, Barrier.ramps)
-        for collide_ramp in collide_ramps:
-            rel_x = self.rect.x - collide_ramp.rect.x
-            if collide_ramp.typ == "RampR":
-                pos_height = rel_x + self.rect.width
-            if collide_ramp.typ == "RampL":
-                pos_height = 25 - rel_x
-            pos_height = min(pos_height, 25)
-            pos_height = max(pos_height, 0)
-            target_y = collide_ramp.rect.y + 25 - pos_height
-            if self.rect.bottom > target_y:
-                self.rect.bottom = target_y
-                self.velY = 0
-                self.collision_types['bottom'] = True
-            print(self.rect.bottom, target_y, rel_x)
-
-        collide_walls = collisions.check_collisions(self.rect, Barrier.instances)
-        for collide_wall in collide_walls:
-            if self.velX > 0:
-                self.rect.right = collide_wall.rect.left
-                print("right wlall")
-                self.velX = 0
-                self.collision_types['right'] = True
-            elif self.velX < 0:
-                self.rect.left = collide_wall.rect.right
-                self.velX = 0
-                self.collision_types['left'] = True
+        c.check_ramp_collisions(self, Barrier.ramps)
+        c.check_horizontal_collisions(self, Barrier.instances)
 
     def render(self, window):
         pygame.draw.rect(window, (0, 255, 255), (self.rect.x, self.rect.y, self.hitbox[0], self.hitbox[1]))

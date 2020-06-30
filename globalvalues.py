@@ -8,12 +8,12 @@ R = 1600
 B = 900
 
 scale = 1.0
-hitbox_cu = (32, 48)
-hitbox_fl = (40, 32)
+hitbox_cu = (32, 48) # unnötig?
+hitbox_fl = (40, 32) # unnötig?
 
 gravity = 0.0098
 jump_speed = 1.3
 run_acc = .004
 base_speed = .2
 max_speed = .5
-friction = 0.92
+friction = 0.92 # unnötig?
