@@ -1,7 +1,10 @@
 import globalvalues as gv
+import copy
 
 
 def setdimensions(current_w, current_h):
+    old_scale = copy.deepcopy(gv.scale)
+
     ratio = current_w / current_h
     # Bei breiten Bildschirmen
     if ratio > 16 / 9:
@@ -9,6 +12,13 @@ def setdimensions(current_w, current_h):
     # Bei hohen Bildschrimen
     elif ratio <= 16 / 9:
         gv.scale = int(current_w/64)
+
+    gv.gravity = (gv.gravity/old_scale) * gv.scale
+    gv.jump_speed = (gv.jump_speed/old_scale) * gv.scale
+    gv.run_acc = (gv.run_acc/old_scale) * gv.scale
+    gv.base_run_speed = (gv.base_run_speed/old_scale) * gv.scale
+    gv.max_run_speed = (gv.max_run_speed/old_scale) * gv.scale
+    gv.slide_speed = (gv.slide_speed/old_scale) * gv.scale  # muss weniger als base_speed sein
 
 """
 def setdimensions(current_w, current_h):
