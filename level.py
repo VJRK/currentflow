@@ -88,7 +88,7 @@ def assemble_level(index):
                 Barrier("Wall", x, y)
             elif char == "R":
                 Barrier("RampR", x, y)
-                Barrier("Point", x+1, y+.01, height=.0001, width=.0001)
+                Barrier("Point", x+1.001, y+.01, height=.0001, width=.0001)
             elif char == "L":
                 Barrier("RampL", x, y)
                 Barrier("Point", x, y+.01, height=.0001, width=.0001)
