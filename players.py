@@ -39,12 +39,12 @@ class Current:
         self.collision_types = {'top': False, 'bottom': False, 'right': False, 'left': False}
 
         self.velY += gv.gravity * dt
-        self.rect.y += self.velY * dt * gv.scale
+        self.rect.y += self.velY * dt
         c.check_vertical_collisions(self, Barrier.instances)
 
         if abs(self.velX) <= gv.max_speed:
             self.velX += self.accX * dt
-        self.rect.x += self.velX * dt * gv.scale
+        self.rect.x += self.velX * dt
         c.check_ramp_collisions(self, Barrier.ramps)
         c.check_horizontal_collisions(self, Barrier.instances)
 
@@ -87,12 +87,12 @@ class Flow:
         self.collision_types = {'top': False, 'bottom': False, 'right': False, 'left': False}
 
         self.velY += gv.gravity * dt
-        self.rect.y += self.velY * dt * gv.scale
+        self.rect.y += self.velY * dt
         c.check_vertical_collisions(self, Barrier.instances)
 
         if abs(self.velX) <= gv.max_speed:
             self.velX += self.accX * dt
-        self.rect.x += self.velX * dt * gv.scale
+        self.rect.x += self.velX * dt
         c.check_ramp_collisions(self, Barrier.ramps)
         c.check_horizontal_collisions(self, Barrier.instances)
 

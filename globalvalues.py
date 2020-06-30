@@ -16,4 +16,5 @@ jump_speed = 1.3
 run_acc = .004
 base_speed = .2
 max_speed = .5
+slide_speed = .1 # muss weniger als base_speed sein
 friction = 0.92 # unnötig?

@@ -1,3 +1,4 @@
+import globalvalues as gv
 
 def test_collisions(entity, blocks):
     collisions = []
@@ -12,6 +13,8 @@ def check_vertical_collisions(entity, blocks):
     for collide_wall in collide_walls:
         if entity.velY > 0:
             entity.rect.bottom = collide_wall.rect.top
+            if abs(entity.velX) < gv.base_speed and entity.velX != 0:
+                entity.velX = 0
             entity.velY = 0
             entity.collision_types['bottom'] = True
         elif entity.velY < 0:
@@ -38,7 +41,6 @@ def check_ramp_collisions(entity, ramps):
         elif collide_ramp.typ == "RampL" and rel_x < 0 and entity.velX > 0:
             entity.rect.right = collide_ramp.rect.left
             entity.velX = 0
-            print(rel_x)
             entity.collision_types['right'] = True
         elif entity.rect.bottom > collide_ramp.rect.bottom and entity.velY <= 0:
             entity.rect.top = collide_ramp.rect.bottom
@@ -47,7 +49,15 @@ def check_ramp_collisions(entity, ramps):
         elif entity.rect.bottom > target_y:
             entity.rect.bottom = target_y
             entity.velY = 0
-            entity.collision_types['bottom'] = True
+            if entity.velX == 0 and collide_ramp.typ == "RampR" and rel_x < 25:
+                entity.velX = -.1
+                entity.velY = -.1
+            if entity.velX == 0 and collide_ramp.typ == "RampL":
+                entity.velX = .1
+                entity.velY = -.1
+        entity.collision_types['bottom'] = True
+        print(entity.velX)
+
 
 
 def check_horizontal_collisions(entity, blocks):
