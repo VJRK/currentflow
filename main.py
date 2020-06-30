@@ -5,12 +5,13 @@ import current as cu
 import flow as fl
 import level
 import barriers
+import interactables
 import start
 from players import *
 
 # Fenster
 window = pygame.display.set_mode((gv.width, gv.height), flags=pygame.RESIZABLE)
-pygame.display.set_caption("CurrenFlow")
+pygame.display.set_caption("CurrentFlow")
 
 # Game loop
 clock = pygame.time.Clock()
@@ -18,7 +19,7 @@ max_fps = 60
 dt = clock.tick(max_fps)
 running = True
 
-flow, current = level.assemble_level(1)
+flow, current = level.assemble_level(0)
 
 while running:
     for event in pygame.event.get():
@@ -52,9 +53,10 @@ while running:
     if gv.active_stage == 0:
         start.render(window)
     else:
-        barriers.Barrier.render(window)
         current.render(window)
         flow.render(window)
+        interactables.Fluid.render(window)
+        barriers.Barrier.render(window)
         #cu.render(window)
         #fl.render(window)
 

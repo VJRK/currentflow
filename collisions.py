@@ -58,7 +58,6 @@ def check_ramp_collisions(entity, ramps):
         entity.collision_types['bottom'] = True
 
 
-
 def check_horizontal_collisions(entity, blocks):
     collide_walls = test_collisions(entity.rect, blocks)
     for collide_wall in collide_walls:
@@ -70,3 +69,14 @@ def check_horizontal_collisions(entity, blocks):
             entity.rect.left = collide_wall.rect.right
             entity.velX = 0
             entity.collision_types['left'] = True
+
+
+def check_fluid_collisions(entity, fluids):
+    collide_fluids = test_collisions(entity.rect, fluids)
+    for collide_fluid in collide_fluids:
+        if entity.name == "current" and collide_fluid.typ == "water":
+            entity.color = (100, 100, 100)
+        elif entity.name == "flow" and collide_fluid.typ == "electricity":
+            entity.color = (100, 100, 100)
+        elif collide_fluid.typ == "acid":
+            entity.color = (100, 100, 100)

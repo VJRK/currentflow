@@ -2,14 +2,17 @@ import pygame
 import globalvalues as gv
 import collisions as c
 from barriers import Barrier
+from interactables import Fluid
 
 
 class Current:
     def __init__(self,
+                 name,
                  x_left=None,
                  y_top=None,
                  width=1,
                  height=1):
+        self.name = name
         s = gv.scale * 25
         self.posX = x_left * s
         self.posY = y_top * s
@@ -49,6 +52,7 @@ class Current:
         self.rect.x += self.velX * dt
         c.check_ramp_collisions(self, Barrier.ramps)
         c.check_horizontal_collisions(self, Barrier.instances)
+        c.check_fluid_collisions(self, Fluid.instances)
 
     def render(self, window):
         pygame.draw.rect(window, self.color, (self.rect.x, self.rect.y, self.hitbox[0], self.hitbox[1]))
@@ -56,10 +60,12 @@ class Current:
 
 class Flow:
     def __init__(self,
+                 name,
                  x_left=None,
                  y_top=None,
                  width=1,
                  height=1):
+        self.name = name
         s = gv.scale * 25
         self.posX = x_left * s
         self.posY = y_top * s
@@ -100,7 +106,9 @@ class Flow:
         self.rect.x += self.velX * dt
         c.check_ramp_collisions(self, Barrier.ramps)
         c.check_horizontal_collisions(self, Barrier.instances)
-        print(self.velX)
+
+        c.check_fluid_collisions(self, Fluid.instances)
+
 
     def render(self, window):
         pygame.draw.rect(window, self.color, (self.rect.x, self.rect.y, self.hitbox[0], self.hitbox[1]))
