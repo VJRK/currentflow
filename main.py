@@ -42,12 +42,13 @@ while running:
 
     # Update
     if gv.active_stage != 0:
-        flow.update(dt)
-        current.update(dt)
-        for button in Button.instances:
-            Button.update(button, dt)
-        for door in Door.instances:
-            Door.update(door, dt)
+        #if not flow.dead and not current.dead:
+            flow.update(dt)
+            current.update(dt)
+            for button in Button.instances:
+                Button.update(button, dt)
+            for door in Door.instances:
+                Door.update(door, dt)
 
     # Render
     window.fill((0, 0, 0))

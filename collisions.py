@@ -1,5 +1,4 @@
 import globalvalues as gv
-from interactables import Door
 
 def test_collisions(entity, blocks):
     collisions = []
@@ -76,25 +75,28 @@ def check_fluid_collisions(entity, fluids):
     collide_fluids = test_collisions(entity.rect, fluids)
     for collide_fluid in collide_fluids:
         if entity.name == "current" and collide_fluid.typ == "water":
+            entity.dead = True
             entity.color = (100, 100, 100)
         elif entity.name == "flow" and collide_fluid.typ == "electricity":
+            entity.dead = True
             entity.color = (100, 100, 100)
         elif collide_fluid.typ == "acid":
+            entity.dead = True
             entity.color = (100, 100, 100)
 
 
-def check_button_collision(entity, buttons):
+def check_button_collision(entity, buttons, doors):
     collide_buttons = test_collisions(entity.rect, buttons)
     if collide_buttons == []:
         for button in buttons:
             if entity.name == button.who_pressed:
                 button.pressed = False
-                for door in Door.instances:
+                for door in doors:
                     if button.tag == door.tag:
                         door.open = False
 
     for collide_button in collide_buttons:
-        for door in Door.instances:
+        for door in doors:
             if collide_button.tag == door.tag:
                 door.open = True
 
@@ -120,13 +122,30 @@ def check_button_collision(entity, buttons):
 def check_door_collisions(entity, doors):
     collide_doors = test_collisions(entity.rect, doors)
     for collide_door in collide_doors:
-        if entity.velY > 0:
-            entity.rect.bottom = collide_door.rect.top
-            if abs(entity.velX) < gv.base_run_speed and entity.velX != 0:
-                entity.velX = 0
-            entity.velY = 0
-            entity.collision_types['bottom'] = True
-        elif entity.velY < 0:
-            entity.rect.top = collide_door.rect.bottom
-            entity.velY = 0
-            entity.collision_types['top'] = True
+        if collide_door.velX == 0:
+            if entity.velY > 0:
+                entity.rect.bottom = collide_door.rect.top
+                entity.velY = 0
+                entity.collision_types['bottom'] = True
+            elif entity.velY < 0:
+                entity.rect.top = collide_door.rect.bottom
+                entity.velY = 0
+                entity.collision_types['top'] = True
+        else:
+            if collide_door.velX < 0 and entity.rect.top < collide_door.rect.top:
+                entity.rect.bottom = collide_door.rect.top
+                entity.velY = -.1
+                entity.collision_types['bottom'] = True
+            elif collide_door.velX > 0 and entity.rect.top < collide_door.rect.top:
+                entity.rect.bottom = collide_door.rect.top
+                entity.velY = .1
+                entity.collision_types['bottom'] = True
+            print(collide_door.rect.top, entity.rect.top - (entity.rect.height/2))
+            if collide_door.rect.top < entity.rect.bottom - (entity.rect.height/2):
+                entity.dead = True
+                entity.color = (100, 100, 100)
+            if collide_door.rect.bottom < entity.rect.top - (entity.rect.height/2):
+                entity.dead = True
+                entity.color = (100, 100, 100)
+
+

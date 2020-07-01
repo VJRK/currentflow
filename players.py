@@ -13,6 +13,7 @@ class Current:
                  width=1,
                  height=1):
         self.name = name
+        self.dead = False
         self.posX = x_left * gv.scale
         self.posY = y_top * gv.scale
         self.hitbox = (width * gv.scale, height * gv.scale)
@@ -44,19 +45,16 @@ class Current:
 
         self.velY += gv.gravity * dt
         self.rect.y += self.velY * dt
-        c.check_vertical_collisions(self, Barrier.instances)
         c.check_door_collisions(self, Door.instances)
+        c.check_vertical_collisions(self, Barrier.instances)
 
         if abs(self.velX) <= gv.max_run_speed:
             self.velX += self.accX * dt
-            self.color = (255, 255, 0)
-        else:
-            self.color = (100, 100, 0)
         self.rect.x += self.velX * dt
         c.check_ramp_collisions(self, Barrier.ramps)
         c.check_horizontal_collisions(self, Barrier.instances)
         c.check_fluid_collisions(self, Fluid.instances)
-        c.check_button_collision(self, Button.instances)
+        c.check_button_collision(self, Button.instances, Door.instances)
         c.check_horizontal_collisions(self, Door.instances)
 
     def render(self, window):
@@ -71,6 +69,7 @@ class Flow:
                  width=1,
                  height=1):
         self.name = name
+        self.dead = False
         self.posX = x_left * gv.scale
         self.posY = y_top * gv.scale
         self.hitbox = (width * gv.scale, height * gv.scale)
@@ -103,8 +102,8 @@ class Flow:
 
         self.velY += gv.gravity * dt
         self.rect.y += self.velY * dt
-        c.check_vertical_collisions(self, Barrier.instances)
         c.check_door_collisions(self, Door.instances)
+        c.check_vertical_collisions(self, Barrier.instances)
 
         if abs(self.velX) <= gv.max_run_speed:
             self.velX += self.accX * dt
@@ -112,7 +111,7 @@ class Flow:
         c.check_ramp_collisions(self, Barrier.ramps)
         c.check_horizontal_collisions(self, Barrier.instances)
         c.check_fluid_collisions(self, Fluid.instances)
-        c.check_button_collision(self, Button.instances)
+        c.check_button_collision(self, Button.instances, Door.instances)
         c.check_horizontal_collisions(self, Door.instances)
 
     def render(self, window):

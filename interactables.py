@@ -69,24 +69,44 @@ class Door:
                  x_left=None,
                  y_top=None,
                  width=.5,
-                 height=2):
+                 height=2.5,
+                 target_height=0):
         self.tag = tag
+        self.velX = .2
         self.open = False
-        self.stuck = False
         Door.instances.append(self)
+
         self.y_top = y_top * gv.scale
+        self.target_height = (target_height + y_top) * gv.scale
         self.rect = pygame.Rect(x_left * gv.scale, self.y_top, width * gv.scale, height * gv.scale)
 
+
     def update(self, dt):
-        print(self.open, self.stuck)
         if self.open:
-            if self.rect.bottom > self.y_top:
-                self.rect.y -= .2 * dt
+            if self.target_height - self.y_top < 0:
+                self.velX = -.2
+            elif self.target_height - self.y_top > 0:
+                self.velX = .2
+            if self.velX > 0 and self.rect.top >= self.target_height:
+                self.velX = 0
+                self.rect.top = self.target_height
+            if self.velX < 0 and self.rect.top <= self.target_height:
+                self.velX = 0
+                self.rect.top = self.target_height
         else:
-            if self.rect.top < self.y_top:
-                self.rect.y += .2 * dt
-            elif self.rect.top > self.y_top:
-                self.rect.y = self.y_top
+            if self.target_height - self.y_top < 0:
+                self.velX = .2
+            elif self.target_height - self.y_top > 0:
+                self.velX = -.2
+            if self.velX > 0 and self.rect.top >= self.y_top:
+                self.velX = 0
+                self.rect.top = self.y_top
+            if self.velX < 0 and self.rect.top <= self.y_top:
+                self.velX = 0
+                self.rect.top = self.y_top
+
+
+        self.rect.y += self.velX * dt
 
     @staticmethod
     def render(window):
