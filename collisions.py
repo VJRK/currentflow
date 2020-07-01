@@ -122,7 +122,7 @@ def check_button_collision(entity, buttons, doors):
 def check_door_collisions(entity, doors):
     collide_doors = test_collisions(entity.rect, doors)
     for collide_door in collide_doors:
-        if collide_door.velX == 0:
+        if collide_door.velY == 0:
             if entity.velY > 0:
                 entity.rect.bottom = collide_door.rect.top
                 entity.velY = 0
@@ -132,20 +132,17 @@ def check_door_collisions(entity, doors):
                 entity.velY = 0
                 entity.collision_types['top'] = True
         else:
-            if collide_door.velX < 0 and entity.rect.top < collide_door.rect.top:
+            if collide_door.velY < 0 and entity.rect.top < collide_door.rect.top:
                 entity.rect.bottom = collide_door.rect.top
                 entity.velY = -.1
                 entity.collision_types['bottom'] = True
-            elif collide_door.velX > 0 and entity.rect.top < collide_door.rect.top:
+            elif collide_door.velY > 0 and entity.rect.top < collide_door.rect.top:
                 entity.rect.bottom = collide_door.rect.top
                 entity.velY = .1
                 entity.collision_types['bottom'] = True
-            print(collide_door.rect.top, entity.rect.top - (entity.rect.height/2))
             if collide_door.rect.top < entity.rect.bottom - (entity.rect.height/2):
                 entity.dead = True
                 entity.color = (100, 100, 100)
             if collide_door.rect.bottom < entity.rect.top - (entity.rect.height/2):
                 entity.dead = True
                 entity.color = (100, 100, 100)
-
-

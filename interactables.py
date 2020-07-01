@@ -1,6 +1,5 @@
 import pygame
 import globalvalues as gv
-import barriers as b
 import math
 
 
@@ -44,16 +43,15 @@ class Button(object):
         self.press_speed = 0
         Button.instances.append(self)
         self.y_top = math.ceil((y_top + 1 - height) * gv.scale)
-        self.rect = pygame.Rect(x_left * gv.scale, self.y_top, width * gv.scale, height * gv.scale)
+        self.rect = pygame.Rect(math.ceil(x_left * gv.scale), self.y_top, math.ceil(width * gv.scale), math.ceil(height * gv.scale))
 
     def update(self, dt):
         if self.pressed:
-            if self.rect.top < self.y_top + self.rect.height - max((self.rect.height/3), 2):
+            if self.rect.top < math.ceil(self.y_top + self.rect.height - max((self.rect.height/3), 2)):
                 self.rect.y += self.press_speed * dt
         else:
             if self.rect.top > self.y_top:
                 self.rect.y -= self.press_speed * dt
-
 
     @staticmethod
     def render(window):
@@ -72,41 +70,39 @@ class Door:
                  height=2.5,
                  target_height=0):
         self.tag = tag
-        self.velX = .2
+        self.velY = .2
         self.open = False
         Door.instances.append(self)
 
-        self.y_top = y_top * gv.scale
-        self.target_height = (target_height + y_top) * gv.scale
-        self.rect = pygame.Rect(x_left * gv.scale, self.y_top, width * gv.scale, height * gv.scale)
-
+        self.y_top = math.ceil(y_top * gv.scale)
+        self.target_height = math.ceil((target_height + y_top) * gv.scale)
+        self.rect = pygame.Rect(math.ceil(x_left * gv.scale), self.y_top, math.ceil(width * gv.scale), math.ceil(height * gv.scale))
 
     def update(self, dt):
         if self.open:
             if self.target_height - self.y_top < 0:
-                self.velX = -.2
+                self.velY = -.2
             elif self.target_height - self.y_top > 0:
-                self.velX = .2
-            if self.velX > 0 and self.rect.top >= self.target_height:
-                self.velX = 0
+                self.velY = .2
+            if self.velY > 0 and self.rect.top >= self.target_height:
+                self.velY = 0
                 self.rect.top = self.target_height
-            if self.velX < 0 and self.rect.top <= self.target_height:
-                self.velX = 0
+            if self.velY < 0 and self.rect.top <= self.target_height:
+                self.velY = 0
                 self.rect.top = self.target_height
         else:
             if self.target_height - self.y_top < 0:
-                self.velX = .2
+                self.velY = .2
             elif self.target_height - self.y_top > 0:
-                self.velX = -.2
-            if self.velX > 0 and self.rect.top >= self.y_top:
-                self.velX = 0
+                self.velY = -.2
+            if self.velY > 0 and self.rect.top >= self.y_top:
+                self.velY = 0
                 self.rect.top = self.y_top
-            if self.velX < 0 and self.rect.top <= self.y_top:
-                self.velX = 0
+            if self.velY < 0 and self.rect.top <= self.y_top:
+                self.velY = 0
                 self.rect.top = self.y_top
 
-
-        self.rect.y += self.velX * dt
+        self.rect.y += self.velY * dt
 
     @staticmethod
     def render(window):

@@ -96,7 +96,6 @@ class Flow:
             self.velX = 0
             self.accX = 0
 
-
     def update(self, dt):
         self.collision_types = {'top': False, 'bottom': False, 'right': False, 'left': False}
 
