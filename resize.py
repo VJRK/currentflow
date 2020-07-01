@@ -12,7 +12,7 @@ def setdimensions(current_w, current_h):
     # Bei hohen Bildschrimen
     elif ratio <= 16 / 9:
         gv.scale = int(current_w/64)
-
+    print(gv.scale)
     gv.gravity = (gv.gravity/old_scale) * gv.scale
     gv.jump_speed = (gv.jump_speed/old_scale) * gv.scale
     gv.run_acc = (gv.run_acc/old_scale) * gv.scale
