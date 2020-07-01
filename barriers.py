@@ -18,16 +18,24 @@ class Barrier(object):
             Barrier.ramps.append(self)
         else:
             Barrier.instances.append(self)
-        self.rect = pygame.Rect(x_left * gv.scale, y_top * gv.scale, math.ceil(width * gv.scale), math.ceil(height * gv.scale))
+        s = gv.scale * 25
+        self.rect = pygame.Rect(x_left * s, y_top * s, math.ceil(width * s), math.ceil(height * s))
 
     @staticmethod
     def render(window,
                color=(255, 255, 255)):
         for barrier in Barrier.instances:
             if barrier.typ == "Wall":
-                pygame.draw.rect(window, color, (barrier.rect.x, barrier.rect.y, barrier.rect.width, barrier.rect.height))
+                pygame.draw.rect(window, color, (gv.L + barrier.rect.x, gv.T + barrier.rect.y,
+                                                 barrier.rect.width, barrier.rect.height))
         for ramp in Barrier.ramps:
             if ramp.typ == "RampR":
-                pygame.draw.polygon(window, color, ((ramp.rect.x, ramp.rect.y + ramp.rect.height-1), (ramp.rect.x + ramp.rect.width-1, ramp.rect.y), (ramp.rect.x + ramp.rect.width-1, ramp.rect.y + ramp.rect.height-1)))
+                pygame.draw.polygon(window, color, (
+                    (gv.L + ramp.rect.x, gv.T + ramp.rect.y + ramp.rect.height - 1),
+                    (gv.L + ramp.rect.x + ramp.rect.width - 1, gv.T + ramp.rect.y),
+                    (gv.L + ramp.rect.x + ramp.rect.width - 1, gv.T + ramp.rect.y + ramp.rect.height - 1)))
             elif ramp.typ == "RampL":
-                pygame.draw.polygon(window, color, ((ramp.rect.x + ramp.rect.width-1, ramp.rect.y + ramp.rect.height-1), (ramp.rect.x, ramp.rect.y), (ramp.rect.x, ramp.rect.y + ramp.rect.height-1)))
+                pygame.draw.polygon(window, color, (
+                    (gv.L + ramp.rect.x + ramp.rect.width - 1, gv.T + ramp.rect.y + ramp.rect.height - 1),
+                    (gv.L + ramp.rect.x, gv.T + ramp.rect.y),
+                    (gv.L + ramp.rect.x, gv.T + ramp.rect.y + ramp.rect.height - 1)))

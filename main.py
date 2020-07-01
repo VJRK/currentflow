@@ -9,9 +9,7 @@ from players import *
 
 # Fenster
 pygame.init()
-width, height = pygame.display.Info().current_w, pygame.display.Info().current_h
-resize.setdimensions(width, height)
-window = pygame.display.set_mode((64 * gv.scale, 36 * gv.scale), flags=pygame.RESIZABLE)
+window = pygame.display.set_mode((gv.width, gv.height), flags=pygame.RESIZABLE)
 pygame.display.set_caption("CurrentFlow")
 
 # Game loop
@@ -30,7 +28,6 @@ while running:
             running = False
         elif event.type == pygame.VIDEORESIZE:
             resize.setdimensions(event.size[0], event.size[1])
-            window = pygame.display.set_mode((64 * gv.scale, 36 * gv.scale), flags=pygame.RESIZABLE)
             flow, current = level.assemble_level(0)
 
         # Eingabe
@@ -52,7 +49,7 @@ while running:
 
     # Render
     window.fill((0, 0, 0))
-    pygame.draw.rect(window, (33, 33, 33), (0, 0, 64 * gv.scale, 36 * gv.scale))
+    pygame.draw.rect(window, (33, 33, 33), (gv.L, gv.T, gv.width, gv.height))
     if gv.active_stage == 0:
         start.render(window)
     else:

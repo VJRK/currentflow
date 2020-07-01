@@ -2,6 +2,7 @@ import globalvalues as gv
 import copy
 
 
+"""
 def setdimensions(current_w, current_h):
     old_scale = copy.deepcopy(gv.scale)
 
@@ -19,8 +20,9 @@ def setdimensions(current_w, current_h):
     gv.base_run_speed = (gv.base_run_speed/old_scale) * gv.scale
     gv.max_run_speed = (gv.max_run_speed/old_scale) * gv.scale
     gv.slide_speed = (gv.slide_speed/old_scale) * gv.scale  # muss weniger als base_speed sein
-
 """
+
+
 def setdimensions(current_w, current_h):
     ratio = current_w / current_h
     # Bei breiten Bildschirmen
@@ -46,4 +48,3 @@ def setdimensions(current_w, current_h):
     gv.scale = gv.width / 1600
     gv.hitbox_cu = (32 * gv.scale, 48 * gv.scale)
     gv.hitbox_fl = (40 * gv.scale, 32 * gv.scale)
-"""""

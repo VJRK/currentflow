@@ -14,9 +14,10 @@ class Current:
                  height=1):
         self.name = name
         self.dead = False
-        self.posX = x_left * gv.scale
-        self.posY = y_top * gv.scale
-        self.hitbox = (width * gv.scale, height * gv.scale)
+        s = gv.scale * 25
+        self.posX = x_left * s
+        self.posY = y_top * s
+        self.hitbox = (width * s, height * s)
         self.rect = pygame.Rect(self.posX, self.posY, self.hitbox[0], self.hitbox[1])
         self.collision_types = {'top': False, 'bottom': False, 'right': False, 'left': False}
         self.velX = 0
@@ -27,10 +28,8 @@ class Current:
     def handleinput(self, event):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_a:  # A (links)
-                self.velX = -gv.base_run_speed
                 self.accX = -gv.run_acc
             if event.key == pygame.K_d:  # D (rechts)
-                self.velX = gv.base_run_speed
                 self.accX = gv.run_acc
             if event.key == pygame.K_w:  # W (springen)
                 if self.collision_types['bottom']:
@@ -58,7 +57,7 @@ class Current:
         c.check_horizontal_collisions(self, Door.instances)
 
     def render(self, window):
-        pygame.draw.rect(window, self.color, (self.rect.x, self.rect.y, self.hitbox[0], self.hitbox[1]))
+        pygame.draw.rect(window, self.color, (gv.L + self.rect.x, gv.T + self.rect.y, self.hitbox[0], self.hitbox[1]))
 
 
 class Flow:
@@ -70,9 +69,10 @@ class Flow:
                  height=1):
         self.name = name
         self.dead = False
-        self.posX = x_left * gv.scale
-        self.posY = y_top * gv.scale
-        self.hitbox = (width * gv.scale, height * gv.scale)
+        s = gv.scale * 25
+        self.posX = x_left * s
+        self.posY = y_top * s
+        self.hitbox = (width * s, height * s)
         self.rect = pygame.Rect(self.posX, self.posY, self.hitbox[0], self.hitbox[1])
         self.collision_types = {'top': False, 'bottom': False, 'right': False, 'left': False}
         self.velX = 0
@@ -96,7 +96,6 @@ class Flow:
             self.velX = 0
             self.accX = 0
 
-
     def update(self, dt):
         self.collision_types = {'top': False, 'bottom': False, 'right': False, 'left': False}
 
@@ -115,4 +114,4 @@ class Flow:
         c.check_horizontal_collisions(self, Door.instances)
 
     def render(self, window):
-        pygame.draw.rect(window, self.color, (self.rect.x, self.rect.y, self.hitbox[0], self.hitbox[1]))
+        pygame.draw.rect(window, self.color, (gv.L + self.rect.x, gv.T + self.rect.y, self.hitbox[0], self.hitbox[1]))
