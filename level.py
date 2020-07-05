@@ -1,6 +1,5 @@
 from barriers import Barrier
 from interactables import *
-from players import Flow, Current
 
 level1_barriers =         ["W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W",
                            "W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W",
@@ -190,10 +189,8 @@ def assemble_level(index):
                 Barrier("Wall", x, y+.7, height=.3)
                 Barrier("RampR", x, y)
 
-            elif char == "F":
-                flow = Flow("flow", x, y, .65, .85)
-            elif char == "C":
-                current = Current("current", x, y, .65, .85)
+            # F
+            # C
             elif char == " ":
                 continue
             x += 1
@@ -226,4 +223,7 @@ def assemble_level(index):
             x += 1
         y += 1
         x = 0
-    return flow, current
+
+
+def render(window):
+    Barrier.render(window)

@@ -1,117 +1,83 @@
 import pygame
+import utils
 import globalvalues as gv
-import collisions as c
-from barriers import Barrier
+from collision import *
 from interactables import Fluid, Button, Door
 
 
-class Current:
-    def __init__(self,
-                 name,
-                 x_left=None,
-                 y_top=None,
-                 width=1,
-                 height=1):
-        self.name = name
+class Player:
+    def __init__(self, flow, pos_x=0, pos_y=0, color=(255, 0, 0)):
+        self.flow = flow
         self.dead = False
-        s = gv.scale * 25
-        self.posX = x_left * s
-        self.posY = y_top * s
-        self.hitbox = (width * s, height * s)
-        self.rect = pygame.Rect(self.posX, self.posY, self.hitbox[0], self.hitbox[1])
-        self.collision_types = {'top': False, 'bottom': False, 'right': False, 'left': False}
+        self.width = int(24 * gv.scale)
+        self.height = int(32 * gv.scale)
+        self.posX = pos_x
+        self.posY = pos_y
         self.velX = 0
-        self.accX = 0
         self.velY = 0
-        self.color = (255, 255, 0)
+        self.accX = 0
+        self.collision_types = {'top': False, 'bottom': False, 'right': False, 'left': False}
+        self.color = color
 
     def handleinput(self, event):
+
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_a:  # A (links)
+
+            # links (A für current, LEFT für flow)
+            if (self.flow and event.key == pygame.K_LEFT) \
+                    or (not self.flow and event.key == pygame.K_a):
                 self.accX = -gv.run_acc
-            if event.key == pygame.K_d:  # D (rechts)
+
+            # rechts (D für current, RIGHT für flow)
+            if (self.flow and event.key == pygame.K_RIGHT) \
+                    or (not self.flow and event.key == pygame.K_d):
                 self.accX = gv.run_acc
-            if event.key == pygame.K_w:  # W (springen)
-                if self.collision_types['bottom']:
-                    self.velY = -gv.jump_speed
+
+            # springen (W für current, UP für flow)
+            if (self.flow and event.key == pygame.K_UP) \
+                    or (not self.flow and event.key == pygame.K_w):
+                jumppower = (2 * gv.gravity * gv.jumpHeight * gv.scale) ** (1 / 2)
+                self.velY = -jumppower
+
+        # Stillstand wenn weder links noch rechts gedrückt wird
         key = pygame.key.get_pressed()
-        if not key[pygame.K_a] and not key[pygame.K_d]:
-            self.velX = 0
+        if (self.flow and not key[pygame.K_LEFT] and not key[pygame.K_RIGHT])\
+                or (not self.flow and not key[pygame.K_a] and not key[pygame.K_d]):
             self.accX = 0
 
-    def update(self, dt):
+    def update(self, dt, stage):
         self.collision_types = {'top': False, 'bottom': False, 'right': False, 'left': False}
+        self.width = int(24 * gv.scale)
+        self.height = int(32 * gv.scale)
 
-        self.velY += gv.gravity * dt
-        self.rect.y += self.velY * dt
-        c.check_door_collisions(self, Door.instances)
-        c.check_vertical_collisions(self, Barrier.instances)
+        # X
+        self.posX += self.velX * dt
+        self.velX += self.accX * dt * gv.scale ** (1 / 2)
+        self.velX *= gv.frictionGround
+        self.velX = utils.clamp(self.velX, gv.velXmaxGround, -gv.velXmaxGround)
 
-        if abs(self.velX) <= gv.max_run_speed:
-            self.velX += self.accX * dt
-        self.rect.x += self.velX * dt
-        c.check_ramp_collisions(self, Barrier.ramps)
-        c.check_horizontal_collisions(self, Barrier.instances)
-        c.check_fluid_collisions(self, Fluid.instances)
-        c.check_button_collision(self, Button.instances, Door.instances)
-        c.check_horizontal_collisions(self, Door.instances)
+        # Horizontale Kollision
+        self.posX = utils.clamp(self.posX, gv.width - self.width / 2, self.width / 2)
+        horizontal_collisions(self, stage.blocks)
+
+        # Y
+        self.posY += self.velY * dt
+        self.velY += gv.gravity * dt * gv.scale
+        self.velY = utils.clamp(self.velY, gv.velYmaxDown, gv.velYmaxUp)
+
+        # Horizontale Kollision
+        self.posY = utils.clamp(self.posY, gv.height - self.height / 2, self.height / 2)
+        vertical_collisions(self, stage.blocks)
+
+        # update_collisions(self, stage.blocks)
+        # c.check_door_collisions(self, Door.instances)
+        # c.check_vertical_collisions(self, Barrier.instances)
+        # c.check_ramp_collisions(self, Barrier.ramps)
+        # c.check_horizontal_collisions(self, Barrier.instances)
+        # c.check_fluid_collisions(self, Fluid.instances)
+        # c.check_button_collision(self, Button.instances, Door.instances)
+        # c.check_horizontal_collisions(self, Door.instances)
 
     def render(self, window):
-        pygame.draw.rect(window, self.color, (gv.L + self.rect.x, gv.T + self.rect.y, self.hitbox[0], self.hitbox[1]))
-
-
-class Flow:
-    def __init__(self,
-                 name,
-                 x_left=None,
-                 y_top=None,
-                 width=1,
-                 height=1):
-        self.name = name
-        self.dead = False
-        s = gv.scale * 25
-        self.posX = x_left * s
-        self.posY = y_top * s
-        self.hitbox = (width * s, height * s)
-        self.rect = pygame.Rect(self.posX, self.posY, self.hitbox[0], self.hitbox[1])
-        self.collision_types = {'top': False, 'bottom': False, 'right': False, 'left': False}
-        self.velX = 0
-        self.accX = 0
-        self.velY = 0
-        self.color = (0, 255, 255)
-
-    def handleinput(self, event):
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:  # Linke Pfeiltaste (links)
-                self.velX = -gv.base_run_speed
-                self.accX = -gv.run_acc
-            if event.key == pygame.K_RIGHT:  # Rechte Pfeiltaste (rechts)
-                self.velX = gv.base_run_speed
-                self.accX = gv.run_acc
-            if event.key == pygame.K_UP:  # Obere Pfeiltaste (springen)
-                if self.collision_types['bottom']:
-                    self.velY = -gv.jump_speed
-        key = pygame.key.get_pressed()
-        if not key[pygame.K_RIGHT] and not key[pygame.K_LEFT]:
-            self.velX = 0
-            self.accX = 0
-
-    def update(self, dt):
-        self.collision_types = {'top': False, 'bottom': False, 'right': False, 'left': False}
-
-        self.velY += gv.gravity * dt
-        self.rect.y += self.velY * dt
-        c.check_door_collisions(self, Door.instances)
-        c.check_vertical_collisions(self, Barrier.instances)
-
-        if abs(self.velX) <= gv.max_run_speed:
-            self.velX += self.accX * dt
-        self.rect.x += self.velX * dt
-        c.check_ramp_collisions(self, Barrier.ramps)
-        c.check_horizontal_collisions(self, Barrier.instances)
-        c.check_fluid_collisions(self, Fluid.instances)
-        c.check_button_collision(self, Button.instances, Door.instances)
-        c.check_horizontal_collisions(self, Door.instances)
-
-    def render(self, window):
-        pygame.draw.rect(window, self.color, (gv.L + self.rect.x, gv.T + self.rect.y, self.hitbox[0], self.hitbox[1]))
+        pygame.draw.rect(window, self.color, (gv.L + self.posX - self.width / 2, gv.T + self.posY - self.height / 2,
+                                              self.width, self.height))

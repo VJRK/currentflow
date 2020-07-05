@@ -1,25 +1,26 @@
-import pygame
-import globalvalues as gv
 import resize
-import level
-import barriers as b
-import interactables as i
 import start
 from players import *
+import stage
+import barriers as b
+import interactables as i
+
+pygame.init()
 
 # Fenster
-pygame.init()
 window = pygame.display.set_mode((gv.width, gv.height), flags=pygame.RESIZABLE)
 pygame.display.set_caption("CurrentFlow")
+
+# Hauptklassen
+stage.build_level(stage, 0)
+current = Player(False, 600 * gv.scale, 450 * gv.scale, (0, 255, 255))
+flow = Player(True, 1000 * gv.scale, 450 * gv.scale, (255, 255, 0))
 
 # Game loop
 clock = pygame.time.Clock()
 max_fps = 60
 dt = clock.tick(max_fps)
 running = True
-
-flow, current = level.assemble_level(0)
-
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -28,7 +29,7 @@ while running:
             running = False
         elif event.type == pygame.VIDEORESIZE:
             resize.setdimensions(event.size[0], event.size[1])
-            flow, current = level.assemble_level(0)
+            stage.build_level(stage, 0)
 
         # Eingabe
         if gv.active_stage == 0:
@@ -39,13 +40,8 @@ while running:
 
     # Update
     if gv.active_stage != 0:
-        #if not flow.dead and not current.dead:
-            flow.update(dt)
-            current.update(dt)
-            for button in Button.instances:
-                Button.update(button, dt)
-            for door in Door.instances:
-                Door.update(door, dt)
+        flow.update(dt, stage)
+        current.update(dt, stage)
 
     # Render
     window.fill((0, 0, 0))
@@ -53,12 +49,12 @@ while running:
     if gv.active_stage == 0:
         start.render(window)
     else:
-        i.Button.render(window)
+        # i.Button.render(window)
+        # i.Fluid.render(window)
+        # i.Door.render(window)
+        stage.render(stage, window)
         current.render(window)
         flow.render(window)
-        i.Fluid.render(window)
-        i.Door.render(window)
-        b.Barrier.render(window)
 
     # Canvas updaten
     pygame.display.update()

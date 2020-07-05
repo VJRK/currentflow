@@ -1,30 +1,51 @@
 import globalvalues as gv
+from pygame import Rect
 
-def test_collisions(entity, blocks):
+
+def get_collisions(player, blocks):
     collisions = []
+    pl_rect = Rect(player.posX - player.width / 2, player.posY - player.height / 2, player.width, player.height)
     for block in blocks:
-        if entity.colliderect(block.rect):
+        if pl_rect.colliderect(block.rect):
+            block.color = (255, 0, 0)
             collisions.append(block)
+        else:
+            block.color = (255, 255, 255)
     return collisions
 
 
-def check_vertical_collisions(entity, blocks):
-    collide_walls = test_collisions(entity.rect, blocks)
+def check_horizontal_collisions(player, blocks):
+    collide_walls = get_collisions(player, blocks)
     for collide_wall in collide_walls:
-        if entity.velY > 0:
-            entity.rect.bottom = collide_wall.rect.top
-            if abs(entity.velX) < gv.base_run_speed and entity.velX != 0:
-                entity.velX = 0
-            entity.velY = 0
-            entity.collision_types['bottom'] = True
-        elif entity.velY < 0:
-            entity.rect.top = collide_wall.rect.bottom
-            entity.velY = 0
-            entity.collision_types['top'] = True
+        if player.velX > 0:
+            player.posX = collide_wall.rect.left - player.width / 2
+            player.velX = 0
+            player.collision_types['right'] = True
+        elif player.velX < 0:
+            player.posX = collide_wall.rect.right + player.width / 2
+            player.velX = 0
+            player.collision_types['left'] = True
+
+
+def check_vertical_collisions(player, blocks):
+    collide_walls = get_collisions(player, blocks)
+    for collide_wall in collide_walls:
+        if player.velY > 0:
+            player.posY = collide_wall.rect.top - player.height / 2
+
+            if abs(player.velX) < gv.base_run_speed and player.velX != 0:
+                player.velX = 0
+
+            player.velY = 0
+            player.collision_types['bottom'] = True
+        elif player.velY < 0:
+            player.posY = collide_wall.rect.bottom + player.height / 2
+            player.velY *= -0.8
+            player.collision_types['top'] = True
 
 
 def check_ramp_collisions(entity, ramps):
-    collide_ramps = test_collisions(entity.rect, ramps)
+    collide_ramps = get_collisions(entity, ramps)
     for collide_ramp in collide_ramps:
         rel_x = entity.rect.x - collide_ramp.rect.x
         if collide_ramp.typ == "RampR":
@@ -38,7 +59,7 @@ def check_ramp_collisions(entity, ramps):
             entity.rect.left = collide_ramp.rect.right
             entity.velX = 0
             entity.collision_types['left'] = True
-        elif collide_ramp.typ == "RampL" and rel_x < 0 and entity.velX > 0:
+        elif collide_ramp.typ == "RampL" and rel_x < 0 < entity.velX:
             entity.rect.right = collide_ramp.rect.left
             entity.velX = 0
             entity.collision_types['right'] = True
@@ -58,21 +79,8 @@ def check_ramp_collisions(entity, ramps):
         entity.collision_types['bottom'] = True
 
 
-def check_horizontal_collisions(entity, blocks):
-    collide_walls = test_collisions(entity.rect, blocks)
-    for collide_wall in collide_walls:
-        if entity.velX > 0:
-            entity.rect.right = collide_wall.rect.left
-            entity.velX = 0
-            entity.collision_types['right'] = True
-        elif entity.velX < 0:
-            entity.rect.left = collide_wall.rect.right
-            entity.velX = 0
-            entity.collision_types['left'] = True
-
-
 def check_fluid_collisions(entity, fluids):
-    collide_fluids = test_collisions(entity.rect, fluids)
+    collide_fluids = get_collisions(entity.rect, fluids)
     for collide_fluid in collide_fluids:
         if entity.name == "current" and collide_fluid.typ == "water":
             entity.dead = True
@@ -86,8 +94,8 @@ def check_fluid_collisions(entity, fluids):
 
 
 def check_button_collision(entity, buttons, doors):
-    collide_buttons = test_collisions(entity.rect, buttons)
-    if collide_buttons == []:
+    collide_buttons = get_collisions(entity.rect, buttons)
+    if not collide_buttons:
         for button in buttons:
             if entity.name == button.who_pressed:
                 button.pressed = False
@@ -120,7 +128,7 @@ def check_button_collision(entity, buttons, doors):
 
 
 def check_door_collisions(entity, doors):
-    collide_doors = test_collisions(entity.rect, doors)
+    collide_doors = get_collisions(entity, doors)
     for collide_door in collide_doors:
         if collide_door.velY == 0:
             if entity.velY > 0:
@@ -146,3 +154,8 @@ def check_door_collisions(entity, doors):
             if collide_door.rect.bottom < entity.rect.top - (entity.rect.height/2):
                 entity.dead = True
                 entity.color = (100, 100, 100)
+
+
+def update_collisions(player, blocks):
+    check_vertical_collisions(player, blocks)
+    check_horizontal_collisions(player, blocks)
