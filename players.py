@@ -9,8 +9,8 @@ class Player:
     def __init__(self, flow, pos_x=0, pos_y=0, color=(255, 0, 0)):
         self.flow = flow
         self.dead = False
-        self.width = int(24 * gv.scale)
-        self.height = int(32 * gv.scale)
+        self.width = 24
+        self.height = 32
         self.posX = pos_x
         self.posY = pos_y
         self.velX = 0
@@ -36,7 +36,7 @@ class Player:
             # springen (W für current, UP für flow)
             if (self.flow and event.key == pygame.K_UP) \
                     or (not self.flow and event.key == pygame.K_w):
-                jumppower = (2 * gv.gravity * gv.jumpHeight * gv.scale) ** (1 / 2)
+                jumppower = (2 * gv.gravity * gv.jumpHeight) ** (1 / 2)
                 self.velY = -jumppower
 
         # Stillstand wenn weder links noch rechts gedrückt wird
@@ -47,26 +47,22 @@ class Player:
 
     def update(self, dt, stage):
         self.collision_types = {'top': False, 'bottom': False, 'right': False, 'left': False}
-        self.width = int(24 * gv.scale)
-        self.height = int(32 * gv.scale)
 
         # X
         self.posX += self.velX * dt
-        self.velX += self.accX * dt * gv.scale ** (1 / 2)
+        self.velX += self.accX * dt
         self.velX *= gv.frictionGround
         self.velX = utils.clamp(self.velX, gv.velXmaxGround, -gv.velXmaxGround)
 
         # Horizontale Kollision
-        self.posX = utils.clamp(self.posX, gv.width - self.width / 2, self.width / 2)
         horizontal_collisions(self, stage.blocks)
 
         # Y
         self.posY += self.velY * dt
-        self.velY += gv.gravity * dt * gv.scale
+        self.velY += gv.gravity * dt
         self.velY = utils.clamp(self.velY, gv.velYmaxDown, gv.velYmaxUp)
 
         # Horizontale Kollision
-        self.posY = utils.clamp(self.posY, gv.height - self.height / 2, self.height / 2)
         vertical_collisions(self, stage.blocks)
 
         # update_collisions(self, stage.blocks)
@@ -79,5 +75,5 @@ class Player:
         # c.check_horizontal_collisions(self, Door.instances)
 
     def render(self, window):
-        pygame.draw.rect(window, self.color, (gv.L + self.posX - self.width / 2, gv.T + self.posY - self.height / 2,
+        pygame.draw.rect(window, self.color, (self.posX - self.width / 2, self.posY - self.height / 2,
                                               self.width, self.height))

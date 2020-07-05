@@ -236,18 +236,17 @@ def render(self, window):
 
         # Rechteckige Blöcke
         if block.typ == 0:  # Wall
-            pygame.draw.rect(window, block.color, (gv.L + block.rect.x, gv.T + block.rect.y,
-                                                   block.rect.width, block.rect.height))
+            pygame.draw.rect(window, block.color, (block.rect.x, block.rect.y, block.rect.width, block.rect.height))
 
         # Rampen in Form von Polygonen anhand des Rechtecks
         elif block.typ == 1:  # RampR
             pygame.draw.polygon(window, block.color, (
-                (gv.L + block.rect.x, gv.T + block.rect.y + block.rect.height - 1),
-                (gv.L + block.rect.x + block.rect.width - 1, gv.T + block.rect.y),
-                (gv.L + block.rect.x + block.rect.width - 1, gv.T + block.rect.y + block.rect.height - 1)))
+                (block.rect.x, block.rect.y + block.rect.height - 1),
+                (block.rect.x + block.rect.width - 1, block.rect.y),
+                (block.rect.x + block.rect.width - 1, block.rect.y + block.rect.height - 1)))
 
         elif block.typ == 2:  # RampL
             pygame.draw.polygon(window, block.color, (
-                (gv.L + block.rect.x + block.rect.width - 1, gv.T + block.rect.y + block.rect.height - 1),
-                (gv.L + block.rect.x, gv.T + block.rect.y),
-                (gv.L + block.rect.x, gv.T + block.rect.y + block.rect.height - 1)))
+                (block.rect.x + block.rect.width - 1, block.rect.y + block.rect.height - 1),
+                (block.rect.x, block.rect.y),
+                (block.rect.x, block.rect.y + block.rect.height - 1)))

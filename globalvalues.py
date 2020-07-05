@@ -8,8 +8,6 @@ gravity = 0.002
 frictionGround = 0.92
 frictionAir = 0.99
 
-scale = 1.0
-# Werte ab hier werden durch resize automatisch skaliert
 jumpHeight = 120
 velXmaxGround = 0.3
 velXmaxAir = 1000

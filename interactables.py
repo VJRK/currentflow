@@ -15,20 +15,19 @@ class Fluid(object):
         self.typ = typ
         Fluid.instances.append(self)
         y_top = y_top + .2
-        s = gv.scale * 25
-        self.rect = pygame.Rect(x_left * s, y_top * s, width * s, height * s)
+        self.rect = pygame.Rect(x_left * 25, y_top * 25, width * 25, height * 25)
 
     @staticmethod
     def render(window):
         for fluid in Fluid.instances:
             if fluid.typ == "electricity":
-                pygame.draw.rect(window, (255, 255, 0), (gv.L + fluid.rect.x, gv.T + fluid.rect.y,
+                pygame.draw.rect(window, (255, 255, 0), (fluid.rect.x, fluid.rect.y,
                                                          fluid.rect.width, fluid.rect.height))
             elif fluid.typ == "water":
-                pygame.draw.rect(window, (0, 255, 255), (gv.L + fluid.rect.x, gv.T + fluid.rect.y,
+                pygame.draw.rect(window, (0, 255, 255), (fluid.rect.x, fluid.rect.y,
                                                          fluid.rect.width, fluid.rect.height))
             elif fluid.typ == "acid":
-                pygame.draw.rect(window, (0, 255, 0), (gv.L + fluid.rect.x, gv.T + fluid.rect.y,
+                pygame.draw.rect(window, (0, 255, 0), (fluid.rect.x, fluid.rect.y,
                                                        fluid.rect.width, fluid.rect.height))
 
 
@@ -46,9 +45,8 @@ class Button(object):
         self.who_pressed = None
         self.press_speed = 0
         Button.instances.append(self)
-        s = gv.scale * 25
-        self.y_top = math.ceil((y_top + 1 - height) * s)
-        self.rect = pygame.Rect(x_left * s, self.y_top, width * s, height * s)
+        self.y_top = math.ceil((y_top + 1 - height) * 25)
+        self.rect = pygame.Rect(x_left * 25, self.y_top, width * 25, height * 25)
 
     def update(self, dt):
         if self.pressed:
@@ -61,7 +59,7 @@ class Button(object):
     @staticmethod
     def render(window):
         for button in Button.instances:
-            pygame.draw.rect(window, (0, 100, 100), (gv.L + button.rect.x, gv.T + button.rect.y,
+            pygame.draw.rect(window, (0, 100, 100), (button.rect.x, button.rect.y,
                                                      button.rect.width, button.rect.height))
 
 
@@ -80,10 +78,9 @@ class Door:
         self.open = False
         Door.instances.append(self)
 
-        s = gv.scale * 25
-        self.y_top = y_top * s
-        self.target_height = (target_height + y_top) * s
-        self.rect = pygame.Rect(x_left * s, self.y_top, width * s, height * s)
+        self.y_top = y_top * 25
+        self.target_height = (target_height + y_top) * 25
+        self.rect = pygame.Rect(x_left * 25, self.y_top, width * 25, height * 25)
 
     def update(self, dt):
         if self.open:
@@ -114,5 +111,4 @@ class Door:
     @staticmethod
     def render(window):
         for door in Door.instances:
-            pygame.draw.rect(window, (0, 100, 100), (gv.L + door.rect.x, gv.T + door.rect.y,
-                                                     door.rect.width, door.rect.height))
+            pygame.draw.rect(window, (0, 100, 100), (door.rect.x, door.rect.y, door.rect.width, door.rect.height))
