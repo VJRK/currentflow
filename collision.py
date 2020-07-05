@@ -1,7 +1,7 @@
 from pygame import Rect
 
 
-# Horizontale Kollision
+# Horizontale Kollisio
 def horizontal_collisions(player, blocks):
     collisions = get_collisions(player, blocks)
     for collision in collisions:
