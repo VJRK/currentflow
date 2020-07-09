@@ -1,8 +1,5 @@
 import pygame
-import utils
-import globalvalues as gv
 from collision import *
-from interactables import Fluid, Button, Door
 
 
 class Player:
@@ -46,7 +43,7 @@ class Player:
             self.accX = 0
 
     def update(self, dt, stage):
-        self.collision_types = {'top': False, 'bottom': False, 'right': False, 'left': False}
+        # self.collision_types = {'top': False, 'bottom': False, 'right': False, 'left': False}
 
         # X
         self.posX += self.velX * dt
@@ -62,17 +59,19 @@ class Player:
         self.velY += gv.gravity * dt
         self.velY = utils.clamp(self.velY, gv.velYmaxDown, gv.velYmaxUp)
 
-        # Horizontale Kollision
+        # Vertikale Kollision
         vertical_collisions(self, stage.blocks)
 
-        # update_collisions(self, stage.blocks)
+        # Rampenkollision
+        ramp_collisions(self, stage.blocks)
+
+        # Kollision mit Interactables
+        fluid_collisions(self, stage.interactables)
+        button_collisions(self, stage.interactables)
+        door_collisions(self, stage.interactables)
+
         # c.check_door_collisions(self, Door.instances)
-        # c.check_vertical_collisions(self, Barrier.instances)
-        # c.check_ramp_collisions(self, Barrier.ramps)
-        # c.check_horizontal_collisions(self, Barrier.instances)
-        # c.check_fluid_collisions(self, Fluid.instances)
         # c.check_button_collision(self, Button.instances, Door.instances)
-        # c.check_horizontal_collisions(self, Door.instances)
 
     def render(self, window):
         pygame.draw.rect(window, self.color, (self.posX - self.width / 2, self.posY - self.height / 2,

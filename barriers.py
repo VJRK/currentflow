@@ -14,8 +14,7 @@ class Barrier(object):
             Barrier.ramps.append(self)
         else:
             Barrier.instances.append(self)
-        s = gv.scale * 25
-        self.rect = pygame.Rect(x_left * s, y_top * s, math.ceil(width * s), math.ceil(height * s))
+        self.rect = pygame.Rect(x_left * 25, y_top * 25, width * 25, height * 25)
 
     @staticmethod
     def render(window):

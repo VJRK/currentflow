@@ -1,6 +1,4 @@
 import pygame
-import globalvalues as gv
-import math
 
 
 class Fluid(object):
@@ -45,7 +43,7 @@ class Button(object):
         self.who_pressed = None
         self.press_speed = 0
         Button.instances.append(self)
-        self.y_top = math.ceil((y_top + 1 - height) * 25)
+        self.y_top = (y_top + 1 - height) * 25
         self.rect = pygame.Rect(x_left * 25, self.y_top, width * 25, height * 25)
 
     def update(self, dt):

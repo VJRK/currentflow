@@ -1,4 +1,3 @@
-import resize
 import start
 from players import *
 import stage
@@ -40,10 +39,10 @@ while running:
             flow.handleinput(event)
 
     # Update
-    print(gv.active_stage)
     if gv.active_stage != 0:
         flow.update(dt, stage)
         current.update(dt, stage)
+        stage.update(dt)
 
     # Render
     canvas.fill((33, 33, 33))

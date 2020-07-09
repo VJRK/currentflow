@@ -13,8 +13,5 @@ velXmaxGround = 0.3
 velXmaxAir = 1000
 velYmaxUp = -1000
 velYmaxDown = 10
+velMaxSlide = 5
 run_acc = 0.003
-
-base_run_speed = 0.15
-max_run_speed = 0.5
-slide_speed = 0.1  # muss weniger als base_speed sein

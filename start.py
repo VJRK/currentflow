@@ -19,11 +19,11 @@ def handleinput(event):
     if event.type == pygame.KEYDOWN:
 
         # Bei S oder E zu den Einstellungen wechseln
-        if event.key == pygame.K_s or pygame.K_e:
+        if event.key == pygame.K_s or event.key == pygame.K_e:
             gv.active_stage = -1
 
         # Bei Enter oder Leertaste zu Stage 1 wechseln
-        elif event.key == pygame.K_SPACE or pygame.K_RETURN:
+        elif event.key == pygame.K_SPACE or event.key == pygame.K_RETURN:
             gv.active_stage = 1
 
 
