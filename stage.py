@@ -3,7 +3,7 @@ from interactable import *
 from level import *
 
 
-all_levels = [[level1_b, level1_i], [level2_b, level2_i]]
+all_levels = [[level1_b, level1_i], [level2, level2_i]]
 blocks = []
 interactables = []
 posCurrent = (0, 0)
@@ -57,7 +57,7 @@ def build_level(self, index):
 
     x = 0
     y = 0
-    for row in all_levels[index][1]:
+    for row in all_levels[index][0]:
         for char in row:
             if char == "w":
                 interactables.append(Fluid(0, x, y))
@@ -69,7 +69,7 @@ def build_level(self, index):
             elif char == "1":
                 interactables.append(Button(1, x, y))
             elif char == "2":
-                interactables.append(Door(1, x + .25, y, height=2.5, target_height=2.5))
+                interactables.append(Door(1, x, y + 0.5, height=0.5, width=2.5, target_height=-2))
             elif char == "3":
                 interactables.append(Door(1, x + .25, y - .5, height=2.5, target_height=-2.5))
             elif char == "4":
