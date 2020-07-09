@@ -1,5 +1,4 @@
 import globalvalues as gv
-import utils
 from interactable import *
 
 
@@ -9,12 +8,12 @@ def horizontal_collisions(player, blocks):
     for collision in collisions:
         if collision.typ == 0 or collision.typ == 3:  # Wand oder Punkt
             # Rechtsbewegung
-            if player.velY > 0:
-                player.velY = 0
+            if player.velX > 0:
+                player.velX = 0
                 player.posX = collision.rect.left - player.width / 2
             # Linksbewegung
-            elif player.velY < 0:
-                player.velY = 0
+            elif player.velX < 0:
+                player.velX = 0
                 player.posX = collision.rect.right + player.width / 2
 
 
@@ -80,9 +79,9 @@ def fluid_collisions(player, interactables):
     # Kollisionen finden
     collisions = get_collisions(player, fluids)
     for collision in collisions:
-        # Flow und Wasser / Current und Elektrizität / Säure
-        if (player.flow and collision.typ == 0) \
-                or (not player.flow and collision.typ == 1) \
+        # Current und Wasser / Flow und Elektrizität / Säure
+        if (not player.flow and collision.typ == 0) \
+                or (player.flow and collision.typ == 1) \
                 or collision.typ == 3:
             player.dead = True
 
@@ -123,9 +122,30 @@ def button_collisions(player, interactables):
         player.posY = collide_button.rect.top - player.height / 2 + 2
 
 
-def door_collisions(player, interactables):
+def horizontal_door_collisions(player, interactables):
 
-    # Fluids von Interactables trennen
+    # Türen von Interactables trennen
+    doors = []
+    for inter in interactables:
+        if inter.__class__ == Door:
+            doors.append(inter)
+
+    # Kollisionen finden
+    collide_doors = get_collisions(player, doors)
+    for door in collide_doors:
+        # Rechtsbewegung
+        if player.velX > 0:
+            player.velX = 0
+            player.posX = door.rect.left - player.width / 2
+        # Linksbewegung
+        elif player.velX < 0:
+            player.velX = 0
+            player.posX = door.rect.right + player.width / 2
+
+
+def vertical_door_collisions(player, interactables):
+
+    # Türen von Interactables trennen
     doors = []
     for inter in interactables:
         if inter.__class__ == Door:

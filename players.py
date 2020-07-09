@@ -53,6 +53,7 @@ class Player:
 
         # Horizontale Kollision
         horizontal_collisions(self, stage.blocks)
+        horizontal_door_collisions(self, stage.interactables)
 
         # Y
         self.posY += self.velY * dt
@@ -68,7 +69,7 @@ class Player:
         # Kollision mit Interactables
         fluid_collisions(self, stage.interactables)
         button_collisions(self, stage.interactables)
-        door_collisions(self, stage.interactables)
+        vertical_door_collisions(self, stage.interactables)
 
         # c.check_door_collisions(self, Door.instances)
         # c.check_button_collision(self, Button.instances, Door.instances)

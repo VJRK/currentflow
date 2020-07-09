@@ -39,7 +39,7 @@ class Door(object):
 
     def __init__(self, tag=None, x_left=None, y_top=None, width=.5, height=2.5, target_height=0):
         self.tag = tag
-        self.velY = .2
+        self.velY = 0
         self.open = False
         self.y_top = y_top * 25
         self.target_height = (target_height + y_top) * 25
@@ -47,27 +47,25 @@ class Door(object):
         self.color = (0, 100, 100)
 
     def update(self, dt):
-        if self.open:
-            if self.target_height - self.y_top < 0:
-                self.velY = -.2
-            elif self.target_height - self.y_top > 0:
-                self.velY = .2
-            if self.velY > 0 and self.rect.top >= self.target_height:
-                self.velY = 0
-                self.rect.top = self.target_height
-            if self.velY < 0 and self.rect.top <= self.target_height:
-                self.velY = 0
-                self.rect.top = self.target_height
-        else:
-            if self.target_height - self.y_top < 0:
-                self.velY = .2
-            elif self.target_height - self.y_top > 0:
-                self.velY = -.2
-            if self.velY > 0 and self.rect.top >= self.y_top:
-                self.velY = 0
-                self.rect.top = self.y_top
-            if self.velY < 0 and self.rect.top <= self.y_top:
-                self.velY = 0
-                self.rect.top = self.y_top
 
-        self.rect.y += self.velY * dt
+        # Tür soll sich nach oben öffnen und nach unten schließen
+        if self.target_height - self.y_top < 0:
+            # Entsprechende velY zuweisen
+            if self.open:
+                self.velY = -0.2
+            else:
+                self.velY = 0.2
+            # Rechteck bewegen
+            self.rect.y += self.velY * dt
+            self.rect.top = utils.clamp(self.rect.top, self.y_top, self.target_height)
+
+        # Tür soll sich nach unten öffnen und nach oben schließen
+        else:
+            # Entsprechende velY zuweisen
+            if self.open:
+                self.velY = 0.2
+            else:
+                self.velY = -0.2
+            # Rechteck bewegen
+            self.rect.y += self.velY * dt
+            self.rect.top = utils.clamp(self.rect.top, self.target_height, self.y_top)

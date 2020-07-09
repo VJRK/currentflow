@@ -11,8 +11,8 @@ FONT_SD = pygame.freetype.Font("sheeping_dogs.ttf", 120)
 zahnrad = pygame.transform.scale(pygame.image.load('zahnrad.png'), (200, 200))
 
 # Schrift auf Surface zeichnen
-text_surface1, rect1 = FONT_SD.render("CURRENT", (0, 255, 255))
-text_surface2, rect2 = FONT_SD.render("FLOW", (255, 255, 0))
+text_surface1, rect1 = FONT_SD.render("CURRENT", (255, 255, 0))
+text_surface2, rect2 = FONT_SD.render("FLOW", (0, 255, 255))
 
 
 def handleinput(event):
