@@ -2,20 +2,18 @@ import start
 from players import *
 import stage
 import settings
-import barriers as b
-import interactables as i
 
 pygame.init()
 
 # Fenster
-window = pygame.display.set_mode((gv.width, gv.height))
-canvas = pygame.Surface((1600, 900))
+window = pygame.display.set_mode(settings.resolutions[3])
+canvas = pygame.Surface((gv.width, gv.height))
 pygame.display.set_caption("CurrentFlow")
 
 # Hauptklassen
 stage.build_level(stage, 0)
-current = Player(False, 600, 450, (0, 255, 255))
-flow = Player(True, 1000, 450, (255, 255, 0))
+current = Player(False, stage.posCurrent[0], stage.posCurrent[1], (255, 255, 0))
+flow = Player(True, stage.posFlow[0], stage.posFlow[1], (0, 255, 255))
 
 # Game loop
 clock = pygame.time.Clock()
@@ -51,9 +49,6 @@ while running:
     elif gv.active_stage == -1:
         settings.render(canvas)
     else:
-        # i.Button.render(window)
-        # i.Fluid.render(window)
-        # i.Door.render(window)
         stage.render(stage, canvas)
         current.render(canvas)
         flow.render(canvas)

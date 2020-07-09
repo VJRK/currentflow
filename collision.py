@@ -1,4 +1,3 @@
-import globalvalues as gv
 from interactable import *
 
 
@@ -39,8 +38,10 @@ def ramp_collisions(player, blocks):
         if collision.typ == 1 or collision.typ == 2:  # RampeR oder RampeL
             # Rechte Rampe
             if collision.typ == 1:
+
+                # Spieler bewegen
+                player.velX -= gv.gravity / 2
                 player.velY += gv.gravity / 2
-                player.velY -= gv.gravity / 2
                 player.velY = utils.clamp(player.velY, gv.velMaxSlide, -gv.velMaxSlide)
 
                 # Wenn die rechte untere Ecke des Spielers auf der schiefen Ebene ist
@@ -55,7 +56,9 @@ def ramp_collisions(player, blocks):
 
             # Linke Rampe
             elif collision.typ == 2:
-                player.velY += gv.gravity / 2
+
+                # Spieler bewegen
+                player.velX += gv.gravity / 2
                 player.velY += gv.gravity / 2
                 player.velY = utils.clamp(player.velY, gv.velMaxSlide, -gv.velMaxSlide)
 
@@ -70,6 +73,7 @@ def ramp_collisions(player, blocks):
                     player.posY = collision.rect.top - player.height / 2
 
 
+# Kollision mit Flüssigkeiten
 def fluid_collisions(player, interactables):
     # Fluids von Interactables trennen
     fluids = []
@@ -80,12 +84,13 @@ def fluid_collisions(player, interactables):
     collisions = get_collisions(player, fluids)
     for collision in collisions:
         # Current und Wasser / Flow und Elektrizität / Säure
-        if (not player.flow and collision.typ == 0) \
-                or (player.flow and collision.typ == 1) \
+        if (not player.is_flow and collision.typ == 0) \
+                or (player.is_flow and collision.typ == 1) \
                 or collision.typ == 3:
             player.dead = True
 
 
+# Kollision mit Knöpfen
 def button_collisions(player, interactables):
 
     # Knöpfe und Türen ven den Interactables trennen
@@ -103,7 +108,7 @@ def button_collisions(player, interactables):
     # Falls es keine Treffer gibt, Knopf zurücksetzen und Tür schließen
     if not collide_buttons:
         for button in buttons:
-            if player.flow == button.flow_pressed:
+            if player.is_flow == button.flow_pressed:
                 button.pressed = False
                 for door in doors:
                     if button.tag == door.tag:
@@ -116,12 +121,13 @@ def button_collisions(player, interactables):
                 door.open = True
 
         collide_button.pressed = True
-        collide_button.flow_pressed = player.flow
+        collide_button.flow_pressed = player.is_flow
         collide_button.press_speed = 0.1
 
         player.posY = collide_button.rect.top - player.height / 2 + 2
 
 
+# Horizontale Türkollision
 def horizontal_door_collisions(player, interactables):
 
     # Türen von Interactables trennen
@@ -143,6 +149,7 @@ def horizontal_door_collisions(player, interactables):
             player.posX = door.rect.right + player.width / 2
 
 
+# Vertikale Türkollision
 def vertical_door_collisions(player, interactables):
 
     # Türen von Interactables trennen
@@ -151,6 +158,18 @@ def vertical_door_collisions(player, interactables):
         if inter.__class__ == Door:
             doors.append(inter)
 
+    collide_doors = get_collisions(player, doors)
+    for door in collide_doors:
+        # Aufwärtsbewegung
+        if player.velY < 0:
+            player.velY = 0
+            player.posY = door.rect.bottom + player.height / 2
+        # Abwärtsbewegung
+        elif player.velY > 0:
+            player.velY = 0
+            player.posY = door.rect.top - player.height / 2
+
+    '''
     # Kollisionen finden
     collide_doors = get_collisions(player, doors)
     for door in collide_doors:
@@ -175,13 +194,14 @@ def vertical_door_collisions(player, interactables):
             # Wenn Spieler sich großteils innerhalb der Türen befindet
             if door.rect.top < player.posY or door.rect.bottom > player.posY:
                 player.dead = True
+        '''
 
 
-# Findet alle Blöcke, die den Spieler berühren
-def get_collisions(player, blocks):
+# Findet alle Objekte, die den Spieler berühren
+def get_collisions(player, objects):
     collisions = []
     pl_rect = Rect(player.posX - player.width / 2, player.posY - player.height / 2, player.width, player.height)
-    for block in blocks:
-        if pl_rect.colliderect(block.rect):
-            collisions.append(block)
+    for obj in objects:
+        if pl_rect.colliderect(obj.rect):
+            collisions.append(obj)
     return collisions

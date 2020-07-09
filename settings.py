@@ -5,31 +5,41 @@ import globalvalues as gv
 pygame.freetype.init()
 
 # Objekt aus Schriftart erzeugen
-FONT_SD_80 = pygame.freetype.Font("sheeping_dogs.ttf", 80)
-FONT_SD_50 = pygame.freetype.Font("sheeping_dogs.ttf", 50)
+FONT_SD_80 = pygame.freetype.Font("sheeping_dogs.ttf", gv.width / 24)
+FONT_SD_50 = pygame.freetype.Font("sheeping_dogs.ttf", gv.width / 40)
 
 # Schrift auf Surface zeichnen
 text_surface1, rect1 = FONT_SD_80.render("Fenster", (0, 255, 255))
-rect1 = pygame.Rect(600 - rect1[2] / 2, 200 - rect1[3] / 2, rect1[2], rect1[3])
+rect1 = pygame.Rect(gv.width / 3 - rect1[2] / 2, gv.height * 2 / 9 - rect1[3] / 2, rect1[2], rect1[3])
 text_surface2, rect2 = FONT_SD_80.render("Fertig", (0, 255, 255))
-rect2 = pygame.Rect(1000 - rect2[2] / 2, 700 - rect2[3] / 2, rect2[2], rect2[3])
+rect2 = pygame.Rect(gv.width * 2 / 3 - rect2[2] / 2, gv.height * 7 / 9 - rect2[3] / 2, rect2[2], rect2[3])
 
-resolutions = [(1920, 1080), (1760, 990), (1600, 900), (800, 450)]
+# Auflösungen
+resolutions = [(3840, 2160), (3200, 1800), (2560, 1440), (1920, 1080), (1600, 900), (1280, 720), (640, 360)]
 text_surfaces_res = []
 rects_res = []
 i = 0
 for resolution in resolutions:
     text_surfaces_res.append(FONT_SD_50.render(str(resolution[0]) + " x " + str(resolution[1]), (255, 255, 0))[0])
     rect = FONT_SD_50.render(str(resolution[0]) + " x " + str(resolution[1]), (255, 255, 0))[1]
-    rects_res.append(pygame.Rect(600 - rect[2] / 2, 300 + i * 100 - rect[3] / 2, rect[2], rect[3]))
+    rects_res.append(pygame.Rect(gv.width / 3 - rect[2] / 2, gv.height / 3 + i * gv.width / 25 - rect[3] / 2,
+                                 rect[2], rect[3]))
     i += 1
 del i, rect
 all_rects = rects_res + [rect2]
 
 # Momentan gewähltes Feld
-selected = 2
+selected = 3
 # Momentan gewählte Auflösung
-selected_res = 2
+selected_res = 3
+
+# Tasten
+enter = pygame.transform.scale(pygame.image.load('enter.png'), (int(gv.width / 30), int(gv.width / 21)))
+leertaste = pygame.transform.scale(pygame.image.load('leertaste.png'), (200, 40))
+taste_w = pygame.transform.scale(pygame.image.load('w.png'), (50, 50))
+taste_s = pygame.transform.scale(pygame.image.load('s.png'), (50, 50))
+taste_hoch = pygame.transform.scale(pygame.image.load('pfeil.png'), (50, 50))
+taste_runter = pygame.transform.rotate(taste_hoch, 180)
 
 
 def handleinput(self, event, window):
@@ -56,9 +66,28 @@ def handleinput(self, event, window):
 
 
 def render(canvas):
+    # Fenster
     canvas.blit(text_surface1, rect1)
+    # Auflösungen
     for j in range(len(resolutions)):
-        canvas.blit(text_surfaces_res[j], (600 - rects_res[j][2] / 2, 300 + j * 100 - rects_res[j][3] / 2))
+        canvas.blit(text_surfaces_res[j],
+                    (gv.width / 3 - rects_res[j][2] / 2, gv.height / 3 + j * gv.width / 25 - rects_res[j][3] / 2))
+    # Fertig
     canvas.blit(text_surface2, rect2)
+    # Auswahl
     pygame.draw.rect(canvas, (255, 255, 255), all_rects[selected], 6)
+    # Gewählte Auflösung
     pygame.draw.rect(canvas, (255, 0, 0), rects_res[selected_res], 3)
+
+    # Taste hoch
+    canvas.blit(taste_hoch, (gv.width * 3 / 25, gv.height * 2 / 7))
+    # Taste w
+    canvas.blit(taste_w, (gv.width * 4 / 25, gv.height * 2 / 7))
+    # Taste runter
+    canvas.blit(taste_runter, (gv.width * 3 / 25, gv.height * 3 / 4))
+    # Taste s
+    canvas.blit(taste_s, (gv.width * 4 / 25, gv.height * 3 / 4))
+    # Leertaste
+    canvas.blit(leertaste, (gv.width * 2 / 3, gv.height / 2))
+    # Enter
+    canvas.blit(enter, (gv.width * 2 / 3 - gv.width / 20, gv.height / 2))

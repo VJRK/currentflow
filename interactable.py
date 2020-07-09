@@ -1,4 +1,5 @@
 from pygame import Rect
+import globalvalues as gv
 import utils
 
 
@@ -7,7 +8,7 @@ class Fluid(object):
     def __init__(self, typ=0, x_left=None, y_top=None, width=1, height=.7):
         self.typ = typ  # 0 = Wasser, 1 = Elektrizität, 2 = Säure
         y_top = y_top + .2
-        self.rect = Rect(x_left * 25, y_top * 25, width * 25, height * 25)
+        self.rect = Rect(x_left * gv.sc, y_top * gv.sc, width * gv.sc, height * gv.sc)
         if typ == 0:
             self.color = (0, 255, 255)
         elif typ == 1:
@@ -23,8 +24,8 @@ class Button(object):
         self.pressed = False
         self.flow_pressed = False
         self.press_speed = 0
-        self.y_top = (y_top + 1 - height) * 25
-        self.rect = Rect(x_left * 25, self.y_top, width * 25, height * 25)
+        self.y_top = (y_top + 1 - height) * gv.sc
+        self.rect = Rect(x_left * gv.sc, self.y_top, width * gv.sc, height * gv.sc)
         self.color = (0, 100, 100)
 
     def update(self, dt):
@@ -41,9 +42,9 @@ class Door(object):
         self.tag = tag
         self.velY = 0
         self.open = False
-        self.y_top = y_top * 25
-        self.target_height = (target_height + y_top) * 25
-        self.rect = Rect(x_left * 25, self.y_top, width * 25, height * 25)
+        self.y_top = y_top * gv.sc
+        self.target_height = (target_height + y_top) * gv.sc
+        self.rect = Rect(x_left * gv.sc, self.y_top, width * gv.sc, height * gv.sc)
         self.color = (0, 100, 100)
 
     def update(self, dt):

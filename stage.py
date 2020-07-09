@@ -6,6 +6,8 @@ from level import *
 all_levels = [[level1_b, level1_i], [level2_b, level2_i]]
 blocks = []
 interactables = []
+posCurrent = (0, 0)
+posFlow = (0, 0)
 
 
 def build_level(self, index):
@@ -42,8 +44,10 @@ def build_level(self, index):
                 blocks.append(Block(0, x, y + .7, height=.3))
                 blocks.append(Block(1, x, y))
 
-            # Position Flow F
-            # Position Current C
+            elif char == "C":
+                self.posCurrent = (x * gv.sc, y * gv.sc)
+            elif char == "F":
+                self.posFlow = (x * gv.sc, y * gv.sc)
 
             elif char == " ":
                 continue

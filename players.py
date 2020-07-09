@@ -3,11 +3,12 @@ from collision import *
 
 
 class Player:
-    def __init__(self, flow, pos_x=0, pos_y=0, color=(255, 0, 0)):
-        self.flow = flow
+    def __init__(self, is_flow, pos_x=0, pos_y=0, color=(255, 0, 0)):
+        self.is_flow = is_flow
         self.dead = False
-        self.width = 24
-        self.height = 32
+        self.has_jump = True
+        self.width = int(gv.width / 80)
+        self.height = int(gv.width / 60)
         self.posX = pos_x
         self.posY = pos_y
         self.velX = 0
@@ -21,25 +22,25 @@ class Player:
         if event.type == pygame.KEYDOWN:
 
             # links (A für current, LEFT für flow)
-            if (self.flow and event.key == pygame.K_LEFT) \
-                    or (not self.flow and event.key == pygame.K_a):
+            if (self.is_flow and event.key == pygame.K_LEFT) \
+                    or (not self.is_flow and event.key == pygame.K_a):
                 self.accX = -gv.run_acc
 
             # rechts (D für current, RIGHT für flow)
-            if (self.flow and event.key == pygame.K_RIGHT) \
-                    or (not self.flow and event.key == pygame.K_d):
+            if (self.is_flow and event.key == pygame.K_RIGHT) \
+                    or (not self.is_flow and event.key == pygame.K_d):
                 self.accX = gv.run_acc
 
             # springen (W für current, UP für flow)
-            if (self.flow and event.key == pygame.K_UP) \
-                    or (not self.flow and event.key == pygame.K_w):
+            if (self.is_flow and event.key == pygame.K_UP) \
+                    or (not self.is_flow and event.key == pygame.K_w):
                 jumppower = (2 * gv.gravity * gv.jumpHeight) ** (1 / 2)
                 self.velY = -jumppower
 
         # Stillstand wenn weder links noch rechts gedrückt wird
         key = pygame.key.get_pressed()
-        if (self.flow and not key[pygame.K_LEFT] and not key[pygame.K_RIGHT])\
-                or (not self.flow and not key[pygame.K_a] and not key[pygame.K_d]):
+        if (self.is_flow and not key[pygame.K_LEFT] and not key[pygame.K_RIGHT])\
+                or (not self.is_flow and not key[pygame.K_a] and not key[pygame.K_d]):
             self.accX = 0
 
     def update(self, dt, stage):
@@ -62,6 +63,7 @@ class Player:
 
         # Vertikale Kollision
         vertical_collisions(self, stage.blocks)
+        vertical_door_collisions(self, stage.interactables)
 
         # Rampenkollision
         ramp_collisions(self, stage.blocks)
@@ -69,7 +71,6 @@ class Player:
         # Kollision mit Interactables
         fluid_collisions(self, stage.interactables)
         button_collisions(self, stage.interactables)
-        vertical_door_collisions(self, stage.interactables)
 
         # c.check_door_collisions(self, Door.instances)
         # c.check_button_collision(self, Button.instances, Door.instances)

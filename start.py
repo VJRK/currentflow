@@ -5,10 +5,13 @@ import globalvalues as gv
 pygame.freetype.init()
 
 # Objekt aus Schriftart erzeugen
-FONT_SD = pygame.freetype.Font("sheeping_dogs.ttf", 120)
+FONT_SD = pygame.freetype.Font("sheeping_dogs.ttf", gv.width / 16)
 
-# Zahnrad-Sprite laden
-zahnrad = pygame.transform.scale(pygame.image.load('zahnrad.png'), (200, 200))
+# Sprites laden
+zahnrad = pygame.transform.scale(pygame.image.load('zahnrad.png'), (int(gv.width / 9.6), int(gv.width / 9.6)))
+enter = pygame.transform.scale(pygame.image.load('enter.png'), (int(gv.width / 30), int(gv.width / 21)))
+leertaste = pygame.transform.scale(pygame.image.load('leertaste.png'), (int(gv.width / 9.6), int(gv.width / 48)))
+taste_e = pygame.transform.scale(pygame.image.load('e.png'), (int(gv.width / 38), int(gv.width / 38)))
 
 # Schrift auf Surface zeichnen
 text_surface1, rect1 = FONT_SD.render("CURRENT", (255, 255, 0))
@@ -18,8 +21,8 @@ text_surface2, rect2 = FONT_SD.render("FLOW", (0, 255, 255))
 def handleinput(event):
     if event.type == pygame.KEYDOWN:
 
-        # Bei S oder E zu den Einstellungen wechseln
-        if event.key == pygame.K_s or event.key == pygame.K_e:
+        # Bei E zu den Einstellungen wechseln
+        if event.key == pygame.K_e:
             gv.active_stage = -1
 
         # Bei Enter oder Leertaste zu Stage 1 wechseln
@@ -28,6 +31,16 @@ def handleinput(event):
 
 
 def render(canvas):
-    canvas.blit(text_surface1, (800 - rect1[2], 450 - rect1[3] / 2))
-    canvas.blit(text_surface2, (800, 450 - rect2[3] / 2))
-    canvas.blit(zahnrad, (1400, 700))
+    # CURRENT
+    canvas.blit(text_surface1, (gv.width / 2 - rect1[2], gv.height / 2 - rect1[3] / 2))
+    # FLOW
+    canvas.blit(text_surface2, (gv.width / 2, gv.height / 2 - rect2[3] / 2))
+    # Leertaste
+    canvas.blit(leertaste, (gv.width / 2 - leertaste.get_width() - gv.width / 76, gv.height * 3 / 5 + 35))
+    # Enter
+    canvas.blit(enter, (gv.width / 2 + gv.width / 76, gv.height * 3 / 5))
+
+    # Zahnrad
+    canvas.blit(zahnrad, (gv.width * 7 / 8, gv.height * 7 / 9))
+    # Taste e
+    canvas.blit(taste_e, (gv.width * 7 / 8 + zahnrad.get_width() / 2 - taste_e.get_width() / 2, gv.height * 7 / 10))
