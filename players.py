@@ -34,8 +34,10 @@ class Player:
             # springen (W für current, UP für flow)
             if (self.is_flow and event.key == pygame.K_UP) \
                     or (not self.is_flow and event.key == pygame.K_w):
-                jumppower = (2 * gv.gravity * gv.jumpHeight) ** (1 / 2)
-                self.velY = -jumppower
+                if self.has_jump:
+                    jumppower = (2 * gv.gravity * gv.jumpHeight) ** (1 / 2)
+                    self.velY = -jumppower
+                    self.has_jump = False
 
         # Stillstand wenn weder links noch rechts gedrückt wird
         key = pygame.key.get_pressed()

@@ -2,6 +2,7 @@ import start
 from players import *
 import stage
 import settings
+import result_screen
 
 pygame.init()
 
@@ -32,6 +33,8 @@ while running:
             start.handleinput(event)
         elif gv.active_stage == -1:
             settings.handleinput(settings, event, window)
+        elif gv.active_stage == -2:
+            result_screen.handleinput(event, stage)
         else:
             current.handleinput(event)
             flow.handleinput(event)
@@ -48,6 +51,8 @@ while running:
         start.render(canvas)
     elif gv.active_stage == -1:
         settings.render(canvas)
+    elif gv.active_stage == -2:
+        result_screen.render(canvas)
     else:
         stage.render(stage, canvas)
         current.render(canvas)

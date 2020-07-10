@@ -27,7 +27,12 @@ class Button(object):
         self.press_speed = 0.1
         self.y_top = (y_top + 1 - height) * gv.sc
         self.rect = Rect(x_left * gv.sc, self.y_top, width * gv.sc, height * gv.sc)
-        self.color = (0, 100, 100)
+        if activated_by == 1:
+            self.color = (180, 180, 100)
+        elif activated_by == 2:
+            self.color = (100, 180, 180)
+        else:
+            self.color = (0, 100, 100)
 
     def update(self, dt):
         if self.pressed:

@@ -9,9 +9,9 @@ FONT_SD = pygame.freetype.Font("sheeping_dogs.ttf", gv.width / 16)
 
 # Sprites laden
 zahnrad = pygame.transform.scale(pygame.image.load('zahnrad.png'), (int(gv.width / 9.6), int(gv.width / 9.6)))
-enter = pygame.transform.scale(pygame.image.load('enter.png'), (int(gv.width / 30), int(gv.width / 21)))
-leertaste = pygame.transform.scale(pygame.image.load('leertaste.png'), (int(gv.width / 9.6), int(gv.width / 48)))
-taste_e = pygame.transform.scale(pygame.image.load('e.png'), (int(gv.width / 38), int(gv.width / 38)))
+enter = pygame.transform.scale(pygame.image.load('tasten/enter.png'), (int(gv.width / 30), int(gv.width / 21)))
+leertaste = pygame.transform.scale(pygame.image.load('tasten/leertaste.png'), (int(gv.width / 9.6), int(gv.width / 48)))
+taste_e = pygame.transform.scale(pygame.image.load('tasten/e.png'), (int(gv.width / 38), int(gv.width / 38)))
 
 # Schrift auf Surface zeichnen
 text_surface1, rect1 = FONT_SD.render("CURRENT", (255, 255, 0))
