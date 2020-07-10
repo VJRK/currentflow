@@ -29,7 +29,7 @@ del i, rect
 all_rects = rects_res + [rect2]
 
 # Momentan gewähltes Feld
-selected = 5
+selected = len(all_rects) - 1
 # Momentan gewählte Auflösung
 selected_res = 5
 
@@ -75,9 +75,14 @@ def render(canvas):
     # Fertig
     canvas.blit(text_surface2, rect2)
     # Auswahl
-    pygame.draw.rect(canvas, (255, 255, 255), all_rects[selected], 6)
+    pygame.draw.rect(canvas, (255, 255, 255), (all_rects[selected][0] - 5, all_rects[selected][1] - 5,
+                                               all_rects[selected][2] + 10, all_rects[selected][3] + 6), 2)
     # Gewählte Auflösung
-    pygame.draw.rect(canvas, (255, 0, 0), rects_res[selected_res], 3)
+    pygame.draw.line(canvas, (255, 0, 0),
+                     (rects_res[selected_res][0] - 3,
+                      rects_res[selected_res][1] + rects_res[selected_res][3] - 2),
+                     (rects_res[selected_res][0] + rects_res[selected_res][2] + 3,
+                      rects_res[selected_res][1] + rects_res[selected_res][3] - 2), 2)
 
     # Taste hoch
     canvas.blit(taste_hoch, (gv.width * 3 / 25, gv.height * 2 / 7))

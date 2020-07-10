@@ -9,9 +9,9 @@ FONT_SD = pygame.freetype.Font("sheeping_dogs.ttf", gv.width / 16)
 
 # Sprites laden
 zahnrad = pygame.transform.scale(pygame.image.load('zahnrad.png'), (int(gv.width / 9.6), int(gv.width / 9.6)))
-enter = pygame.transform.scale(pygame.image.load('tasten/enter.png'), (int(gv.width / 24), int(gv.width / 24)))
+enter = pygame.transform.scale(pygame.image.load('tasten/enter.png'), (int(gv.height / 15), int(gv.height / 15)))
 leertaste = pygame.transform.scale(pygame.image.load('tasten/leertaste.png'), (int(gv.width / 10), int(gv.width / 40)))
-taste_e = pygame.transform.scale(pygame.image.load('tasten/e.png'), (int(gv.width / 40), int(gv.width / 40)))
+taste_e = pygame.image.load('tasten/e.png')
 hintergrund = pygame.transform.scale(pygame.image.load('wall_images/wall.png'), (int(gv.width / 3), int(gv.width / 3)))
 
 # Schrift auf Surface zeichnen
@@ -41,13 +41,13 @@ def render(canvas):
     canvas.blit(hintergrund, (gv.width * 2 / 3, gv.width / 3))
 
     # CURRENT
-    canvas.blit(text_surface1, (gv.width / 2 - rect1[2], gv.height / 2 - rect1[3] / 2))
+    canvas.blit(text_surface1, (gv.width / 2 - rect1[2], gv.height / 2 - rect1[3] / 3))
     # FLOW
-    canvas.blit(text_surface2, (gv.width / 2, gv.height / 2 - rect2[3] / 2))
+    canvas.blit(text_surface2, (gv.width / 2, gv.height / 2 - rect2[3] / 3))
     # Leertaste
-    canvas.blit(leertaste, (gv.width / 2 - leertaste.get_width() - gv.width / 76, gv.height * 3 / 5 + gv.width / 96))
+    canvas.blit(leertaste, (gv.width / 2 - leertaste.get_width() - gv.width / 38, gv.height * 5 / 8 + gv.width / 96))
     # Enter
-    canvas.blit(enter, (gv.width / 2 + gv.width / 76, gv.height * 3 / 5))
+    canvas.blit(enter, (gv.width / 2, gv.height * 5 / 8))
 
     # Zahnrad
     canvas.blit(zahnrad, (gv.width * 7 / 8, gv.height * 7 / 9))
