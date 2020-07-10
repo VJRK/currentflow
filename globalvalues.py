@@ -8,10 +8,10 @@ gravity = 0.001
 frictionGround = 0.92
 frictionAir = 0.99
 
-jumpHeight = 70
+jumpHeight = 50
 velXmaxGround = 0.2
 velXmaxAir = 10
 velYmaxUp = -10
 velYmaxDown = 10
 velMaxSlide = 5
-run_acc = 0.001
+run_acc = 0.0008
