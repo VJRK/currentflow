@@ -19,14 +19,20 @@ class Fluid(object):
 
 class Button(object):
 
-    def __init__(self, tag=None, x_left=None, y_top=None, width=1, height=.3):
+    def __init__(self, tag=None, x_left=None, y_top=None, width=1, height=.3, activated_by=0):
         self.tag = tag
         self.pressed = False
-        self.flow_pressed = False
-        self.press_speed = 0
+        self.flow_pressed = None
+        self.activated_by = activated_by  # 0 = jeder, 1 = current, 2 = flow
+        self.press_speed = 0.1
         self.y_top = (y_top + 1 - height) * gv.sc
         self.rect = Rect(x_left * gv.sc, self.y_top, width * gv.sc, height * gv.sc)
-        self.color = (0, 100, 100)
+        if activated_by == 1:
+            self.color = (180, 180, 100)
+        elif activated_by == 2:
+            self.color = (100, 180, 180)
+        else:
+            self.color = (0, 100, 100)
 
     def update(self, dt):
         if self.pressed:

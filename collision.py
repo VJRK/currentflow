@@ -29,6 +29,7 @@ def vertical_collisions(player, blocks):
             elif player.velY > 0:
                 player.velY = 0
                 player.posY = collision.rect.top - player.height / 2
+                player.has_jump = True
 
 
 # Rampenkollision
@@ -43,6 +44,7 @@ def ramp_collisions(player, blocks):
                 player.velX -= gv.gravity / 2
                 player.velY += gv.gravity / 2
                 player.velY = utils.clamp(player.velY, gv.velMaxSlide, -gv.velMaxSlide)
+                player.has_jump = True
 
                 # Wenn die rechte untere Ecke des Spielers auf der schiefen Ebene ist
                 if player.posX + player.width / 2 < collision.rect.right:
@@ -61,6 +63,7 @@ def ramp_collisions(player, blocks):
                 player.velX += gv.gravity / 2
                 player.velY += gv.gravity / 2
                 player.velY = utils.clamp(player.velY, gv.velMaxSlide, -gv.velMaxSlide)
+                player.has_jump = True
 
                 # Wenn die linke untere Ecke des Spielers auf der schiefen Ebene ist
                 if player.posX - player.width / 2 > collision.rect.left:
@@ -92,7 +95,6 @@ def fluid_collisions(player, interactables):
 
 # Kollision mit Knöpfen
 def button_collisions(player, interactables):
-
     # Knöpfe und Türen ven den Interactables trennen
     buttons = []
     doors = []
@@ -102,10 +104,8 @@ def button_collisions(player, interactables):
         elif inter.__class__ == Door:
             doors.append(inter)
 
-    # Kollisionen finden
+    # Nicht gedrückte Knöpfe zurücksetzen
     collide_buttons = get_collisions(player, buttons)
-
-    # Falls es keine Treffer gibt, Knopf zurücksetzen und Tür schließen
     if not collide_buttons:
         for button in buttons:
             if player.is_flow == button.flow_pressed:
@@ -114,22 +114,28 @@ def button_collisions(player, interactables):
                     if button.tag == door.tag:
                         door.open = False
 
-    # Bei Treffern, entsprechende Türen öffnen
+    # Rechteck des Spielers
+    pl_rect = Rect(player.posX - player.width / 2, player.posY - player.height / 2, player.width, player.height)
+
+    # Knöpfe bei richtigem Kontakt aktivieren
+    for button in buttons:
+        if pl_rect.colliderect(button.rect) and (button.activated_by == 0
+                                                 or (button.activated_by == 1 and not player.is_flow)
+                                                 or (button.activated_by == 2 and player.is_flow)):
+            button.pressed = True
+            button.flow_pressed = player.is_flow
+            for door in doors:
+                if button.tag == door.tag:
+                    door.open = True
+
+    # Bei Kollisionen Spieler auf Knopf platzieren
     for collide_button in collide_buttons:
-        for door in doors:
-            if collide_button.tag == door.tag:
-                door.open = True
-
-        collide_button.pressed = True
-        collide_button.flow_pressed = player.is_flow
-        collide_button.press_speed = 0.1
-
         player.posY = collide_button.rect.top - player.height / 2 + 2
+        player.has_jump = True
 
 
 # Horizontale Türkollision
 def horizontal_door_collisions(player, interactables):
-
     # Türen von Interactables trennen
     doors = []
     for inter in interactables:
@@ -151,7 +157,6 @@ def horizontal_door_collisions(player, interactables):
 
 # Vertikale Türkollision
 def vertical_door_collisions(player, interactables):
-
     # Türen von Interactables trennen
     doors = []
     for inter in interactables:
@@ -168,33 +173,7 @@ def vertical_door_collisions(player, interactables):
         elif player.velY > 0:
             player.velY = 0
             player.posY = door.rect.top - player.height / 2
-
-    '''
-    # Kollisionen finden
-    collide_doors = get_collisions(player, doors)
-    for door in collide_doors:
-
-        # Wenn sich die Tür nicht bewegt
-        if door.velY == 0:
-            # Wenn Spieler sich abwärts bewegt
-            if player.velY > 0:
-                player.posY = door.rect.top - player.height / 2
-                player.velY = 0
-            # Wenn Spieler sich aufwärts bewegt
-            elif player.velY < 0:
-                player.posY = door.rect.bottom + player.height / 2
-                player.velY = 0
-
-        # Wenn die Tür sich bewegt
-        else:
-            # Wenn die Oberkante des Spielers überhalb der Oberkante der Tür ist
-            if player.posY - player.height / 2 < door.rect.top:
-                player.posY = door.rect.top - player.height / 2
-                player.velY = 0
-            # Wenn Spieler sich großteils innerhalb der Türen befindet
-            if door.rect.top < player.posY or door.rect.bottom > player.posY:
-                player.dead = True
-        '''
+            player.has_jump = True
 
 
 # Findet alle Objekte, die den Spieler berühren
