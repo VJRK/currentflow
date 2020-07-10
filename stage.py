@@ -8,12 +8,9 @@ blocks = []
 interactables = []
 posCurrent = (0, 0)
 posFlow = (0, 0)
-# Basic_Wall_IMG = pygame.image.load("Wall_Images/BlueWallFull.png")
-# Ramp_Right_IMG = pygame.image.load("Wall_Images/RampRight.png")
-# Ramp_Left_IMG = pygame.image.load("Wall_Images/RampLeft.png")
-Basic_Wall_IMG = pygame.image.load("tasten/w.png")
-Ramp_Right_IMG = pygame.image.load("tasten/d.png")
-Ramp_Left_IMG = pygame.image.load("tasten/a.png")
+Basic_Wall_IMG = pygame.image.load("Wall_Images/BlueWallFull.png")
+Ramp_Right_IMG = pygame.image.load("Wall_Images/RampRight.png")
+Ramp_Left_IMG = pygame.image.load("Wall_Images/RampLeft.png")
 
 
 def build_level(self, index):
