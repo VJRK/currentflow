@@ -34,11 +34,11 @@ selected = 3
 selected_res = 3
 
 # Tasten
-enter = pygame.transform.scale(pygame.image.load('tasten/enter.png'), (int(gv.width / 30), int(gv.width / 21)))
-leertaste = pygame.transform.scale(pygame.image.load('tasten/leertaste.png'), (200, 40))
-taste_w = pygame.transform.scale(pygame.image.load('tasten/w.png'), (50, 50))
-taste_s = pygame.transform.scale(pygame.image.load('tasten/s.png'), (50, 50))
-taste_hoch = pygame.transform.scale(pygame.image.load('tasten/pfeil.png'), (50, 50))
+enter = pygame.transform.scale(pygame.image.load('tasten/enter.png'), (int(gv.width / 24), int(gv.width / 24)))
+leertaste = pygame.transform.scale(pygame.image.load('tasten/leertaste.png'), (int(gv.width / 10), int(gv.width / 40)))
+taste_w = pygame.transform.scale(pygame.image.load('tasten/w.png'), (int(gv.width / 40), int(gv.width / 40)))
+taste_s = pygame.transform.scale(pygame.image.load('tasten/s.png'), (int(gv.width / 40), int(gv.width / 40)))
+taste_hoch = pygame.transform.scale(pygame.image.load('tasten/hoch.png'), (int(gv.width / 40), int(gv.width / 40)))
 taste_runter = pygame.transform.rotate(taste_hoch, 180)
 
 

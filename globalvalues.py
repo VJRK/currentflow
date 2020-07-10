@@ -1,19 +1,19 @@
 active_stage = 0
-width = 1920
-height = 1080
+width = 960
+height = 540
 L = 0
 T = 0
 
-sc = 30
+sc = 15
 
-gravity = 0.002
+gravity = 0.001
 frictionGround = 0.92
 frictionAir = 0.99
 
-jumpHeight = 130
-velXmaxGround = 0.4
+jumpHeight = 70
+velXmaxGround = 0.2
 velXmaxAir = 1000
 velYmaxUp = -1000
 velYmaxDown = 10
 velMaxSlide = 5
-run_acc = 0.002
+run_acc = 0.001
