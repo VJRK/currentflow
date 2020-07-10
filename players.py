@@ -1,4 +1,5 @@
 import pygame
+from math import fabs
 from collision import *
 
 
@@ -52,6 +53,8 @@ class Player:
         self.posX += self.velX * dt
         self.velX += self.accX * dt
         self.velX *= gv.frictionGround
+        if fabs(self.velX) < 0.001:
+            self.velX = 0
         self.velX = utils.clamp(self.velX, gv.velXmaxGround, -gv.velXmaxGround)
 
         # Horizontale Kollision

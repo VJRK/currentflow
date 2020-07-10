@@ -8,9 +8,9 @@ blocks = []
 interactables = []
 posCurrent = (0, 0)
 posFlow = (0, 0)
-Basic_Wall_IMG = pygame.image.load("Wall_Images/BlueWallFull.png")
-Ramp_Right_IMG = pygame.image.load("Wall_Images/RampRight.png")
-Ramp_Left_IMG = pygame.image.load("Wall_Images/RampLeft.png")
+Basic_Wall_IMG = pygame.transform.scale(pygame.image.load("Wall_Images/BlueWallFull.png"), (gv.sc, gv.sc))
+Ramp_Right_IMG = pygame.transform.scale(pygame.image.load("Wall_Images/RampRight.png"), (gv.sc, gv.sc))
+Ramp_Left_IMG = pygame.transform.scale(pygame.image.load("Wall_Images/RampLeft.png"), (gv.sc, gv.sc))
 
 
 def build_level(self, index):
@@ -104,13 +104,10 @@ def render(self, window):
 
         # Rechteckige Blöcke
         if block.typ == 0:  # Wand
-            window.blit(pygame.transform.scale(Basic_Wall_IMG, (block.rect.width, block.rect.height)),
-                        (block.rect.x, block.rect.y))
+            window.blit(Basic_Wall_IMG, (block.rect.x, block.rect.y))
 
         # Rampen in Form von Polygonen anhand des Rechtecks
         elif block.typ == 1:  # RampeR
-            window.blit(pygame.transform.scale(Ramp_Right_IMG, (block.rect.width, block.rect.height)),
-                        (block.rect.x, block.rect.y))
+            window.blit(Ramp_Right_IMG, (block.rect.x, block.rect.y))
         elif block.typ == 2:  # RampeL
-            window.blit(pygame.transform.scale(Ramp_Left_IMG, (block.rect.width, block.rect.height)),
-                        (block.rect.x-1, block.rect.y))
+            window.blit(Ramp_Left_IMG, (block.rect.x, block.rect.y))

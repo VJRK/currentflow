@@ -37,41 +37,54 @@ def ramp_collisions(player, blocks):
     collisions = get_collisions(player, blocks)
     for collision in collisions:
         if collision.typ == 1 or collision.typ == 2:  # RampeR oder RampeL
+
+            # Aufwärtsbewegung
+            if player.posY > collision.rect.bottom:
+                player.velY = 0
+                player.posY = collision.rect.bottom + player.height / 2
+
             # Rechte Rampe
-            if collision.typ == 1:
+            elif collision.typ == 1:
 
-                # Spieler bewegen
-                player.velX -= gv.gravity / 2
-                player.velY += gv.gravity / 2
-                player.velY = utils.clamp(player.velY, gv.velMaxSlide, -gv.velMaxSlide)
-                player.has_jump = True
-
-                # Wenn die rechte untere Ecke des Spielers auf der schiefen Ebene ist
+                # Wenn die rechte untere Ecke des Spielers auf der schiefen Ebene ist (X-Koordinate)
                 if player.posX + player.width / 2 < collision.rect.right:
 
-                    # Höhe so bestimmen, dass die rechte untere Ecke des Spielers auf der Rampe ist
-                    player.posY = collision.rect.bottom - player.height / 2 - \
-                                  ((collision.rect.height / collision.rect.width)
-                                   * (player.posX + player.width / 2 - collision.rect.left))
+                    # Höhe der Rampe bei der unteren rechten Ecke des Spielers (X-Koordinate)
+                    ramp_y = collision.rect.bottom - ((collision.rect.height / collision.rect.width)
+                                                      * (player.posX + player.width / 2 - collision.rect.left))
+
+                    # Wenn Spieler mit der Rampe kollidiert
+                    if player.posY + player.height / 2 > ramp_y:
+                        # Höhe so bestimmen, dass die rechte untere Ecke des Spielers auf der Rampe ist
+                        player.posY = ramp_y - player.height / 2
+
+                        # Spieler bewegen
+                        player.velX -= player.velY / 2
+                        player.velY = 0
+                        player.has_jump = True
                 else:
                     player.posY = collision.rect.top - player.height / 2
 
             # Linke Rampe
             elif collision.typ == 2:
 
-                # Spieler bewegen
-                player.velX += gv.gravity / 2
-                player.velY += gv.gravity / 2
-                player.velY = utils.clamp(player.velY, gv.velMaxSlide, -gv.velMaxSlide)
-                player.has_jump = True
-
-                # Wenn die linke untere Ecke des Spielers auf der schiefen Ebene ist
+                # Wenn die linke untere Ecke des Spielers auf der schiefen Ebene ist (X-Koordinate)
                 if player.posX - player.width / 2 > collision.rect.left:
 
-                    # Höhe so bestimmen, dass die linke untere Ecke des Spielers auf der Rampe ist
-                    player.posY = collision.rect.bottom - player.height / 2 - collision.rect.height + \
-                                  ((collision.rect.height / collision.rect.width)
-                                   * (player.posX - player.width / 2 - collision.rect.left))
+                    ramp_y = collision.rect.bottom - collision.rect.height + \
+                             ((collision.rect.height / collision.rect.width)
+                              * (player.posX - player.width / 2 - collision.rect.left))
+
+                    # Wenn Spieler mit der Rampe kollidiert
+                    if player.posY + player.height / 2 > ramp_y:
+
+                        # Höhe so bestimmen, dass die linke untere Ecke des Spielers auf der Rampe ist
+                        player.posY = ramp_y - player.height / 2
+
+                        # Spieler bewegen
+                        player.velX += player.velY / 2
+                        player.velY = 0
+                        player.has_jump = True
                 else:
                     player.posY = collision.rect.top - player.height / 2
 
@@ -146,11 +159,11 @@ def horizontal_door_collisions(player, interactables):
     collide_doors = get_collisions(player, doors)
     for door in collide_doors:
         # Rechtsbewegung
-        if player.velX > 0:
+        if player.velX > 0 and player.posX < door.rect.left:
             player.velX = 0
             player.posX = door.rect.left - player.width / 2
         # Linksbewegung
-        elif player.velX < 0:
+        elif player.velX < 0 and player.posX > door.rect.right:
             player.velX = 0
             player.posX = door.rect.right + player.width / 2
 
