@@ -1,8 +1,6 @@
 active_stage = 0
 width = 960
 height = 540
-L = 0
-T = 0
 
 sc = 15
 

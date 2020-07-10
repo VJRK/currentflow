@@ -1,23 +1,18 @@
 import globalvalues as gv
 
+resolutions = [(3840, 2160), (3200, 1800), (2560, 1440), (1920, 1080), (1600, 900), (1280, 720), (640, 360)]
 
-def setdimensions(current_w, current_h):
+
+def get_resolution_index(current_w, current_h):
+    index = 0
     ratio = current_w / current_h
-    # Bei breiten Bildschirmen
+    # Bei breiten Bildschirmen nach der Höhe richten
     if ratio > 16 / 9:
-        gv.width = int(current_h * 16 / 9)
-        gv.height = current_h
-        gv.L = int((current_w - gv.width) / 2)
-        gv.T = 0
-    # Bei hohen Bildschrimen
-    elif ratio < 16 / 9:
-        gv.width = current_w
-        gv.height = int(current_w * 9 / 16)
-        gv.L = 0
-        gv.T = int((current_h - gv.height) / 2)
+        for res in resolutions:
+            if current_h < res[1]:
+                index += 1
     else:
-        gv.width = current_w
-        gv.height = current_h
-        gv.L = gv.T = 0
-    print(gv.width, gv.height)
-    print(gv.L, gv.T)
+        for res in resolutions:
+            if current_w < res[0]:
+                index += 1
+    return index

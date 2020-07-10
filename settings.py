@@ -29,9 +29,9 @@ del i, rect
 all_rects = rects_res + [rect2]
 
 # Momentan gewähltes Feld
-selected = 3
+selected = 5
 # Momentan gewählte Auflösung
-selected_res = 3
+selected_res = 5
 
 # Tasten
 enter = pygame.transform.scale(pygame.image.load('tasten/enter.png'), (int(gv.width / 24), int(gv.width / 24)))

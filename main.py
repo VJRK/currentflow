@@ -1,4 +1,5 @@
 import start
+import resize
 from players import *
 import stage
 import settings
@@ -7,7 +8,9 @@ import result_screen
 pygame.init()
 
 # Fenster
-window = pygame.display.set_mode(settings.resolutions[3])
+monitor_res = (pygame.display.Info().current_w, pygame.display.Info().current_h)
+settings.selected_res = resize.get_resolution_index(monitor_res[0], monitor_res[1])
+window = pygame.display.set_mode(settings.resolutions[settings.selected_res])
 canvas = pygame.Surface((gv.width, gv.height))
 pygame.display.set_caption("CurrentFlow")
 

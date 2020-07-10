@@ -12,6 +12,7 @@ zahnrad = pygame.transform.scale(pygame.image.load('zahnrad.png'), (int(gv.width
 enter = pygame.transform.scale(pygame.image.load('tasten/enter.png'), (int(gv.width / 24), int(gv.width / 24)))
 leertaste = pygame.transform.scale(pygame.image.load('tasten/leertaste.png'), (int(gv.width / 10), int(gv.width / 40)))
 taste_e = pygame.transform.scale(pygame.image.load('tasten/e.png'), (int(gv.width / 40), int(gv.width / 40)))
+hintergrund = pygame.transform.scale(pygame.image.load('wall_images/wall.png'), (int(gv.width / 4), int(gv.width / 4)))
 
 # Schrift auf Surface zeichnen
 text_surface1, rect1 = FONT_SD.render("CURRENT", (255, 255, 0))
@@ -31,6 +32,9 @@ def handleinput(event):
 
 
 def render(canvas):
+    # Hintergrund
+    canvas.blit(hintergrund, (0, 0))
+
     # CURRENT
     canvas.blit(text_surface1, (gv.width / 2 - rect1[2], gv.height / 2 - rect1[3] / 2))
     # FLOW
