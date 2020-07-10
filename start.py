@@ -28,7 +28,7 @@ def handleinput(event):
 
         # Bei Enter oder Leertaste zu Stage 1 wechseln
         elif event.key == pygame.K_SPACE or event.key == pygame.K_RETURN:
-            gv.active_stage = 1
+            gv.active_stage = -3
 
 
 def render(canvas):

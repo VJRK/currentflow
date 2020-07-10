@@ -4,7 +4,7 @@ from level import *
 import random
 
 
-all_levels = [[level1_b, level1_i], [level2, level2_i]]
+all_levels = [[level1, level1_i], [level2, level2_i], [level3, level3_i]]
 blocks = []
 wall_variations = []
 interactables = []

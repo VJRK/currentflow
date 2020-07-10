@@ -4,6 +4,7 @@ from players import *
 import stage
 import settings
 import result_screen
+import levelselect
 
 pygame.init()
 
@@ -15,7 +16,7 @@ canvas = pygame.Surface((gv.width, gv.height))
 pygame.display.set_caption("CurrentFlow")
 
 # Hauptklassen
-stage.build_level(stage, 1)
+stage.build_level(stage, levelselect.selected_lev)
 current = Player(False, stage.posCurrent[0], stage.posCurrent[1], (255, 255, 0))
 flow = Player(True, stage.posFlow[0], stage.posFlow[1], (0, 255, 255))
 
@@ -28,8 +29,6 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-            running = False
 
         # Eingabe
         if gv.active_stage == 0:
@@ -38,9 +37,13 @@ while running:
             settings.handleinput(settings, event, window)
         elif gv.active_stage == -2:
             result_screen.handleinput(event, stage)
+        elif gv.active_stage == -3:
+            levelselect.handleinput(levelselect, event, window)
         else:
             current.handleinput(event)
             flow.handleinput(event)
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                gv.active_stage = -3
 
     # Update
     if gv.active_stage != 0:
@@ -56,6 +59,8 @@ while running:
         settings.render(canvas)
     elif gv.active_stage == -2:
         result_screen.render(canvas)
+    elif gv.active_stage == -3:
+        levelselect.render(canvas)
     else:
         stage.render(stage, canvas)
         current.render(canvas)
