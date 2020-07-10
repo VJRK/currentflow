@@ -1,21 +1,27 @@
 from block import *
 from interactable import *
 from level import *
+import random
 
 
 all_levels = [[level1_b, level1_i], [level2, level2_i]]
 blocks = []
+wall_variations = []
 interactables = []
 posCurrent = (0, 0)
 posFlow = (0, 0)
-Basic_Wall_IMG = pygame.transform.scale(pygame.image.load("Wall_Images/BlueWallFull.png"), (gv.sc, gv.sc))
-Ramp_Right_IMG = pygame.transform.scale(pygame.image.load("Wall_Images/RampRight.png"), (gv.sc, gv.sc))
-Ramp_Left_IMG = pygame.transform.scale(pygame.image.load("Wall_Images/RampLeft.png"), (gv.sc, gv.sc))
+w_img1 = pygame.transform.scale(pygame.image.load("wall_images/wand.png"), (gv.sc, gv.sc))
+w_img2 = pygame.transform.scale(pygame.image.load("wall_images/wand2.png"), (gv.sc, gv.sc))
+w_img3 = pygame.transform.scale(pygame.image.load("wall_images/wand3.png"), (gv.sc, gv.sc))
+ramp_r_img = pygame.transform.scale(pygame.image.load("wall_images/rampe_r.png"), (gv.sc, gv.sc))
+ramp_l_img = pygame.transform.scale(pygame.image.load("wall_images/rampe_l.png"), (gv.sc, gv.sc))
+all_wall_imgs = [w_img1, w_img2, w_img3]
 
 
 def build_level(self, index):
     self.blocks = []
     self.interactables = []
+    self.wall_variations = []
     x = 0
     y = 0
     for row in all_levels[index][0]:
@@ -54,6 +60,7 @@ def build_level(self, index):
 
             elif char == " ":
                 continue
+            self.wall_variations.append(random.randint(0, len(all_wall_imgs) - 1))
             x += 1
         y += 1
         x = 0
@@ -100,14 +107,16 @@ def render(self, window):
         pygame.draw.rect(window, inter.color, (inter.rect.x, inter.rect.y, inter.rect.width, inter.rect.height))
 
     # Alle Blöcke des Levels rendern
+    i = 0
     for block in self.blocks:
 
         # Rechteckige Blöcke
         if block.typ == 0:  # Wand
-            window.blit(Basic_Wall_IMG, (block.rect.x, block.rect.y))
+            window.blit(all_wall_imgs[wall_variations[i]], (block.rect.x, block.rect.y))
+            i += 1
 
         # Rampen in Form von Polygonen anhand des Rechtecks
         elif block.typ == 1:  # RampeR
-            window.blit(Ramp_Right_IMG, (block.rect.x, block.rect.y))
+            window.blit(ramp_r_img, (block.rect.x, block.rect.y))
         elif block.typ == 2:  # RampeL
-            window.blit(Ramp_Left_IMG, (block.rect.x, block.rect.y))
+            window.blit(ramp_l_img, (block.rect.x, block.rect.y))
