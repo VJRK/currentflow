@@ -72,6 +72,5 @@ while running:
     window.fill((0, 0, 0))
     window.blit(pygame.transform.scale(canvas, settings.resolutions[settings.selected_res]), (0, 0))
     pygame.display.update()
-
     # Ende Game loop
     clock.tick(max_fps)
