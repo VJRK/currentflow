@@ -8,8 +8,8 @@ class Player:
         self.is_flow = is_flow
         self.dead = False
         self.has_jump = True
-        self.width = int(gv.width / 40)
-        self.height = int(gv.width / 30)
+        self.width = 24
+        self.height = 32
         self.posX = pos_x
         self.posY = pos_y
         self.velX = 0
@@ -17,23 +17,32 @@ class Player:
         self.accX = 0
         self.collision_types = {'top': False, 'bottom': False, 'right': False, 'left': False}
         self.color = color
+        self.delta = 0
         self.sprites = []
         if self.is_flow:
             sprites = [pygame.image.load("characters/flow/stand.png"),
                        pygame.image.load("characters/flow/stand_left.png"),
                        pygame.image.load("characters/flow/stand_right.png"),
-                       pygame.image.load("characters/flow/run_left.png"),
-                       pygame.image.load("characters/flow/run_right.png"),
                        pygame.image.load("characters/flow/jump_left.png"),
-                       pygame.image.load("characters/flow/jump_right.png")]
+                       pygame.image.load("characters/flow/jump_right.png"),
+                       pygame.image.load("characters/flow/run_left1.png"),
+                       pygame.image.load("characters/flow/run_left2.png"),
+                       pygame.image.load("characters/flow/run_left3.png"),
+                       pygame.image.load("characters/flow/run_right1.png"),
+                       pygame.image.load("characters/flow/run_right2.png"),
+                       pygame.image.load("characters/flow/run_right3.png")]
         else:
             sprites = [pygame.image.load("characters/flow/stand.png"),
                        pygame.image.load("characters/flow/stand_left.png"),
                        pygame.image.load("characters/flow/stand_right.png"),
-                       pygame.image.load("characters/flow/run_left.png"),
-                       pygame.image.load("characters/flow/run_right.png"),
                        pygame.image.load("characters/flow/jump_left.png"),
-                       pygame.image.load("characters/flow/jump_right.png")]
+                       pygame.image.load("characters/flow/jump_right.png"),
+                       pygame.image.load("characters/flow/run_left1.png"),
+                       pygame.image.load("characters/flow/run_left2.png"),
+                       pygame.image.load("characters/flow/run_left3.png"),
+                       pygame.image.load("characters/flow/run_right1.png"),
+                       pygame.image.load("characters/flow/run_right2.png"),
+                       pygame.image.load("characters/flow/run_right3.png")]
         for sprite in sprites:
             self.sprites.append(pygame.transform.scale(sprite, (self.width, self.height)))
         del sprites
@@ -67,7 +76,7 @@ class Player:
             self.accX = 0
 
     def update(self, dt, stage):
-        # self.collision_types = {'top': False, 'bottom': False, 'right': False, 'left': False}
+        self.delta += dt
 
         # X
         self.posX += self.velX * dt
@@ -101,21 +110,49 @@ class Player:
         # c.check_button_collision(self, Button.instances, Door.instances)
 
     def render(self, canvas):
-        i = 0
+
+        i = 0  # enstpricht stehen
 
         # Wenn Spieler am Boden ist
         if self.has_jump:
-            if self.velX < 0:
-                i = 1
-            elif self.velX > 0:
-                i = 2
+
+            # Wenn Spieler langsam ist
+            if fabs(self.velX) < 0.01:
+                # Linksbewegung
+                if self.velX < 0:
+                    i = 1
+                # Rechtsbewegung
+                elif self.velX > 0:
+                    i = 2
+
             # Gehen
+            elif self.velX < 0:
+
+                if self.delta < 60:
+                    i = 5
+                elif self.delta < 120:
+                    i = 6
+                else:
+                    i = 7
+                    if self.delta >= 180:
+                        self.delta = 0
+
+            elif self.velX > 0:
+
+                if self.delta < 60:
+                    i = 8
+                elif self.delta < 120:
+                    i = 9
+                else:
+                    i = 10
+                    if self.delta >= 180:
+                        self.delta = 0
 
         # Wenn Spieler in der Luft ist
         else:
             if self.velX < 0:
-                i = 5
+                i = 3
             else:
-                i = 6
+                i = 4
         canvas.blit(self.sprites[i], (self.posX - self.width / 2, self.posY - self.height / 2,
                                       self.width, self.height))
