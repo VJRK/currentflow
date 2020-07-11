@@ -82,8 +82,10 @@ def handleinput(self, event, current, flow):
                 stage.build_level(stage, selected_lev)
                 current.posX = stage.posCurrent[0]
                 current.posY = stage.posCurrent[1]
+                current.dead = False
                 flow.posX = stage.posFlow[0]
                 flow.posY = stage.posFlow[1]
+                flow.dead = False
                 gv.active_stage = 1
 
         # bei BACK zurück zum spiel

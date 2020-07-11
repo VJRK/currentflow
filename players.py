@@ -76,6 +76,10 @@ class Player:
             self.accX = 0
 
     def update(self, dt, stage):
+        if self.dead:
+            stage.overlay = True
+
+        # Vergangene Zeit für Laufanimation
         self.delta += dt
 
         # X
@@ -107,6 +111,9 @@ class Player:
         button_collisions(self, stage.interactables)
 
     def render(self, canvas):
+
+        # DEBUG
+        pygame.draw.rect(canvas, (255, 0, 0), (self.posX - self.width / 2, self.posY - self.height / 2, self.width, self.height))
 
         i = 0  # enstpricht stehen
 
