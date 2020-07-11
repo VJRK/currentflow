@@ -118,15 +118,15 @@ def build_level(self, index):
                 interactables.append(Door(1, x, y + 0.5, height=0.5, width=2.5, target_height=-2))
             elif char == "6":  # horizontal down
                 interactables.append(Door(1, x, y + 0.5, height=0.5, width=2.5, target_height=2.5))
-            elif char == "7":  # vertikal down
+            elif char == "7":  # vertical down
                 interactables.append(Door(1, x + 0.25, y - 4, height=5, target_height=5.5))
-            elif char == "8":  # vertikal up
+            elif char == "8":  # vertical up
                 interactables.append((Door(1, x + 0.25, y - 4, height=5, target_height=-5.5)))
             elif char == "3":
                 interactables.append(Button(2, x, y, activated_by=2))
-            elif char == "4":  # vertikal down
+            elif char == "4":  # vertical down
                 interactables.append(Door(2, x + 0.25, y - 4, height=5, target_height=5.5))
-            elif char == "9":  # vertikal up
+            elif char == "9":  # vertical up
                 interactables.append((Door(2, x + 0.25, y - 4, height=5, target_height=-5.5)))
             elif char == "5":  # horizontal up
                 interactables.append(Door(2, x, y + .5, height=.5, width=2.5, target_height=-2))

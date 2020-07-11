@@ -38,7 +38,7 @@ del i, rect
 all_rects = rects_lev + [rect2]
 
 # Momentan gewähltes Feld
-selected = len(all_rects) - 1
+selected = 0
 # Momentan gewähltes Level
 selected_lev = 0
 
@@ -46,13 +46,10 @@ selected_lev = 0
 enter = pygame.transform.scale(pygame.image.load('tasten/enter.png'), (int(gv.width / 24), int(gv.width / 24)))
 backspace = pygame.transform.scale(pygame.image.load('tasten/backspace.png'), (int(gv.width / 18), int(gv.width / 34)))
 leertaste = pygame.transform.scale(pygame.image.load('tasten/leertaste.png'), (int(gv.width / 10), int(gv.width / 40)))
-taste_w = pygame.transform.scale(pygame.image.load('tasten/w.png'), (int(gv.width / 40), int(gv.width / 40)))
 taste_a = pygame.transform.scale(pygame.image.load('tasten/a.png'), (int(gv.width / 40), int(gv.width / 40)))
-taste_s = pygame.transform.scale(pygame.image.load('tasten/s.png'), (int(gv.width / 40), int(gv.width / 40)))
 taste_d = pygame.transform.scale(pygame.image.load('tasten/d.png'), (int(gv.width / 40), int(gv.width / 40)))
 taste_hoch = pygame.transform.scale(pygame.image.load('tasten/hoch.png'), (int(gv.width / 40), int(gv.width / 40)))
 taste_links = pygame.transform.rotate(taste_hoch, 90)
-taste_runter = pygame.transform.rotate(taste_hoch, 180)
 taste_rechts = pygame.transform.rotate(taste_hoch, 270)
 
 
@@ -61,13 +58,13 @@ def handleinput(self, event, current, flow):
     # Bei Tastendruck
     if event.type == pygame.KEYDOWN:
 
-        # Hoch (DOWN oder S, LEFT oder A)
-        if event.key in (pygame.K_DOWN, pygame.K_s, pygame.K_LEFT, pygame.K_a):
+        # Hoch (LEFT oder A)
+        if event.key in (pygame.K_LEFT, pygame.K_a):
             if self.selected > 0:
                 self.selected -= 1
 
-        # Runter (UP oder W, RIGHT oder D)
-        if event.key in (pygame.K_UP, pygame.K_w, pygame.K_RIGHT, pygame.K_d):
+        # Runter (RIGHT oder D)
+        if event.key in (pygame.K_RIGHT, pygame.K_d):
             if self.selected < len(all_rects) - 1:
                 self.selected += 1
 
@@ -128,23 +125,15 @@ def render(canvas):
                      (rects_lev[selected_lev][0] + rects_lev[selected_lev][2] + 3,
                       rects_lev[selected_lev][1] + rects_lev[selected_lev][3] - 2), 2)
 
-    # Taste w
-    canvas.blit(taste_w, (gv.width * 6 / 100, gv.height * 17 / 20))
     # Taste a
     canvas.blit(taste_a, (gv.width * 3 / 100, gv.height * 18 / 20))
-    # Taste s
-    canvas.blit(taste_s, (gv.width * 6 / 100, gv.height * 18 / 20))
     # Taste d
-    canvas.blit(taste_d, (gv.width * 9 / 100, gv.height * 18 / 20))
+    canvas.blit(taste_d, (gv.width * 6 / 100, gv.height * 18 / 20))
 
-    # Taste hoch
-    canvas.blit(taste_hoch, (gv.width * 15 / 100, gv.height * 17 / 20))
     # Taste links
     canvas.blit(taste_links, (gv.width * 12 / 100, gv.height * 18 / 20))
-    # Taste runter
-    canvas.blit(taste_runter, (gv.width * 15 / 100, gv.height * 18 / 20))
     # Taste rechts
-    canvas.blit(taste_rechts, (gv.width * 18 / 100, gv.height * 18 / 20))
+    canvas.blit(taste_rechts, (gv.width * 15 / 100, gv.height * 18 / 20))
 
     # Leertaste
     canvas.blit(leertaste, (gv.width * 44 / 50, gv.height * 90 / 100))

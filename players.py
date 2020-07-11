@@ -9,7 +9,7 @@ class Player:
         self.dead = False
         self.has_jump = True
         self.width = 24
-        self.height = 48
+        self.height = 32
         self.posX = pos_x
         self.posY = pos_y
         self.velX = 0

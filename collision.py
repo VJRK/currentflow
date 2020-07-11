@@ -102,7 +102,7 @@ def fluid_collisions(player, interactables):
         # Current und Wasser / Flow und Elektrizität / Säure
         if (not player.is_flow and collision.typ == 0) \
                 or (player.is_flow and collision.typ == 1) \
-                or collision.typ == 3:
+                or collision.typ == 2:
             player.dead = True
 
 
