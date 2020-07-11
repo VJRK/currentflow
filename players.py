@@ -77,38 +77,40 @@ class Player:
 
     def update(self, dt, stage):
         if self.dead:
+            self.velX = self.velY = self.accX = 0
             stage.overlay = True
+        else:
 
-        # Vergangene Zeit für Laufanimation
-        self.delta += dt
+            # Vergangene Zeit für Laufanimation
+            self.delta += dt
 
-        # X
-        self.posX += self.velX * dt
-        self.velX += self.accX * dt
-        self.velX *= gv.frictionGround
-        if fabs(self.velX) < 0.001:
-            self.velX = 0
-        self.velX = utils.clamp(self.velX, gv.velXmaxGround, -gv.velXmaxGround)
+            # X
+            self.posX += self.velX * dt
+            self.velX += self.accX * dt
+            self.velX *= gv.frictionGround
+            if fabs(self.velX) < 0.001:
+                self.velX = 0
+            self.velX = utils.clamp(self.velX, gv.velXmaxGround, -gv.velXmaxGround)
 
-        # Horizontale Kollision
-        horizontal_collisions(self, stage.blocks)
-        horizontal_door_collisions(self, stage.interactables)
+            # Horizontale Kollision
+            horizontal_collisions(self, stage.blocks)
+            horizontal_door_collisions(self, stage.interactables)
 
-        # Y
-        self.posY += self.velY * dt
-        self.velY += gv.gravity * dt
-        self.velY = utils.clamp(self.velY, gv.velYmaxDown, gv.velYmaxUp)
+            # Y
+            self.posY += self.velY * dt
+            self.velY += gv.gravity * dt
+            self.velY = utils.clamp(self.velY, gv.velYmaxDown, gv.velYmaxUp)
 
-        # Vertikale Kollision
-        vertical_collisions(self, stage.blocks)
-        vertical_door_collisions(self, stage.interactables)
+            # Vertikale Kollision
+            vertical_collisions(self, stage.blocks)
+            vertical_door_collisions(self, stage.interactables)
 
-        # Rampenkollision
-        ramp_collisions(self, stage.blocks)
+            # Rampenkollision
+            ramp_collisions(self, stage.blocks)
 
-        # Kollision mit Interactables
-        fluid_collisions(self, stage.interactables)
-        button_collisions(self, stage.interactables)
+            # Kollision mit Interactables
+            fluid_collisions(self, stage.interactables)
+            button_collisions(self, stage.interactables)
 
     def render(self, canvas):
 
