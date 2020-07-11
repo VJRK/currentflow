@@ -12,8 +12,8 @@ FONT_SD_50 = pygame.freetype.Font("sheeping_dogs.ttf", gv.width / 30)
 # Schrift auf Surface zeichnen
 text_surface1, rect1 = FONT_SD_80.render("Select  Level", (0, 255, 255))
 rect1 = pygame.Rect(gv.width * 1 / 2 - rect1[2] / 2, gv.height * 2 / 13 - rect1[3] / 2, rect1[2], rect1[3])
-text_surface2, rect2 = FONT_SD_80.render("Exit Menu", (0, 255, 255))
-rect2 = pygame.Rect(gv.width * 1 / 2 - rect2[2] / 2, gv.height * 8 / 9 - rect2[3] / 2, rect2[2], rect2[3])
+text_surface2, rect2 = FONT_SD_50.render("Exit Menu", (0, 255, 255))
+rect2 = pygame.Rect(gv.width * 44 / 50 - rect2[2] / 2, gv.height * 1 / 18 - rect2[3] / 2, rect2[2], rect2[3])
 
 # Level
 text_surfaces_lev = []
@@ -44,6 +44,7 @@ selected_lev = 1
 
 # Tasten
 enter = pygame.transform.scale(pygame.image.load('tasten/enter.png'), (int(gv.width / 24), int(gv.width / 24)))
+backspace = pygame.transform.scale(pygame.image.load('tasten/backspace.png'), (int(gv.width / 18), int(gv.width / 34)))
 leertaste = pygame.transform.scale(pygame.image.load('tasten/leertaste.png'), (int(gv.width / 10), int(gv.width / 40)))
 taste_w = pygame.transform.scale(pygame.image.load('tasten/w.png'), (int(gv.width / 40), int(gv.width / 40)))
 taste_s = pygame.transform.scale(pygame.image.load('tasten/s.png'), (int(gv.width / 40), int(gv.width / 40)))
@@ -57,13 +58,13 @@ def handleinput(self, event):
     # Bei Tastendruck
     if event.type == pygame.KEYDOWN:
 
-        # Hoch (UP oder W, LEFT oder A)
-        if event.key in (pygame.K_UP, pygame.K_w, pygame.K_LEFT, pygame.K_a):
+        # Hoch (DOWN oder S, LEFT oder A)
+        if event.key in (pygame.K_DOWN, pygame.K_s, pygame.K_LEFT, pygame.K_a):
             if self.selected > 0:
                 self.selected -= 1
 
-        # Runter (DOWN oder S, RIGHT oder D)
-        if event.key in (pygame.K_DOWN, pygame.K_s, pygame.K_RIGHT, pygame.K_d):
+        # Runter (UP oder W, RIGHT oder D)
+        if event.key in (pygame.K_UP, pygame.K_w, pygame.K_RIGHT, pygame.K_d):
             if self.selected < len(all_rects) - 1:
                 self.selected += 1
 
@@ -130,3 +131,5 @@ def render(canvas):
     canvas.blit(leertaste, (gv.width * 44 / 50, gv.height * 90 / 100))
     # Enter
     canvas.blit(enter, (gv.width * 44 / 50 - gv.width / 20, gv.height * 88 / 100))
+    # Backspace
+    canvas.blit(backspace, (gv.width * 85 / 100, gv.height * 2 / 20))
