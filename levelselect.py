@@ -12,7 +12,7 @@ FONT_SD_50 = pygame.freetype.Font("sheeping_dogs.ttf", gv.width / 30)
 # Schrift auf Surface zeichnen
 text_surface1, rect1 = FONT_SD_80.render("Levelauswahl", (0, 255, 255))
 rect1 = pygame.Rect(gv.width * 1 / 2 - rect1[2] / 2, gv.height * 2 / 13 - rect1[3] / 2, rect1[2], rect1[3])
-text_surface2, rect2 = FONT_SD_50.render("Verlassen", (0, 255, 255))
+text_surface2, rect2 = FONT_SD_50.render("Fertig", (0, 255, 255))
 rect2 = pygame.Rect(gv.width * 44 / 50 - rect2[2] / 2, gv.height * 1 / 18 - rect2[3] / 2, rect2[2], rect2[3])
 
 # Level
@@ -40,20 +40,23 @@ all_rects = rects_lev + [rect2]
 # Momentan gewähltes Feld
 selected = len(all_rects) - 1
 # Momentan gewähltes Level
-selected_lev = 1
+selected_lev = 0
 
 # Tasten
 enter = pygame.transform.scale(pygame.image.load('tasten/enter.png'), (int(gv.width / 24), int(gv.width / 24)))
 backspace = pygame.transform.scale(pygame.image.load('tasten/backspace.png'), (int(gv.width / 18), int(gv.width / 34)))
 leertaste = pygame.transform.scale(pygame.image.load('tasten/leertaste.png'), (int(gv.width / 10), int(gv.width / 40)))
 taste_w = pygame.transform.scale(pygame.image.load('tasten/w.png'), (int(gv.width / 40), int(gv.width / 40)))
+taste_a = pygame.transform.scale(pygame.image.load('tasten/a.png'), (int(gv.width / 40), int(gv.width / 40)))
 taste_s = pygame.transform.scale(pygame.image.load('tasten/s.png'), (int(gv.width / 40), int(gv.width / 40)))
-taste_rechts = pygame.transform.rotate(
-    pygame.transform.scale(pygame.image.load('tasten/hoch.png'), (int(gv.width / 40), int(gv.width / 40))), 90)
-taste_links = pygame.transform.rotate(taste_rechts, 180)
+taste_d = pygame.transform.scale(pygame.image.load('tasten/d.png'), (int(gv.width / 40), int(gv.width / 40)))
+taste_hoch = pygame.transform.scale(pygame.image.load('tasten/hoch.png'), (int(gv.width / 40), int(gv.width / 40)))
+taste_links = pygame.transform.rotate(taste_hoch, 90)
+taste_runter = pygame.transform.rotate(taste_hoch, 180)
+taste_rechts = pygame.transform.rotate(taste_hoch, 270)
 
 
-def handleinput(self, event):
+def handleinput(self, event, current, flow):
 
     # Bei Tastendruck
     if event.type == pygame.KEYDOWN:
@@ -77,6 +80,10 @@ def handleinput(self, event):
             else:
                 self.selected_lev = self.selected
                 stage.build_level(stage, selected_lev)
+                current.posX = stage.posCurrent[0]
+                current.posY = stage.posCurrent[1]
+                flow.posX = stage.posFlow[0]
+                flow.posY = stage.posFlow[1]
                 gv.active_stage = 1
 
         # bei BACK zurück zum spiel
@@ -119,14 +126,24 @@ def render(canvas):
                      (rects_lev[selected_lev][0] + rects_lev[selected_lev][2] + 3,
                       rects_lev[selected_lev][1] + rects_lev[selected_lev][3] - 2), 2)
 
-    # Taste hoch
-    canvas.blit(taste_rechts, (gv.width * 1 / 50, gv.height * 17 / 20))
     # Taste w
-    canvas.blit(taste_w, (gv.width * 3 / 50, gv.height * 17 / 20))
-    # Taste runter
-    canvas.blit(taste_links, (gv.width * 1 / 50, gv.height * 18 / 20))
+    canvas.blit(taste_w, (gv.width * 6 / 100, gv.height * 17 / 20))
+    # Taste a
+    canvas.blit(taste_a, (gv.width * 3 / 100, gv.height * 18 / 20))
     # Taste s
-    canvas.blit(taste_s, (gv.width * 3 / 50, gv.height * 18 / 20))
+    canvas.blit(taste_s, (gv.width * 6 / 100, gv.height * 18 / 20))
+    # Taste d
+    canvas.blit(taste_d, (gv.width * 9 / 100, gv.height * 18 / 20))
+
+    # Taste hoch
+    canvas.blit(taste_hoch, (gv.width * 15 / 100, gv.height * 17 / 20))
+    # Taste links
+    canvas.blit(taste_links, (gv.width * 12 / 100, gv.height * 18 / 20))
+    # Taste runter
+    canvas.blit(taste_runter, (gv.width * 15 / 100, gv.height * 18 / 20))
+    # Taste rechts
+    canvas.blit(taste_rechts, (gv.width * 18 / 100, gv.height * 18 / 20))
+
     # Leertaste
     canvas.blit(leertaste, (gv.width * 44 / 50, gv.height * 90 / 100))
     # Enter

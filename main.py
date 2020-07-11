@@ -40,7 +40,7 @@ while running:
         elif gv.active_stage == -2:
             result_screen.handleinput(event, stage)
         elif gv.active_stage == -3:
-            levelselect.handleinput(levelselect, event)
+            levelselect.handleinput(levelselect, event, current, flow)
         else:
             current.handleinput(event)
             flow.handleinput(event)
@@ -72,5 +72,6 @@ while running:
     window.fill((0, 0, 0))
     window.blit(pygame.transform.scale(canvas, settings.resolutions[settings.selected_res]), (0, 0))
     pygame.display.update()
+
     # Ende Game loop
     clock.tick(max_fps)
