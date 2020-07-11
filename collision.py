@@ -5,7 +5,7 @@ from interactable import *
 def horizontal_collisions(player, blocks):
     collisions = get_collisions(player, blocks)
     for collision in collisions:
-        if collision.typ == 0 or collision.typ == 3:  # Wand oder Punkt
+        if collision.typ == 0 or collision.typ == 3:  # Wand oder Halber Block
             # Rechtsbewegung
             if player.velX > 0:
                 player.velX = 0
@@ -20,7 +20,7 @@ def horizontal_collisions(player, blocks):
 def vertical_collisions(player, blocks):
     collisions = get_collisions(player, blocks)
     for collision in collisions:
-        if collision.typ == 0 or collision.typ == 3:  # Wand oder Punkt
+        if collision.typ == 0 or collision.typ == 3:  # Wand oder Halber Block
             # Aufwärtsbewegung
             if player.velY < 0:
                 player.velY = 0
