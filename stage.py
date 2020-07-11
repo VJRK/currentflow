@@ -66,27 +66,32 @@ def build_level(self, index):
             if char == "è":  # Strom+RampeLinks
                 interactables.append(Fluid(1, x, y))
                 blocks.append(Block(2, x, y))
+                blocks.append(Block(3, x, y + .5, height=.5))
             elif char == "ê":  # Strom+Boden
                 interactables.append(Fluid(1, x, y))
-                blocks.append(Block(0, x, y + .7, height=.3))
+                blocks.append(Block(3, x, y + .5, height=.5))
             elif char == "é":  # Strom+RampeRechts
                 interactables.append(Fluid(1, x, y))
                 blocks.append(Block(1, x, y))
+                blocks.append(Block(3, x, y + .5, height=.5))
             elif char == "ú":  # Wasser+RampeRechts
                 interactables.append(Fluid(0, x, y))
                 blocks.append(Block(1, x, y))
+                blocks.append(Block(3, x, y + .5, height=.5))
             elif char == "u":  # Wasser+Boden
                 interactables.append(Fluid(0, x, y))
-                blocks.append(Block(0, x, y + .7, height=.3))
+                blocks.append(Block(3, x, y + .5, height=.5))
             elif char == "ù":  # Wasser+RampeLinks
                 interactables.append(Fluid(0, x, y))
                 blocks.append(Block(2, x, y))
+                blocks.append(Block(3, x, y + .5, height=.5))
             elif char == "A":  # Säure mit Boden
                 interactables.append(Fluid(2, x, y))
-                blocks.append(Block(0, x, y + .7, height=.3))
+                blocks.append(Block(3, x, y + .5, height=.5))
             elif char == "Ä":  # Säure+RampeLinks
                 interactables.append(Fluid(2, x, y))
                 blocks.append(Block(2, x, y))
+                blocks.append(Block(3, x, y + .5, height=.5))
             elif char == "ä":  # Säure+RampeRechts
                 interactables.append(Fluid(2, x, y))
                 blocks.append(Block(1, x, y))
