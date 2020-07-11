@@ -81,8 +81,6 @@ def build_level(self, index):
             elif char == "ù":  # Wasser+RampeLinks
                 interactables.append(Fluid(0, x, y))
                 blocks.append(Block(2, x, y))
-            elif char == "a":  # Säure
-                interactables.append(Fluid(2, x, y))
             elif char == "A":  # Säure mit Boden
                 interactables.append(Fluid(2, x, y))
                 blocks.append(Block(0, x, y + .7, height=.3))
