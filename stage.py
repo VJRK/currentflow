@@ -7,7 +7,7 @@ import pygame.freetype
 # Das Freetype-Modul initialisieren
 pygame.freetype.init()
 
-all_levels = [[level1, level1_i], [level2, level2_i], [level3, level3_i]]
+all_levels = [[level1], [level2], [level3],[level4],[level5]]
 blocks = []
 wall_variations = []
 interactables = []
@@ -36,7 +36,40 @@ def build_level(self, index):
     y = 0
     for row in all_levels[index][0]:
         for char in row:
-            if char == "W":
+            if char == "e": #Strom
+                interactables.append(Fluid(1, x, y))
+            elif char == "è": #Strom+RampeLinks
+                interactables.append(Fluid(1, x, y))
+                blocks.append(Block(2, x, y))
+            elif char == "ê": #Strom+Boden
+                interactables.append(Fluid(1, x, y))
+                blocks.append(Block(0, x, y + .7, height=.3))
+            elif char == "é": #Strom+RampeRechts
+                interactables.append(Fluid(1, x, y))
+                blocks.append(Block(1, x, y))
+            elif char == "w": #Wasser
+                interactables.append(Fluid(0, x, y))
+            elif char == "ú": #Wasser+RampeRechts
+                interactables.append(Fluid(0, x, y))
+                blocks.append(Block(1, x, y))
+            elif char == "u": #Wasser+Boden
+                interactables.append(Fluid(0, x, y))
+                blocks.append(Block(0, x, y + .7, height=.3))
+            elif char == "ù": #Wasser+RampeLinks
+                interactables.append(Fluid(0, x, y))
+                blocks.append(Block(2, x, y))
+            elif char == "a": #Säure
+                interactables.append(Fluid(2, x, y))
+            elif char == "A": #Säure mit Boden
+                interactables.append(Fluid(2, x, y))
+                blocks.append(Block(0, x, y + .7, height=.3))
+            elif char == "Ä": #Säure+RampeLinks
+                interactables.append(Fluid(2, x, y))
+                blocks.append(Block(2, x, y))
+            elif char == "ä": #Säure+RampeRechts
+                interactables.append(Fluid(2, x, y))
+                blocks.append(Block(1, x, y))
+            elif char == "W":
                 blocks.append(Block(0, x, y))
             elif char == "T":
                 blocks.append(Block(0, x, y, height=.5))
@@ -53,21 +86,40 @@ def build_level(self, index):
             elif char == "Ḷ":
                 blocks.append(Block(2, x, y))
                 blocks.append(Block(3, x, y + .01, height=.0001, width=.0001))
-
             elif char == "b":
+                #Wand nach unten versetzt
                 blocks.append(Block(0, x, y + .7, height=.3))
-            elif char == "a":
-                blocks.append(Block(0, x, y, width=.5))
-                blocks.append(Block(2, x + .5, y))
             elif char == "c":
+                # Rampe rechts + nach unten versetzte Wand
                 blocks.append(Block(0, x, y + .7, height=.3))
                 blocks.append(Block(1, x, y))
-
             elif char == "C":
+                print(x)
+                print(y)
                 self.posCurrent = (x * gv.sc, y * gv.sc)
             elif char == "F":
                 self.posFlow = (x * gv.sc, y * gv.sc)
 
+            elif char == " ":
+                continue
+            elif char == "1":
+                interactables.append(Button(1, x, y, activated_by=1))
+            elif char == "2": # horizontal up
+                interactables.append(Door(1, x, y + 0.5, height=0.5, width=2.5, target_height=-2))
+            elif char == "6": # horizontal down
+                interactables.append(Door(1, x, y + 0.5, height=0.5, width=2.5, target_height=2.5))
+            elif char == "7": # vertikal down
+                interactables.append(Door(1, x + 0.25, y - 4, height=5, target_height=5.5))
+            elif char == "8": # vertikal up
+                interactables.append((Door(1, x + 0.25, y - 4, height=5, target_height=-5.5)))
+            elif char == "3":
+                interactables.append(Button(2, x, y, activated_by=2))
+            elif char == "4": # vertikal down
+                interactables.append(Door(2, x + 0.25, y - 4, height=5, target_height=5.5))
+            elif char == "9": # vertikal up
+                interactables.append((Door(2, x + 0.25, y - 4, height=5, target_height=-5.5)))
+            elif char == "5":# horizontal up
+                interactables.append(Door(2, x, y + .5, height=.5, width=2.5, target_height=-2))
             elif char == " ":
                 continue
             self.wall_variations.append(random.randint(0, len(all_wall_imgs) - 1))
@@ -77,30 +129,6 @@ def build_level(self, index):
 
     x = 0
     y = 0
-    for row in all_levels[index][0]:
-        for char in row:
-            if char == "w":
-                interactables.append(Fluid(0, x, y))
-            elif char == "e":
-                interactables.append(Fluid(1, x, y))
-            elif char == "a":
-                interactables.append(Fluid(2, x, y))
-
-            elif char == "1":
-                interactables.append(Button(1, x, y, activated_by=1))
-            elif char == "2":
-                interactables.append(Door(1, x, y + 0.5, height=0.5, width=2.5, target_height=-2))
-            elif char == "3":
-                interactables.append(Button(2, x, y, activated_by=2))
-            elif char == "4":
-                interactables.append(Door(2, x + 0.25, y - 4, height=5, target_height=5.5))
-            elif char == "5":
-                interactables.append(Door(2, x, y + .5, height=.5, width=2.5, target_height=-2))
-            elif char == " ":
-                continue
-            x += 1
-        y += 1
-        x = 0
 
 
 def update(dt):
