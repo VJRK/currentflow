@@ -106,9 +106,6 @@ class Player:
         fluid_collisions(self, stage.interactables)
         button_collisions(self, stage.interactables)
 
-        # c.check_door_collisions(self, Door.instances)
-        # c.check_button_collision(self, Button.instances, Door.instances)
-
     def render(self, canvas):
 
         i = 0  # enstpricht stehen
@@ -116,41 +113,43 @@ class Player:
         # Wenn Spieler am Boden ist
         if self.has_jump:
 
-            # Wenn Spieler langsam ist
-            if fabs(self.velX) < 0.01:
+            # Wenn Spieler nach links oder rechts drückt und langsam ist
+            if self.accX != 0 and fabs(self.velX) <= 0.02:
                 # Linksbewegung
-                if self.velX < 0:
+                if self.accX < 0:
                     i = 1
                 # Rechtsbewegung
-                elif self.velX > 0:
+                elif self.accX > 0:
                     i = 2
 
-            # Gehen
-            elif self.velX < 0:
+            # Laufen
+            # Wenn Spieler nicht langsam ist
+            elif fabs(self.velX) > 0.02:
+                if self.velX < 0:
 
-                if self.delta < 60:
-                    i = 5
-                elif self.delta < 120:
-                    i = 6
-                else:
-                    i = 7
-                    if self.delta >= 180:
-                        self.delta = 0
+                    if self.delta < 60:
+                        i = 5
+                    elif self.delta < 120:
+                        i = 6
+                    else:
+                        i = 7
+                        if self.delta >= 180:
+                            self.delta = 0
 
-            elif self.velX > 0:
+                elif self.velX > 0:
 
-                if self.delta < 60:
-                    i = 8
-                elif self.delta < 120:
-                    i = 9
-                else:
-                    i = 10
-                    if self.delta >= 180:
-                        self.delta = 0
+                    if self.delta < 60:
+                        i = 8
+                    elif self.delta < 120:
+                        i = 9
+                    else:
+                        i = 10
+                        if self.delta >= 180:
+                            self.delta = 0
 
         # Wenn Spieler in der Luft ist
         else:
-            if self.velX < 0:
+            if self.accX < 0:
                 i = 3
             else:
                 i = 4
