@@ -2,7 +2,10 @@ from block import *
 from interactable import *
 from level import *
 import random
+import pygame.freetype
 
+# Das Freetype-Modul initialisieren
+pygame.freetype.init()
 
 all_levels = [[level1, level1_i], [level2, level2_i], [level3, level3_i]]
 blocks = []
@@ -10,6 +13,13 @@ wall_variations = []
 interactables = []
 posCurrent = (0, 0)
 posFlow = (0, 0)
+
+# "Verlassen"-Schriftzug in der oberen rechten Ecke
+FONT_SD = pygame.freetype.Font("sheeping_dogs.ttf", gv.width / 48)
+text_surface, rect2 = FONT_SD.render("Verlassen", (0, 255, 255, 100))
+text_rect = pygame.Rect(gv.width * 46 / 50 - rect2[2] / 2, gv.height * 1 / 18 - rect2[3] / 2, rect2[2], rect2[3])
+backspace = pygame.transform.scale(pygame.image.load('tasten/backspace.png'), (int(gv.width / 18), int(gv.width / 34)))
+
 w_img1 = pygame.transform.scale(pygame.image.load("wall_images/wand1.png"), (gv.sc, gv.sc))
 w_img2 = pygame.transform.scale(pygame.image.load("wall_images/wand2.png"), (gv.sc, gv.sc))
 w_img3 = pygame.transform.scale(pygame.image.load("wall_images/wand3.png"), (gv.sc, gv.sc))
@@ -100,11 +110,11 @@ def update(dt):
             inter.update(dt)
 
 
-def render(self, window):
+def render(self, canvas):
 
     # Alle Interactables rendern
     for inter in interactables:
-        pygame.draw.rect(window, inter.color, (inter.rect.x, inter.rect.y, inter.rect.width, inter.rect.height))
+        pygame.draw.rect(canvas, inter.color, (inter.rect.x, inter.rect.y, inter.rect.width, inter.rect.height))
 
     # Alle Blöcke des Levels rendern
     i = 0
@@ -112,11 +122,16 @@ def render(self, window):
 
         # Rechteckige Blöcke
         if block.typ == 0:  # Wand
-            window.blit(all_wall_imgs[wall_variations[i]], (block.rect.x, block.rect.y))
+            canvas.blit(all_wall_imgs[wall_variations[i]], (block.rect.x, block.rect.y))
             i += 1
 
         # Rampen in Form von Polygonen anhand des Rechtecks
         elif block.typ == 1:  # RampeR
-            window.blit(ramp_r_img, (block.rect.x, block.rect.y))
+            canvas.blit(ramp_r_img, (block.rect.x, block.rect.y))
         elif block.typ == 2:  # RampeL
-            window.blit(ramp_l_img, (block.rect.x, block.rect.y))
+            canvas.blit(ramp_l_img, (block.rect.x, block.rect.y))
+
+    # Verlassen
+    canvas.blit(text_surface, text_rect)
+    # Backspace
+    canvas.blit(backspace, (gv.width * 92 / 100, gv.height * 8 / 100))

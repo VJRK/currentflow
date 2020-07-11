@@ -10,9 +10,9 @@ FONT_SD_80 = pygame.freetype.Font("sheeping_dogs.ttf", gv.width / 24)
 FONT_SD_50 = pygame.freetype.Font("sheeping_dogs.ttf", gv.width / 30)
 
 # Schrift auf Surface zeichnen
-text_surface1, rect1 = FONT_SD_80.render("Select  Level", (0, 255, 255))
+text_surface1, rect1 = FONT_SD_80.render("Levelauswahl", (0, 255, 255))
 rect1 = pygame.Rect(gv.width * 1 / 2 - rect1[2] / 2, gv.height * 2 / 13 - rect1[3] / 2, rect1[2], rect1[3])
-text_surface2, rect2 = FONT_SD_50.render("Exit Menu", (0, 255, 255))
+text_surface2, rect2 = FONT_SD_50.render("Verlassen", (0, 255, 255))
 rect2 = pygame.Rect(gv.width * 44 / 50 - rect2[2] / 2, gv.height * 1 / 18 - rect2[3] / 2, rect2[2], rect2[3])
 
 # Level
@@ -106,7 +106,7 @@ def render(canvas):
                          gv.height / 4 + column * gv.width / 20 - rects_lev[j][3] / 2))
             column += 1
 
-    # Exit Menu
+    # Verlassen
     canvas.blit(text_surface2, rect2)
 
     # Auswahl
