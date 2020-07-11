@@ -4,7 +4,7 @@ from level import *
 import random
 import pygame.freetype
 
-# Das Freetype-Modul initialisieren
+# Das Freetype-Modul Initialisieren
 pygame.freetype.init()
 
 all_levels = [level1, level2, level3, level4, level5, level6]
