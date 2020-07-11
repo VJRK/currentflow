@@ -29,6 +29,8 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+            running = False
 
         # Eingabe
         if gv.active_stage == 0:
@@ -38,11 +40,11 @@ while running:
         elif gv.active_stage == -2:
             result_screen.handleinput(event, stage)
         elif gv.active_stage == -3:
-            levelselect.handleinput(levelselect, event, window)
+            levelselect.handleinput(levelselect, event)
         else:
             current.handleinput(event)
             flow.handleinput(event)
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_BACKSPACE:
                 gv.active_stage = -3
 
     # Update
