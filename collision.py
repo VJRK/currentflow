@@ -64,6 +64,8 @@ def ramp_collisions(player, blocks):
                         player.has_jump = True
                 else:
                     player.posY = collision.rect.top - player.height / 2
+                    player.velY = 0
+                    player.has_jump = True
 
             # Linke Rampe
             elif collision.typ == 2:
@@ -87,6 +89,8 @@ def ramp_collisions(player, blocks):
                         player.has_jump = True
                 else:
                     player.posY = collision.rect.top - player.height / 2
+                    player.velY = 0
+                    player.has_jump = True
 
 
 # Kollision mit Flüssigkeiten

@@ -15,7 +15,6 @@ class Player:
         self.velX = 0
         self.velY = 0
         self.accX = 0
-        self.collision_types = {'top': False, 'bottom': False, 'right': False, 'left': False}
         self.color = color
         self.delta = 0
         self.sprites = []
@@ -46,6 +45,15 @@ class Player:
         for sprite in sprites:
             self.sprites.append(pygame.transform.scale(sprite, (self.width, self.height)))
         del sprites
+
+    def reset(self, pos_x, pos_y):
+        self.dead = False
+        self.has_jump = True
+        self.posX = pos_x
+        self.posY = pos_y
+        self.velX = 0
+        self.velY = 0
+        self.accX = 0
 
     def handleinput(self, event):
 

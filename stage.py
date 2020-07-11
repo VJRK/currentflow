@@ -153,12 +153,8 @@ def handleinput(self, event, current, flow):
     if overlay:
         if event.type == pygame.KEYDOWN and (event.key == pygame.K_SPACE or event.key == pygame.K_RETURN):
             build_level(self, self.selected_level)
-            current.posX = self.posCurrent[0]
-            current.posY = self.posCurrent[1]
-            current.dead = False
-            flow.posX = self.posFlow[0]
-            flow.posY = self.posFlow[1]
-            flow.dead = False
+            current.reset(self.posCurrent[0], self.posCurrent[1])
+            flow.reset(self.posFlow[0], self.posFlow[1])
             self.overlay = False
     else:
         if event.type == pygame.KEYDOWN and event.key == pygame.K_BACKSPACE:
