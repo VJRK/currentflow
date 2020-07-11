@@ -14,12 +14,17 @@ wall_variations = []
 interactables = []
 posCurrent = (0, 0)
 posFlow = (0, 0)
+overlay = False
 
 # "Verlassen"-Schriftzug in der oberen rechten Ecke
-FONT_SD = pygame.freetype.Font("sheeping_dogs.ttf", gv.width / 48)
-text_surface, rect2 = FONT_SD.render("Verlassen", (0, 255, 255, 100))
-text_rect = pygame.Rect(gv.width * 46 / 50 - rect2[2] / 2, gv.height * 1 / 18 - rect2[3] / 2, rect2[2], rect2[3])
-backspace = pygame.transform.scale(pygame.image.load('tasten/backspace.png'), (int(gv.width / 18), int(gv.width / 34)))
+FONT_SD_SMALL = pygame.freetype.Font("sheeping_dogs.ttf", gv.width / 48)
+text_surface1, rect1 = FONT_SD_SMALL.render("Verlassen", (0, 255, 255, 100))
+text_rect1 = pygame.Rect(gv.width * 46 / 50 - rect1[2] / 2, gv.height * 1 / 18 - rect1[3] / 2, rect1[2], rect1[3])
+
+# "Erneut versuchen"-Schriftzug auf dem Overlay
+FONT_SD_BIG = pygame.freetype.Font("sheeping_dogs.ttf", gv.width / 30)
+text_surface2, rect2 = FONT_SD_BIG.render("Erneut versuchen", (0, 255, 255))
+text_rect2 = pygame.Rect(gv.width / 2 - rect2[2] / 2, gv.height / 2 - rect2[3] / 2, rect2[2], rect2[3])
 
 # Sprites der Blöcke laden
 w_img1 = pygame.transform.scale(pygame.image.load("wall_images/wand1.png"), (gv.sc, gv.sc))
@@ -43,6 +48,10 @@ taste_links = pygame.transform.rotate(taste_hoch, 90)
 taste_rechts = pygame.transform.rotate(taste_hoch, 270)
 backspace = pygame.transform.scale(pygame.image.load('tasten/backspace.png'), (int(gv.width / 18), int(gv.width / 34)))
 backspace.fill((255, 255, 255, 100), None, pygame.BLEND_RGBA_MULT)
+
+# Enter und Leertaste
+enter = pygame.transform.scale(pygame.image.load('tasten/enter.png'), (int(gv.width / 24), int(gv.width / 24)))
+leertaste = pygame.transform.scale(pygame.image.load('tasten/leertaste.png'), (int(gv.width / 10), int(gv.width / 40)))
 
 
 def build_level(self, index):
@@ -140,6 +149,24 @@ def build_level(self, index):
         x = 0
 
 
+def handleinput(self, event, current, flow):
+    if overlay:
+        if event.type == pygame.KEYDOWN and (event.key == pygame.K_SPACE or event.key == pygame.K_RETURN):
+            build_level(self, self.selected_level)
+            current.posX = self.posCurrent[0]
+            current.posY = self.posCurrent[1]
+            current.dead = False
+            flow.posX = self.posFlow[0]
+            flow.posY = self.posFlow[1]
+            flow.dead = False
+            self.overlay = False
+    else:
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_BACKSPACE:
+            gv.active_stage = -3
+        current.handleinput(event)
+        flow.handleinput(event)
+
+
 def update(dt):
     # Knöpfe und Türen updaten
     for inter in interactables:
@@ -187,6 +214,18 @@ def render(self, canvas):
             canvas.blit(ramp_l_img, (block.rect.x, block.rect.y))
 
     # Verlassen
-    canvas.blit(text_surface, text_rect)
+    canvas.blit(text_surface1, text_rect1)
     # Backspace
     canvas.blit(backspace, (gv.width * 92 / 100, gv.height * 8 / 100))
+
+    if overlay:
+        s = pygame.Surface((canvas.get_width(), canvas.get_height()))
+        s.set_alpha(100)
+        s.fill((0, 0, 0))
+        canvas.blit(s, (0, 0))
+        # Erneut versuchen
+        canvas.blit(text_surface2, text_rect2)
+        # Leertaste
+        canvas.blit(leertaste, (gv.width * 20 / 50, gv.height * 12 / 20))
+        # Enter
+        canvas.blit(enter, (gv.width * 26 / 50, gv.height * 23 / 40))

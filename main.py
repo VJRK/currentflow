@@ -42,10 +42,7 @@ while running:
         elif gv.active_stage == -3:
             levelselect.handleinput(levelselect, event, current, flow)
         else:
-            current.handleinput(event)
-            flow.handleinput(event)
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_BACKSPACE:
-                gv.active_stage = -3
+            stage.handleinput(stage, event, current, flow)
 
     # Update
     if gv.active_stage != 0:

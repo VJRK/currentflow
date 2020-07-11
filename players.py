@@ -76,37 +76,46 @@ class Player:
             self.accX = 0
 
     def update(self, dt, stage):
-        self.delta += dt
+        if self.dead:
+            self.velX = self.velY = self.accX = 0
+            stage.overlay = True
+        else:
 
-        # X
-        self.posX += self.velX * dt
-        self.velX += self.accX * dt
-        self.velX *= gv.frictionGround
-        if fabs(self.velX) < 0.001:
-            self.velX = 0
-        self.velX = utils.clamp(self.velX, gv.velXmaxGround, -gv.velXmaxGround)
+            # Vergangene Zeit für Laufanimation
+            self.delta += dt
 
-        # Horizontale Kollision
-        horizontal_collisions(self, stage.blocks)
-        horizontal_door_collisions(self, stage.interactables)
+            # X
+            self.posX += self.velX * dt
+            self.velX += self.accX * dt
+            self.velX *= gv.frictionGround
+            if fabs(self.velX) < 0.001:
+                self.velX = 0
+            self.velX = utils.clamp(self.velX, gv.velXmaxGround, -gv.velXmaxGround)
 
-        # Y
-        self.posY += self.velY * dt
-        self.velY += gv.gravity * dt
-        self.velY = utils.clamp(self.velY, gv.velYmaxDown, gv.velYmaxUp)
+            # Horizontale Kollision
+            horizontal_collisions(self, stage.blocks)
+            horizontal_door_collisions(self, stage.interactables)
 
-        # Vertikale Kollision
-        vertical_collisions(self, stage.blocks)
-        vertical_door_collisions(self, stage.interactables)
+            # Y
+            self.posY += self.velY * dt
+            self.velY += gv.gravity * dt
+            self.velY = utils.clamp(self.velY, gv.velYmaxDown, gv.velYmaxUp)
 
-        # Rampenkollision
-        ramp_collisions(self, stage.blocks)
+            # Vertikale Kollision
+            vertical_collisions(self, stage.blocks)
+            vertical_door_collisions(self, stage.interactables)
 
-        # Kollision mit Interactables
-        fluid_collisions(self, stage.interactables)
-        button_collisions(self, stage.interactables)
+            # Rampenkollision
+            ramp_collisions(self, stage.blocks)
+
+            # Kollision mit Interactables
+            fluid_collisions(self, stage.interactables)
+            button_collisions(self, stage.interactables)
 
     def render(self, canvas):
+
+        # DEBUG
+        pygame.draw.rect(canvas, (255, 0, 0), (self.posX - self.width / 2, self.posY - self.height / 2, self.width, self.height))
 
         i = 0  # enstpricht stehen
 
