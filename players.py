@@ -8,8 +8,8 @@ class Player:
         self.is_flow = is_flow
         self.dead = False
         self.has_jump = True
-        self.width = int(gv.width / 80)
-        self.height = int(gv.width / 60)
+        self.width = int(gv.width / 40)
+        self.height = int(gv.width / 30)
         self.posX = pos_x
         self.posY = pos_y
         self.velX = 0
@@ -17,6 +17,26 @@ class Player:
         self.accX = 0
         self.collision_types = {'top': False, 'bottom': False, 'right': False, 'left': False}
         self.color = color
+        self.sprites = []
+        if self.is_flow:
+            sprites = [pygame.image.load("characters/flow/stand.png"),
+                       pygame.image.load("characters/flow/stand_left.png"),
+                       pygame.image.load("characters/flow/stand_right.png"),
+                       pygame.image.load("characters/flow/run_left.png"),
+                       pygame.image.load("characters/flow/run_right.png"),
+                       pygame.image.load("characters/flow/jump_left.png"),
+                       pygame.image.load("characters/flow/jump_right.png")]
+        else:
+            sprites = [pygame.image.load("characters/flow/stand.png"),
+                       pygame.image.load("characters/flow/stand_left.png"),
+                       pygame.image.load("characters/flow/stand_right.png"),
+                       pygame.image.load("characters/flow/run_left.png"),
+                       pygame.image.load("characters/flow/run_right.png"),
+                       pygame.image.load("characters/flow/jump_left.png"),
+                       pygame.image.load("characters/flow/jump_right.png")]
+        for sprite in sprites:
+            self.sprites.append(pygame.transform.scale(sprite, (self.width, self.height)))
+        del sprites
 
     def handleinput(self, event):
 
@@ -42,7 +62,7 @@ class Player:
 
         # Stillstand wenn weder links noch rechts gedrückt wird
         key = pygame.key.get_pressed()
-        if (self.is_flow and not key[pygame.K_LEFT] and not key[pygame.K_RIGHT])\
+        if (self.is_flow and not key[pygame.K_LEFT] and not key[pygame.K_RIGHT]) \
                 or (not self.is_flow and not key[pygame.K_a] and not key[pygame.K_d]):
             self.accX = 0
 
@@ -80,6 +100,22 @@ class Player:
         # c.check_door_collisions(self, Door.instances)
         # c.check_button_collision(self, Button.instances, Door.instances)
 
-    def render(self, window):
-        pygame.draw.rect(window, self.color, (self.posX - self.width / 2, self.posY - self.height / 2,
-                                              self.width, self.height))
+    def render(self, canvas):
+        i = 0
+
+        # Wenn Spieler am Boden ist
+        if self.has_jump:
+            if self.velX < 0:
+                i = 1
+            elif self.velX > 0:
+                i = 2
+            # Gehen
+
+        # Wenn Spieler in der Luft ist
+        else:
+            if self.velX < 0:
+                i = 5
+            else:
+                i = 6
+        canvas.blit(self.sprites[i], (self.posX - self.width / 2, self.posY - self.height / 2,
+                                      self.width, self.height))
