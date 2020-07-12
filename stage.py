@@ -8,7 +8,7 @@ import timer as t
 # Das Freetype-Modul Initialisieren
 pygame.freetype.init()
 
-all_levels = [level1, level2, level3, level4, level5, level6, level7]
+all_levels = [level1, level2, level3]
 selected_level = 0
 blocks = []
 wall_variations = []
@@ -186,9 +186,6 @@ def update(dt, result_screen, current, flow):
 
 
 def render(self, canvas):
-    # timer anfangen
-    min, sec, dec = t.timer(t, self.start_time)
-    t.render(min, sec, dec, canvas)
     # Im ersten Level die Steuerung anzeigen
     if selected_level == 0:
         # Taste w
@@ -248,3 +245,7 @@ def render(self, canvas):
         # Enter
         canvas.blit(enter, (gv.width / 2 + ((leertaste.get_width() + enter.get_width() + gv.width / 50)/2) - enter.get_width() - gv.width / 100, gv.height * 5 / 8))
 
+
+    # Timer
+    min, sec, dec = t.timer(t, self.start_time)
+    t.render(min, sec, dec, canvas)

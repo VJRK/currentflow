@@ -5,6 +5,7 @@ import stage
 import settings
 import result_screen
 import levelselect
+import credits
 
 pygame.init()
 # Fenster (wählt automatisch passende Auflösung aus (siehe resize.py))
@@ -40,6 +41,8 @@ while running:
             result_screen.handleinput(event, stage, levelselect, current, flow)
         elif gv.active_stage == -3:
             levelselect.handleinput(levelselect, event, current, flow)
+        elif gv.active_stage == -4:
+            credits.handleinput(event)
         else:
             stage.handleinput(stage, event, current, flow)
 
@@ -59,6 +62,8 @@ while running:
         result_screen.render(canvas)
     elif gv.active_stage == -3:
         levelselect.render(canvas)
+    elif gv.active_stage == -4:
+        credits.render(canvas)
     else:
         stage.render(stage, canvas)
         current.render(canvas)

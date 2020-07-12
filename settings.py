@@ -61,7 +61,7 @@ def handleinput(self, event, window):
                 gv.active_stage = 0
             # Gewählte Auflösung zuweisen
             else:
-                self.selected_lev = self.selected
+                self.selected_res = self.selected
                 window = pygame.display.set_mode((resolutions[selected_res][0], resolutions[selected_res][1]))
 
 
