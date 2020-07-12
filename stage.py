@@ -1,14 +1,16 @@
+import random
+
+import pygame.freetype
+
+import timer as t
 from block import *
 from interactable import *
 from level import *
-import random
-import pygame.freetype
-import timer as t
 
 # Das Freetype-Modul Initialisieren
 pygame.freetype.init()
 
-all_levels = [level1, level2, level3]
+all_levels = [level1, level2, level3, level4, level5, level6, level7, level8, level9, level10, level11]
 selected_level = 0
 blocks = []
 wall_variations = []

@@ -1,4 +1,5 @@
 import pygame.freetype
+
 import globalvalues as gv
 
 # Das Freetype-Modul initialisieren

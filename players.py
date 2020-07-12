@@ -1,5 +1,7 @@
-import pygame
 from math import fabs
+
+import pygame
+
 from collision import *
 
 
