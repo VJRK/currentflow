@@ -8,7 +8,7 @@ class Player:
         self.is_flow = is_flow
         self.dead = False
         self.has_jump = True
-        self.width = 24
+        self.width = 16
         self.height = 32
         self.posX = pos_x
         self.posY = pos_y
