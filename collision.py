@@ -3,6 +3,7 @@ from interactable import *
 
 # Horizontale Kollision
 def horizontal_collisions(player, blocks):
+    player.in_goal = False
     collisions = get_collisions(player, blocks)
     for collision in collisions:
         if collision.typ == 0 or collision.typ == 3:  # Wand oder Halber Block
@@ -14,6 +15,9 @@ def horizontal_collisions(player, blocks):
             elif player.velX < 0:
                 player.velX = 0
                 player.posX = collision.rect.right + player.width / 2
+        elif (collision.typ == 4 and not player.is_flow) \
+                or (collision.typ == 5 and player.is_flow):  # Ziel
+            player.in_goal = True
 
 
 # Vertikale Kollision

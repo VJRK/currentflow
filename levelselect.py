@@ -75,8 +75,8 @@ def handleinput(self, event, current, flow):
                 gv.active_stage = 1
             # Gewähltes Level zuweisen
             else:
-                self.selected_lev = self.selected
-                stage.build_level(stage, selected_lev)
+                self.selected_lev = stage.selected_level = self.selected
+                stage.build_level(stage, stage.selected_level)
                 current.reset(stage.posCurrent[0], stage.posCurrent[1])
                 flow.reset(stage.posFlow[0], stage.posFlow[1])
                 gv.active_stage = 1

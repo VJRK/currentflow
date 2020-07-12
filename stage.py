@@ -172,7 +172,10 @@ def handleinput(self, event, current, flow):
         flow.handleinput(event)
 
 
-def update(dt):
+def update(dt, current, flow):
+    if current.in_goal and flow.in_goal:
+        gv.active_stage = -2
+
     # Knöpfe und Türen updaten
     for inter in interactables:
         if inter.__class__ == Button or inter.__class__ == Door:

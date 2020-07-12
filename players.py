@@ -8,6 +8,7 @@ class Player:
         self.is_flow = is_flow
         self.dead = False
         self.has_jump = True
+        self.in_goal = False
         self.width = 24
         self.height = 48
         self.posX = pos_x
@@ -49,6 +50,7 @@ class Player:
     def reset(self, pos_x, pos_y):
         self.dead = False
         self.has_jump = True
+        self.in_goal = False
         self.posX = pos_x
         self.posY = pos_y
         self.velX = 0
