@@ -7,7 +7,9 @@ import stage
 import start
 from players import *
 
+# Pygame initialisieren
 pygame.init()
+
 # Fenster (wählt automatisch passende Auflösung aus (siehe resize.py))
 monitor_res = (pygame.display.Info().current_w, pygame.display.Info().current_h)
 settings.selected_res = resize.get_resolution_index(monitor_res[0], monitor_res[1])
@@ -59,7 +61,7 @@ while running:
     elif gv.active_stage == -1:
         settings.render(canvas)
     elif gv.active_stage == -2:
-        result_screen.render(canvas)
+        result_screen.render(canvas, stage)
     elif gv.active_stage == -3:
         levelselect.render(canvas)
     elif gv.active_stage == -4:
