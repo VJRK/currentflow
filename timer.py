@@ -27,7 +27,7 @@ def timer(self, start, window):
 
     if stage.count == 1:
         text_surfacetime, recttime = font_sd_small.render(str(int(minutes)) + " : " + str(int(seconds)) + " " +
-                                                      str(int(deciseconds)), (255, 255, 255, 100))
+                                                      str(int(deciseconds)), (255, 255, 255, 180))
         text_recttime = pygame.Rect(gv.width * 1 / 2 - recttime[2] / 2, gv.height * 1 / 20, recttime[2], recttime[3])
 
         window.blit(text_surfacetime, text_recttime)
