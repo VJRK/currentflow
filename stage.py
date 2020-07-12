@@ -10,7 +10,7 @@ from level import *
 # Das Freetype-Modul Initialisieren
 pygame.freetype.init()
 
-all_levels = [level1, level2, level3, level4, level5, level6, level7]
+all_levels = [level1, level2, level3, level4, level5, level6]
 selected_level = 0
 blocks = []
 wall_variations = []
