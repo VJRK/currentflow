@@ -3,6 +3,7 @@ from interactable import *
 from level import *
 import random
 import pygame.freetype
+import timer as t
 
 # Das Freetype-Modul Initialisieren
 pygame.freetype.init()
@@ -15,6 +16,7 @@ interactables = []
 posCurrent = (0, 0)
 posFlow = (0, 0)
 overlay = False
+count = 0
 
 # "Verlassen"-Schriftzug in der oberen rechten Ecke
 FONT_SD_SMALL = pygame.freetype.Font("sheeping_dogs.ttf", gv.width / 48)
@@ -57,6 +59,8 @@ leertaste = pygame.transform.scale(pygame.image.load('tasten/leertaste.png'), (i
 
 
 def build_level(self, index):
+    self.count = 1
+    self.start_time = pygame.time.get_ticks()
     self.selected_level = index
     self.blocks = []
     self.interactables = []
@@ -161,6 +165,8 @@ def handleinput(self, event, current, flow):
             current.reset(self.posCurrent[0], self.posCurrent[1])
             flow.reset(self.posFlow[0], self.posFlow[1])
             self.overlay = False
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_BACKSPACE:
+            gv.active_stage = -3
     else:
         if event.type == pygame.KEYDOWN and event.key == pygame.K_BACKSPACE:
             gv.active_stage = -3
@@ -180,7 +186,7 @@ def update(dt, result_screen, current, flow):
 
 
 def render(self, canvas):
-
+    t.timer(t, self.start_time, canvas)
     # Im ersten Level die Steuerung anzeigen
     if selected_level == 0:
         # Taste w
@@ -229,6 +235,7 @@ def render(self, canvas):
     canvas.blit(backspace, (gv.width * 92 / 100, gv.height * 8 / 100))
 
     if overlay:
+        self.count = 2
         s = pygame.Surface((canvas.get_width(), canvas.get_height()))
         s.set_alpha(100)
         s.fill((0, 0, 0))
