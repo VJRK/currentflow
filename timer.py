@@ -32,7 +32,7 @@ def timer(self, start, window):
 
         window.blit(text_surfacetime, text_recttime)
     else:
-        text_surface1, rect1 = font_sd_big.render("Gebrauchte Zeit", (0, 100, 100))
+        text_surface1, rect1 = font_sd_big.render("Gebrauchte Zeit", (255, 255, 255))
         text_surfacetime, recttime = font_sd_middle.render(str(int(minutes)) + " : " + str(int(seconds)) + " " +
                                                       str(int(deciseconds)), (255, 255, 255))
         text_recttime = pygame.Rect(gv.width * 1 / 2 - recttime[2] / 2, gv.height * 6 / 10, recttime[2], recttime[3])
