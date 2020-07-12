@@ -10,7 +10,7 @@ from level import *
 # Das Freetype-Modul Initialisieren
 pygame.freetype.init()
 
-all_levels = [level1, level2, level3, level4, level5]
+all_levels = [level1, level2, level3, level4, level5, level6]
 selected_level = 0
 blocks = []
 wall_variations = []
@@ -54,6 +54,15 @@ taste_links = pygame.transform.rotate(taste_hoch, 90)
 taste_rechts = pygame.transform.rotate(taste_hoch, 270)
 backspace = pygame.transform.scale(pygame.image.load('tasten/backspace.png'), (int(gv.width / 18), int(gv.width / 34)))
 backspace.fill((255, 255, 255, 100), None, pygame.BLEND_RGBA_MULT)
+
+
+# Anleitung
+font_sd_small = pygame.freetype.Font("sheeping_dogs.ttf", gv.width / 70)
+text_surface3, rect3 = font_sd_small.render("Strom  und  Wasser  vertragen  sich  nicht  gut ...", (200, 200, 200))
+text_surface4, rect4 = font_sd_small.render("Und  giftige  Schmieren  zersetzen  beide .", (200, 200, 200))
+text_surface5, rect5 = font_sd_small.render("Current  +  Gelber  Knopf  =  Platform  hoch !", (200, 200, 200))
+text_surface6, rect6 = font_sd_small.render("Flow  +  Blauer  Knopf  =  Tor  auf !", (200, 200, 200))
+
 
 # Enter und Leertaste
 enter = pygame.transform.scale(pygame.image.load('tasten/enter.png'), (int(gv.width / 24), int(gv.width / 24)))
@@ -193,18 +202,26 @@ def render(self, canvas):
     # Im ersten Level die Steuerung anzeigen
     if selected_level == 0:
         # Taste w
-        canvas.blit(taste_w, (gv.width * 38 / 100, gv.height * 17 / 20))
+        canvas.blit(taste_w, (gv.width * 8 / 100, gv.height * 16 / 20))
         # Taste a
-        canvas.blit(taste_a, (gv.width * 35 / 100, gv.height * 18 / 20))
+        canvas.blit(taste_a, (gv.width * 5 / 100, gv.height * 17 / 20))
         # Taste d
-        canvas.blit(taste_d, (gv.width * 41 / 100, gv.height * 18 / 20))
+        canvas.blit(taste_d, (gv.width * 11 / 100, gv.height * 17 / 20))
 
         # Taste hoch
-        canvas.blit(taste_hoch, (gv.width * 227 / 400, gv.height * 17 / 20))
+        canvas.blit(taste_hoch, (gv.width * 95 / 400, gv.height * 16 / 20))
         # Taste links
-        canvas.blit(taste_links, (gv.width * 215 / 400, gv.height * 18 / 20))
+        canvas.blit(taste_links, (gv.width * 83 / 400, gv.height * 17 / 20))
         # Taste rechts
-        canvas.blit(taste_rechts, (gv.width * 239 / 400, gv.height * 18 / 20))
+        canvas.blit(taste_rechts, (gv.width * 107 / 400, gv.height * 17 / 20))
+
+        # Anleitung
+        canvas.blit(text_surface3, (gv.width * 48 / 100 - rect3[2] / 2, gv.height * 79 / 100, rect3[2], rect3[3]))
+        canvas.blit(text_surface4, (gv.width * 68 / 100 - rect4[2] / 2, gv.height * 51 / 100, rect4[2], rect4[3]))
+        canvas.blit(text_surface5, (gv.width * 27 / 100 - rect5[2] / 2, gv.height * 56 / 100, rect5[2], rect5[3]))
+        canvas.blit(text_surface6, (gv.width * 60 / 100 - rect6[2] / 2, gv.height * 23 / 100, rect6[2], rect6[3]))
+
+
 
     # Alle Interactables rendern
     for inter in interactables:

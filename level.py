@@ -1,4 +1,41 @@
 level1 =   ["W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W",
+            "W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W",
+            "W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W",
+            "W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W",
+            "W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W",
+            "W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W W - - - - c - - - - - - - - - - - - - - - - - - - - - - - - - - W",
+            "W - - - - - - - - - - - - R W W W - - - - - - - - - - - - - W W W W W W W W W W W W W W W W W W W W L - - - - - - - - - - - - W",
+            "W - - - - - f - - - - - R W W W W - - - - - - - - - - - - - W W W W W W W W W W W W W W W W W W W W W W W W W - - - - - - - - W",
+            "W W W W W W W W W W W W W W W W W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W",
+            "W W W W W W W W W W W W W W W W W ù u u u u ú L - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W",
+            "W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - R W W W W W",
+            "W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - R W W W W W W",
+            "W - - - - - - - - - - - - - - - - - - - - - - - - - - - - R W W L - - - - - - 5 - - - - - - - 8 - - - - - - - - R W W W W W W W",
+            "W - - - - - - - - - - - - - - - - - - - - - - - - - - - R W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W",
+            "W - - - - - - - - - - - - - - - - - - - - - - - - - W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W",
+            "W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W",
+            "W - - - - - - R W W W W W W W W W W W W W W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W",
+            "W - - - - R W W W W W W W W W W W W W W W W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W",
+            "W - - - - - - - - - - - - - - - - - W W W W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W",
+            "W - - - - - - - - - - - - - - - - - - - W W è e e e e é W L - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W",
+            "W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W",
+            "W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W",
+            "W - 1 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - R W W L - - - - - - - - - - - - - - - - - - - - - - - - - - - W",
+            "W W W W W W L - - - - - - - - - - - - - - - - 0 - - - - - - - R W W W W L - - - - - - - - - - - - - - - - - - - - - - - - - - W",
+            "W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W à a a a a á W W W L - - - - - - - - - - - - - W",
+            "W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W L - - - - - - - - - - - - W",
+            "W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W L - - - - - - - W",
+            "W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W",
+            "W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W",
+            "W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - R W W W W",
+            "W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W W W W W",
+            "W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W W W W W",
+            "W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - R W W L - - - - R W W W W W W W W W W W W W",
+            "W - - - - - C - - - - - - - - - F - - - - - - - - - - - - - - - - - - - - - - - - R W W W W L - - R W W W W W W W W W W W W W W",
+            "W W W W W W W W W W W W W W W W W W W W W W è e e e e é W W W W ù u u u u ú W W W W W W W W W W W W W W W W W W W W W W W W W W",
+            "W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W"]
+
+level2 =   ["W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W",
             "W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W",
             "W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W",
             "W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W",
@@ -36,7 +73,7 @@ level1 =   ["W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W
             "W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W"]
 
 
-level2 =   ["W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W",
+level3 =   ["W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W",
             "W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W",
             "W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W",
             "W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W",
@@ -73,8 +110,7 @@ level2 =   ["W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W
             "W - C - F - 0 - - - - - - W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W",
             "W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W"]
 
-
-level3 =   ["W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W",
+level4 =   ["W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W",
             "W - - - - - - - - - - - - - - - - - - - - W W W W W W W W W W W W W W W W W W - - - - - - - - - - - - - - - - - - - - - - - - W",
             "W - - - - - - - - - - - - - - - - - - - - - W W W W W W W W W W W W W W W W - - - - - - - - - - - - - - - - - - - - - - - - - W",
             "W - - - - - - - - - - - - - - - - - - - - - - W W W W W W W W W W W W W W - - - - - - - - - - - - - - - - - - - - - - - - - - W",
@@ -111,8 +147,7 @@ level3 =   ["W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W
             "W ù u u u u u u u u ú W W W W W W W W W W W è e é W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W",
             "W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W"]
 
-
-level4 =   ["W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W",
+level5 =   ["W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W",
             "W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W",
             "W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W",
             "W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W",
@@ -150,7 +185,7 @@ level4 =   ["W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W
             "W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W"]
 
 
-level5 =  ["W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W",
+level6 =  ["W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W",
             "W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W",
             "W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W",
             "W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W",
