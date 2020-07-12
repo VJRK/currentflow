@@ -186,7 +186,7 @@ def update(dt, result_screen, current, flow):
 
 
 def render(self, canvas):
-    t.timer(t, self.start_time, canvas)
+
     # Im ersten Level die Steuerung anzeigen
     if selected_level == 0:
         # Taste w
@@ -246,3 +246,6 @@ def render(self, canvas):
         canvas.blit(leertaste, (gv.width * 20 / 50, gv.height * 12 / 20))
         # Enter
         canvas.blit(enter, (gv.width * 26 / 50, gv.height * 23 / 40))
+
+    # Timer
+    t.timer(t, self.start_time, canvas)
