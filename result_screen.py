@@ -43,6 +43,7 @@ def handleinput(event, stage, levelselect, current, flow):
                 gv.active_stage = 1
 
 
+
 def render(canvas):
     stage.count = 2
     t.timer(t, stage.start_time, canvas)
