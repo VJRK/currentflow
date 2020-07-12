@@ -11,8 +11,9 @@ level_nr = 1
 FONT_SD = pygame.freetype.Font("sheeping_dogs.ttf", gv.width / 20)
 
 # Sprites laden
-enter = pygame.transform.scale(pygame.image.load('tasten/enter.png'), (int(gv.width / 30), int(gv.width / 21)))
-leertaste = pygame.transform.scale(pygame.image.load('tasten/leertaste.png'), (int(gv.width / 9.6), int(gv.width / 48)))
+enter = pygame.transform.scale(pygame.image.load('tasten/enter.png'), (int(gv.height / 15), int(gv.height / 15)))
+leertaste = pygame.transform.scale(pygame.image.load('tasten/leertaste.png'), (int(gv.width / 10), int(gv.width / 40)))
+hintergrund = pygame.transform.scale(pygame.image.load('wall_images/wall.png'), (int(gv.width / 3), int(gv.width / 3)))
 
 # Schrift auf Surface zeichnen
 text_surface1, rect1 = FONT_SD.render("Level " + str(level_nr) + " ", (255, 255, 0))
@@ -40,12 +41,20 @@ def handleinput(event, stage, levelselect, current, flow):
 
 
 def render(canvas):
+    # Hintergrund
+    canvas.blit(hintergrund, (0, 0))
+    canvas.blit(hintergrund, (gv.width / 3, 0))
+    canvas.blit(hintergrund, (gv.width * 2 / 3, 0))
+    canvas.blit(hintergrund, (0, gv.width / 3))
+    canvas.blit(hintergrund, (gv.width / 3, gv.width / 3))
+    canvas.blit(hintergrund, (gv.width * 2 / 3, gv.width / 3))
+
     # Level x
     canvas.blit(text_surface1, (gv.width / 2 - rect1[2], gv.height / 2 - rect1[3] / 2))
     # geschafft!
     canvas.blit(text_surface2, (gv.width / 2, gv.height / 2 - rect2[3] / 2))
     # Leertaste
-    canvas.blit(leertaste, (gv.width / 2 - leertaste.get_width() - gv.width / 76, gv.height * 3 / 5 + 35))
+    canvas.blit(leertaste, (gv.width / 2 - leertaste.get_width() - gv.width / 38, gv.height * 5 / 8 + gv.width / 96))
     # Enter
-    canvas.blit(enter, (gv.width / 2 + gv.width / 76, gv.height * 3 / 5))
+    canvas.blit(enter, (gv.width / 2, gv.height * 5 / 8))
 

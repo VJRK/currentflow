@@ -53,6 +53,8 @@ taste_hoch = pygame.transform.scale(pygame.image.load('tasten/hoch.png'), (int(g
 taste_links = pygame.transform.rotate(taste_hoch, 90)
 taste_rechts = pygame.transform.rotate(taste_hoch, 270)
 
+hintergrund = pygame.transform.scale(pygame.image.load('wall_images/wall.png'), (int(gv.width / 3), int(gv.width / 3)))
+
 
 def handleinput(self, event, current, flow):
 
@@ -89,6 +91,13 @@ def handleinput(self, event, current, flow):
 
 
 def render(canvas):
+    # Hintergrund
+    canvas.blit(hintergrund, (0, 0))
+    canvas.blit(hintergrund, (gv.width / 3, 0))
+    canvas.blit(hintergrund, (gv.width * 2 / 3, 0))
+    canvas.blit(hintergrund, (0, gv.width / 3))
+    canvas.blit(hintergrund, (gv.width / 3, gv.width / 3))
+    canvas.blit(hintergrund, (gv.width * 2 / 3, gv.width / 3))
 
     # Fenster
     canvas.blit(text_surface1, rect1)
