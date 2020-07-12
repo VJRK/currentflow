@@ -249,7 +249,7 @@ level7 =   ["W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W
             "W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - R W W W W W W W W W W W W",
             "W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - R W W W W W W W W W W W W W",
             "W - - - - - - - - - R W W W W W à a a a a a a a a a a a a a a a á W - - - - - - - - - - - - - - - R W W W W W W W W W W W W W W",
-            "W W - - - - - - - - - - - - - - - 1 - 1 - 1 - 1 - 1 - 1 - 1 - 1 - - - - - - - - - - - - - - - - - - - - W W W W W W W W W W W W",
+            "W W - - - - - - - - - - - - - - - 1 - 1 - 1 - 1 - 1 - 1 - 1 - - - - - - - - - - - - - - - - - - - - - - W W W W W W W W W W W W",
             "W W W W L - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 0 - - - - - W W W W W W W W W W W W",
             "W W W W W L - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W W W - - - - W W W W W W W W W W W W",
             "W W W W W W L - - - - - - - - - - - - - - - - - - - - - - - - - - 9 - - - - - - - - - - - - - - - - - - W W W W W W W W W W W W",
