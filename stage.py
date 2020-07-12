@@ -169,6 +169,8 @@ def handleinput(self, event, current, flow):
             current.reset(self.posCurrent[0], self.posCurrent[1])
             flow.reset(self.posFlow[0], self.posFlow[1])
             self.overlay = False
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_BACKSPACE:
+            gv.active_stage = -3
     else:
         if event.type == pygame.KEYDOWN and event.key == pygame.K_BACKSPACE:
             gv.active_stage = -3
