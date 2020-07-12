@@ -7,7 +7,7 @@ import pygame.freetype
 # Das Freetype-Modul Initialisieren
 pygame.freetype.init()
 
-all_levels = [level1, level2, level3, level4, level5, level6]
+all_levels = [level1, level2, level3, level4, level5, level6, level7]
 selected_level = 0
 blocks = []
 wall_variations = []
@@ -135,6 +135,8 @@ def build_level(self, index):
                 interactables.append((Door(2, x + 0.25, y - 4, height=5, target_height=-5.5)))
             elif char == "5":  # horizontal up
                 interactables.append(Door(2, x, y + .5, height=.5, width=2.5, target_height=-2))
+            elif char == "0":  # horizontal down
+                interactables.append(Door(2, x, y + 0.5, height=0.5, width=2.5, target_height=2.5))
 
             elif char == "C":  # Position Current
                 self.posCurrent = (x * gv.sc, y * gv.sc)
