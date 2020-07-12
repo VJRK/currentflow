@@ -31,17 +31,17 @@ class Player:
                        pygame.image.load("characters/flow/run_right2.png"),
                        pygame.image.load("characters/flow/run_right3.png")]
         else:
-            sprites = [pygame.image.load("characters/flow/stand.png"),
-                       pygame.image.load("characters/flow/stand_left.png"),
-                       pygame.image.load("characters/flow/stand_right.png"),
-                       pygame.image.load("characters/flow/jump_left.png"),
-                       pygame.image.load("characters/flow/jump_right.png"),
-                       pygame.image.load("characters/flow/run_left1.png"),
-                       pygame.image.load("characters/flow/run_left2.png"),
-                       pygame.image.load("characters/flow/run_left3.png"),
-                       pygame.image.load("characters/flow/run_right1.png"),
-                       pygame.image.load("characters/flow/run_right2.png"),
-                       pygame.image.load("characters/flow/run_right3.png")]
+            sprites = [pygame.image.load("characters/current/stand.png"),
+                       pygame.image.load("characters/current/stand_left.png"),
+                       pygame.image.load("characters/current/stand_right.png"),
+                       pygame.image.load("characters/current/jump_left.png"),
+                       pygame.image.load("characters/current/jump_right.png"),
+                       pygame.image.load("characters/current/run_left1.png"),
+                       pygame.image.load("characters/current/run_left2.png"),
+                       pygame.image.load("characters/current/run_left3.png"),
+                       pygame.image.load("characters/current/run_right1.png"),
+                       pygame.image.load("characters/current/run_right2.png"),
+                       pygame.image.load("characters/current/run_right3.png")]
         for sprite in sprites:
             self.sprites.append(pygame.transform.scale(sprite, (self.width, self.height)))
         del sprites
