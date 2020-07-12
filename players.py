@@ -8,8 +8,8 @@ class Player:
         self.is_flow = is_flow
         self.dead = False
         self.has_jump = True
-        self.width = 16
-        self.height = 32
+        self.width = 24
+        self.height = 48
         self.posX = pos_x
         self.posY = pos_y
         self.velX = 0
@@ -121,9 +121,6 @@ class Player:
             button_collisions(self, stage.interactables)
 
     def render(self, canvas):
-
-        # DEBUG
-        pygame.draw.rect(canvas, (255, 0, 0), (self.posX - self.width / 2, self.posY - self.height / 2, self.width, self.height))
 
         i = 0  # enstpricht stehen
 
