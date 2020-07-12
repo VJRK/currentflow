@@ -1,11 +1,11 @@
-import start
-import resize
-from players import *
-import stage
-import settings
-import result_screen
-import levelselect
 import credits
+import levelselect
+import resize
+import result_screen
+import settings
+import stage
+import start
+from players import *
 
 pygame.init()
 # Fenster (wählt automatisch passende Auflösung aus (siehe resize.py))

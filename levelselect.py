@@ -1,4 +1,5 @@
 import pygame.freetype
+
 import globalvalues as gv
 import stage
 
