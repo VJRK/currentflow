@@ -26,7 +26,7 @@ text_surface1, rect1 = FONT_SD_SMALL.render("Verlassen", (0, 255, 255, 100))
 text_rect1 = pygame.Rect(gv.width * 46 / 50 - rect1[2] / 2, gv.height * 1 / 18 - rect1[3] / 2, rect1[2], rect1[3])
 
 # "Erneut versuchen"-Schriftzug auf dem Overlay
-FONT_SD_BIG = pygame.freetype.Font("sheeping_dogs.ttf", gv.width / 30)
+FONT_SD_BIG = pygame.freetype.Font("sheeping_dogs.ttf", gv.width / 20)
 text_surface2, rect2 = FONT_SD_BIG.render("Erneut versuchen", (0, 255, 255))
 text_rect2 = pygame.Rect(gv.width / 2 - rect2[2] / 2, gv.height / 2 - rect2[3] / 2, rect2[2], rect2[3])
 
@@ -188,7 +188,6 @@ def update(dt, result_screen, current, flow):
 
 
 def render(self, canvas):
-
     # Im ersten Level die Steuerung anzeigen
     if selected_level == 0:
         # Taste w
@@ -237,7 +236,6 @@ def render(self, canvas):
     canvas.blit(backspace, (gv.width * 92 / 100, gv.height * 8 / 100))
 
     if overlay:
-        self.count = 2
         s = pygame.Surface((canvas.get_width(), canvas.get_height()))
         s.set_alpha(100)
         s.fill((0, 0, 0))
@@ -245,9 +243,10 @@ def render(self, canvas):
         # Erneut versuchen
         canvas.blit(text_surface2, text_rect2)
         # Leertaste
-        canvas.blit(leertaste, (gv.width * 20 / 50, gv.height * 12 / 20))
+        canvas.blit(leertaste, (gv.width / 2 - ((leertaste.get_width() + enter.get_width() + gv.width / 50)/2), gv.height * 5 / 8 + gv.width / 96))
         # Enter
-        canvas.blit(enter, (gv.width * 26 / 50, gv.height * 23 / 40))
+        canvas.blit(enter, (gv.width / 2 + ((leertaste.get_width() + enter.get_width() + gv.width / 50)/2) - enter.get_width() - gv.width / 100, gv.height * 5 / 8))
+
 
     # Timer
     t.timer(t, self.start_time, canvas)
