@@ -28,7 +28,7 @@ def handleinput(event, stage, levelselect, current, flow):
 
         # Bei Enter oder Leertaste zur nächsten Stage wechseln
         if event.key == pygame.K_SPACE or event.key == pygame.K_RETURN:
-            if level_nr >= len(stage.all_levels):
+            if level_nr >= len(stage.all_levels) - 1:
                 gv.active_stage = -4
             else:
                 levelselect.selected = levelselect.selected_lev = stage.selected_level = level_nr + 1
