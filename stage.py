@@ -55,6 +55,7 @@ taste_rechts = pygame.transform.rotate(taste_hoch, 270)
 backspace = pygame.transform.scale(pygame.image.load('tasten/backspace.png'), (int(gv.width / 18), int(gv.width / 34)))
 backspace.fill((255, 255, 255, 100), None, pygame.BLEND_RGBA_MULT)
 
+
 # Anleitung
 font_sd_small = pygame.freetype.Font("sheeping_dogs.ttf", gv.width / 70)
 text_surface3, rect3 = font_sd_small.render("Strom  und  Wasser  vertragen  sich  nicht  gut ...", (200, 200, 200))
