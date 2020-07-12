@@ -59,7 +59,7 @@ while running:
     elif gv.active_stage == -1:
         settings.render(canvas)
     elif gv.active_stage == -2:
-        result_screen.render(canvas)
+        result_screen.render(canvas, stage)
     elif gv.active_stage == -3:
         levelselect.render(canvas)
     elif gv.active_stage == -4:

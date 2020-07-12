@@ -1,8 +1,6 @@
 import pygame.freetype
-
 import globalvalues as gv
 import timer as t
-import stage
 
 # Das Freetype-Modul initialisieren
 pygame.freetype.init()
@@ -42,7 +40,7 @@ def handleinput(event, stage, levelselect, current, flow):
                 gv.active_stage = 1
 
 
-def render(canvas):
+def render(canvas, stage):
     # Hintergrund
     canvas.blit(hintergrund, (0, 0))
     canvas.blit(hintergrund, (gv.width / 3, 0))
