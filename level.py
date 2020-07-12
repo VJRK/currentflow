@@ -108,7 +108,7 @@ level3 =   ["W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W
             "W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - R W W W W W W W W W L - - - - - - - - - W W W W W W W W W W W W",
             "W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - R W W W W W W W W W W W L - - - - - - - R W W W W W W W W W W W W",
             "W - - - - - - - - - - - - - - - c - - - - - - - - - - - - - R W W W W W W W W W W W W W L - - 0 - - R W W W W W W W W W W W W W",
-            "W ù u u u u u u u u ú W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W",
+            "W ù u u u u u u u u ú W W W W W W W W W W W è e é W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W",
             "W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W"]
 
 
