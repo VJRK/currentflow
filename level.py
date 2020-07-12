@@ -223,7 +223,7 @@ level6 =   ["W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W
             "W ù u u u u u u u u u ú W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W"]
 
 level7 =   ["W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W",
-            "W - - - - - - - - - - - - - - - - - - - - - - W W W W W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W",
+            "W W W W W W W - - - - - - - - - - - - - - - - W W W W W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W",
             "W W W W W W W L - - - - - - - - - - - - - - - - W W W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W",
             "W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W",
             "W - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - W",
