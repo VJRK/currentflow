@@ -44,8 +44,7 @@ def handleinput(event, stage, levelselect, current, flow):
 
 def render(canvas):
     stage.count = 2
-    min, sec, dec = t.timer(t, stage.start_time)
-    t.render(min, sec, dec, canvas)
+    t.timer(t, stage.start_time, canvas)
     # Level x
     canvas.blit(text_surface1, (gv.width / 2 - ((rect1[2] + rect2[2]) / 2), gv.height / 2 - rect1[3] / 2))
     # geschafft!

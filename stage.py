@@ -247,5 +247,4 @@ def render(self, canvas):
 
 
     # Timer
-    min, sec, dec = t.timer(t, self.start_time)
-    t.render(min, sec, dec, canvas)
+    t.timer(t, self.start_time, canvas)
