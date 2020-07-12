@@ -2,6 +2,7 @@ import pygame.freetype
 
 import globalvalues as gv
 import stage
+import timer as t
 
 # Das Freetype-Modul initialisieren
 pygame.freetype.init()
@@ -25,13 +26,13 @@ for levelnum in range(len(stage.all_levels)):
     text_surfaces_lev.append(FONT_SD_50.render("Level " + str(levelnum + 1), (255, 255, 0))[0])
     rect = FONT_SD_50.render("Level " + str(levelnum + 1), (255, 255, 0))[1]
     if i % 3 == 0:
-        rects_lev.append(pygame.Rect(gv.width * 1 / 6 - rect[2] / 2, gv.height / 4 + col * gv.width / 16 - rect[3] / 2,
+        rects_lev.append(pygame.Rect(gv.width * 1 / 6 - rect[2] / 2, gv.height / 5 + col * gv.width / 16 - rect[3] / 2,
                                      rect[2], rect[3]))
     if i % 3 == 1:
-        rects_lev.append(pygame.Rect(gv.width * 3 / 6 - rect[2] / 2, gv.height / 4 + col * gv.width / 16 - rect[3] / 2,
+        rects_lev.append(pygame.Rect(gv.width * 3 / 6 - rect[2] / 2, gv.height / 5 + col * gv.width / 16 - rect[3] / 2,
                                      rect[2], rect[3]))
     if i % 3 == 2:
-        rects_lev.append(pygame.Rect(gv.width * 5 / 6 - rect[2] / 2, gv.height / 4 + col * gv.width / 16 - rect[3] / 2,
+        rects_lev.append(pygame.Rect(gv.width * 5 / 6 - rect[2] / 2, gv.height / 5 + col * gv.width / 16 - rect[3] / 2,
                                      rect[2], rect[3]))
         col += 1
     i += 1
@@ -86,6 +87,7 @@ def handleinput(self, event, current, flow):
         # bei BACK zurück zum spiel
         if event.key == pygame.K_BACKSPACE:
             gv.active_stage = 1
+            t.total_pause += pygame.time.get_ticks() - t.start_pause
 
 
 def render(canvas):
@@ -99,15 +101,15 @@ def render(canvas):
         if j % 3 == 0:
             canvas.blit(text_surfaces_lev[j],
                         (gv.width * 1 / 6 - rects_lev[j][2] / 2,
-                         gv.height / 4 + column * gv.width / 16 - rects_lev[j][3] / 2))
+                         gv.height / 5 + column * gv.width / 16 - rects_lev[j][3] / 2))
         if j % 3 == 1:
             canvas.blit(text_surfaces_lev[j],
                         (gv.width * 3 / 6 - rects_lev[j][2] / 2,
-                         gv.height / 4 + column * gv.width / 16 - rects_lev[j][3] / 2))
+                         gv.height / 5 + column * gv.width / 16 - rects_lev[j][3] / 2))
         if j % 3 == 2:
             canvas.blit(text_surfaces_lev[j],
                         (gv.width * 5 / 6 - rects_lev[j][2] / 2,
-                         gv.height / 4 + column * gv.width / 16 - rects_lev[j][3] / 2))
+                         gv.height / 5 + column * gv.width / 16 - rects_lev[j][3] / 2))
             column += 1
 
     # Verlassen

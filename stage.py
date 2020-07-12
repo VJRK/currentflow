@@ -63,6 +63,7 @@ leertaste = pygame.transform.scale(pygame.image.load('tasten/leertaste.png'), (i
 def build_level(self, index):
     self.count = 1
     self.start_time = pygame.time.get_ticks()
+    t.total_pause = 0
     self.selected_level = index
     self.blocks = []
     self.interactables = []
@@ -172,6 +173,7 @@ def handleinput(self, event, current, flow):
     else:
         if event.type == pygame.KEYDOWN and event.key == pygame.K_BACKSPACE:
             gv.active_stage = -3
+            t.start_pause = pygame.time.get_ticks()
         current.handleinput(event)
         flow.handleinput(event)
 
