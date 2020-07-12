@@ -22,8 +22,8 @@ count = 0
 
 # "Verlassen"-Schriftzug in der oberen rechten Ecke
 FONT_SD_SMALL = pygame.freetype.Font("sheeping_dogs.ttf", gv.width / 48)
-text_surface1, rect1 = FONT_SD_SMALL.render("Verlassen", (0, 255, 255, 100))
-text_rect1 = pygame.Rect(gv.width * 46 / 50 - rect1[2] / 2, gv.height * 1 / 18 - rect1[3] / 2, rect1[2], rect1[3])
+text_surface1, rect1 = FONT_SD_SMALL.render("Pause", (0, 255, 255, 100))
+text_rect1 = pygame.Rect(gv.width * 47 / 50 - rect1[2] / 2, gv.height * 1 / 18 - rect1[3] / 2, rect1[2], rect1[3])
 
 # "Erneut versuchen"-Schriftzug auf dem Overlay
 FONT_SD_BIG = pygame.freetype.Font("sheeping_dogs.ttf", gv.width / 20)

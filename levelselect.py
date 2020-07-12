@@ -10,12 +10,14 @@ pygame.freetype.init()
 # Objekt aus Schriftart erzeugen
 FONT_SD_80 = pygame.freetype.Font("sheeping_dogs.ttf", gv.width / 20)
 FONT_SD_50 = pygame.freetype.Font("sheeping_dogs.ttf", gv.width / 30)
+FONT_SD_SMALL = pygame.freetype.Font("sheeping_dogs.ttf", gv.width / 48)
 
 # Schrift auf Surface zeichnen
 text_surface1, rect1 = FONT_SD_80.render("Levelauswahl", (0, 255, 255))
 rect1 = pygame.Rect(gv.width * 1 / 2 - rect1[2] / 2, gv.height * 2 / 13 - rect1[3] / 2, rect1[2], rect1[3])
-text_surface2, rect2 = FONT_SD_50.render("Fertig", (0, 255, 255))
-rect2 = pygame.Rect(gv.width * 46 / 50 - rect2[2] / 2, gv.height * 1 / 18 - rect2[3] / 2, rect2[2], rect2[3])
+text_surface2, rect2 = FONT_SD_SMALL.render("Fortsetzen", (0, 255, 255, 100))
+rect2 = pygame.Rect(gv.width * 91 / 100 - rect2[2] / 2, gv.height * 1 / 18 - rect2[3] / 2, rect2[2], rect2[3])
+
 
 # Level
 text_surfaces_lev = []
@@ -37,7 +39,7 @@ for levelnum in range(len(stage.all_levels)):
         col += 1
     i += 1
 del i, rect
-all_rects = rects_lev + [rect2]
+all_rects = rects_lev
 
 # Momentan gewähltes Feld
 selected = 0
@@ -121,7 +123,7 @@ def render(canvas):
                          gv.height / 5 + column * gv.width / 16 - rects_lev[j][3] / 2))
             column += 1
 
-    # Verlassen
+    # Fortsetzen
     canvas.blit(text_surface2, rect2)
 
     # Auswahl
