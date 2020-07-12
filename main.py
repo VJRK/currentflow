@@ -1,12 +1,13 @@
-import start
-import resize
-from players import *
-import stage
-import settings
-import result_screen
-import levelselect
 import credits
+import levelselect
+import resize
+import result_screen
+import settings
+import stage
+import start
+from players import *
 
+# Pygame initialisieren
 pygame.init()
 
 # Fenster (wählt automatisch passende Auflösung aus (siehe resize.py))
@@ -60,7 +61,7 @@ while running:
     elif gv.active_stage == -1:
         settings.render(canvas)
     elif gv.active_stage == -2:
-        result_screen.render(canvas)
+        result_screen.render(canvas, stage)
     elif gv.active_stage == -3:
         levelselect.render(canvas)
     elif gv.active_stage == -4:

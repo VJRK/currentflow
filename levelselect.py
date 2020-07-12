@@ -1,4 +1,5 @@
 import pygame.freetype
+
 import globalvalues as gv
 import stage
 
@@ -6,14 +7,14 @@ import stage
 pygame.freetype.init()
 
 # Objekt aus Schriftart erzeugen
-FONT_SD_80 = pygame.freetype.Font("sheeping_dogs.ttf", gv.width / 24)
+FONT_SD_80 = pygame.freetype.Font("sheeping_dogs.ttf", gv.width / 20)
 FONT_SD_50 = pygame.freetype.Font("sheeping_dogs.ttf", gv.width / 30)
 
 # Schrift auf Surface zeichnen
 text_surface1, rect1 = FONT_SD_80.render("Levelauswahl", (0, 255, 255))
 rect1 = pygame.Rect(gv.width * 1 / 2 - rect1[2] / 2, gv.height * 2 / 13 - rect1[3] / 2, rect1[2], rect1[3])
 text_surface2, rect2 = FONT_SD_50.render("Fertig", (0, 255, 255))
-rect2 = pygame.Rect(gv.width * 44 / 50 - rect2[2] / 2, gv.height * 1 / 18 - rect2[3] / 2, rect2[2], rect2[3])
+rect2 = pygame.Rect(gv.width * 46 / 50 - rect2[2] / 2, gv.height * 1 / 18 - rect2[3] / 2, rect2[2], rect2[3])
 
 # Level
 text_surfaces_lev = []
@@ -24,13 +25,13 @@ for levelnum in range(len(stage.all_levels)):
     text_surfaces_lev.append(FONT_SD_50.render("Level " + str(levelnum + 1), (255, 255, 0))[0])
     rect = FONT_SD_50.render("Level " + str(levelnum + 1), (255, 255, 0))[1]
     if i % 3 == 0:
-        rects_lev.append(pygame.Rect(gv.width * 1 / 6 - rect[2] / 2, gv.height / 4 + col * gv.width / 20 - rect[3] / 2,
+        rects_lev.append(pygame.Rect(gv.width * 1 / 6 - rect[2] / 2, gv.height / 4 + col * gv.width / 16 - rect[3] / 2,
                                      rect[2], rect[3]))
     if i % 3 == 1:
-        rects_lev.append(pygame.Rect(gv.width * 3 / 6 - rect[2] / 2, gv.height / 4 + col * gv.width / 20 - rect[3] / 2,
+        rects_lev.append(pygame.Rect(gv.width * 3 / 6 - rect[2] / 2, gv.height / 4 + col * gv.width / 16 - rect[3] / 2,
                                      rect[2], rect[3]))
     if i % 3 == 2:
-        rects_lev.append(pygame.Rect(gv.width * 5 / 6 - rect[2] / 2, gv.height / 4 + col * gv.width / 20 - rect[3] / 2,
+        rects_lev.append(pygame.Rect(gv.width * 5 / 6 - rect[2] / 2, gv.height / 4 + col * gv.width / 16 - rect[3] / 2,
                                      rect[2], rect[3]))
         col += 1
     i += 1
@@ -51,6 +52,8 @@ taste_d = pygame.transform.scale(pygame.image.load('tasten/d.png'), (int(gv.widt
 taste_hoch = pygame.transform.scale(pygame.image.load('tasten/hoch.png'), (int(gv.width / 40), int(gv.width / 40)))
 taste_links = pygame.transform.rotate(taste_hoch, 90)
 taste_rechts = pygame.transform.rotate(taste_hoch, 270)
+
+hintergrund = pygame.transform.scale(pygame.image.load('wall_images/wall.png'), (int(gv.width / 3), int(gv.width / 3)))
 
 
 def handleinput(self, event, current, flow):
@@ -88,6 +91,13 @@ def handleinput(self, event, current, flow):
 
 
 def render(canvas):
+    # Hintergrund
+    canvas.blit(hintergrund, (0, 0))
+    canvas.blit(hintergrund, (gv.width / 3, 0))
+    canvas.blit(hintergrund, (gv.width * 2 / 3, 0))
+    canvas.blit(hintergrund, (0, gv.width / 3))
+    canvas.blit(hintergrund, (gv.width / 3, gv.width / 3))
+    canvas.blit(hintergrund, (gv.width * 2 / 3, gv.width / 3))
 
     # Fenster
     canvas.blit(text_surface1, rect1)
@@ -98,15 +108,15 @@ def render(canvas):
         if j % 3 == 0:
             canvas.blit(text_surfaces_lev[j],
                         (gv.width * 1 / 6 - rects_lev[j][2] / 2,
-                         gv.height / 4 + column * gv.width / 20 - rects_lev[j][3] / 2))
+                         gv.height / 4 + column * gv.width / 16 - rects_lev[j][3] / 2))
         if j % 3 == 1:
             canvas.blit(text_surfaces_lev[j],
                         (gv.width * 3 / 6 - rects_lev[j][2] / 2,
-                         gv.height / 4 + column * gv.width / 20 - rects_lev[j][3] / 2))
+                         gv.height / 4 + column * gv.width / 16 - rects_lev[j][3] / 2))
         if j % 3 == 2:
             canvas.blit(text_surfaces_lev[j],
                         (gv.width * 5 / 6 - rects_lev[j][2] / 2,
-                         gv.height / 4 + column * gv.width / 20 - rects_lev[j][3] / 2))
+                         gv.height / 4 + column * gv.width / 16 - rects_lev[j][3] / 2))
             column += 1
 
     # Verlassen
@@ -137,4 +147,4 @@ def render(canvas):
     # Enter
     canvas.blit(enter, (gv.width * 44 / 50 - gv.width / 20, gv.height * 88 / 100))
     # Backspace
-    canvas.blit(backspace, (gv.width * 85 / 100, gv.height * 2 / 20))
+    canvas.blit(backspace, (gv.width * 92 / 100, gv.height * 8 / 100))

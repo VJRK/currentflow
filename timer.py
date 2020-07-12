@@ -1,7 +1,10 @@
+import copy
+
 import pygame.freetype
+
 import globalvalues as gv
 import stage
-import copy
+
 passed_time = 0
 
 # Das Freetype-Modul initialisieren

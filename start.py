@@ -1,11 +1,12 @@
 import pygame.freetype
+
 import globalvalues as gv
 
 # Das Freetype-Modul initialisieren
 pygame.freetype.init()
 
 # Objekt aus Schriftart erzeugen
-FONT_SD = pygame.freetype.Font("sheeping_dogs.ttf", gv.width / 16)
+FONT_SD = pygame.freetype.Font("sheeping_dogs.ttf", gv.width / 11)
 
 # Sprites laden
 zahnrad = pygame.transform.scale(pygame.image.load('zahnrad.png'), (int(gv.width / 9.6), int(gv.width / 9.6)))
@@ -41,13 +42,13 @@ def render(canvas):
     canvas.blit(hintergrund, (gv.width * 2 / 3, gv.width / 3))
 
     # CURRENT
-    canvas.blit(text_surface1, (gv.width / 2 - rect1[2], gv.height / 2 - rect1[3] / 3))
+    canvas.blit(text_surface1, (gv.width / 2 - ((rect1[2] + rect2[2]) / 2), gv.height / 2 - rect2[3] / 2))
     # FLOW
-    canvas.blit(text_surface2, (gv.width / 2, gv.height / 2 - rect2[3] / 3))
+    canvas.blit(text_surface2, (gv.width / 2 + ((rect1[2] + rect2[2]) / 2) - rect2[2], gv.height / 2 - rect2[3] / 2 + gv.height / 50))
     # Leertaste
-    canvas.blit(leertaste, (gv.width / 2 - leertaste.get_width() - gv.width / 38, gv.height * 5 / 8 + gv.width / 96))
+    canvas.blit(leertaste, (gv.width / 2 - ((leertaste.get_width() + enter.get_width() + gv.width / 50)/2), gv.height * 5 / 8 + gv.width / 96))
     # Enter
-    canvas.blit(enter, (gv.width / 2, gv.height * 5 / 8))
+    canvas.blit(enter, (gv.width / 2 + ((leertaste.get_width() + enter.get_width() + gv.width / 50)/2) - enter.get_width() - gv.width / 100, gv.height * 5 / 8))
 
     # Zahnrad
     canvas.blit(zahnrad, (gv.width * 7 / 8, gv.height * 7 / 9))
