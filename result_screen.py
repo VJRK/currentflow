@@ -1,5 +1,7 @@
 import pygame.freetype
 import globalvalues as gv
+import timer as t
+import stage
 
 # Das Freetype-Modul initialisieren
 pygame.freetype.init()
@@ -7,20 +9,22 @@ pygame.freetype.init()
 level_nr = 1
 
 # Objekt aus Schriftart erzeugen
-FONT_SD = pygame.freetype.Font("sheeping_dogs.ttf", gv.width / 20)
+FONT_SD = pygame.freetype.Font("sheeping_dogs.ttf", gv.width / 16)
 
 # Sprites laden
 enter = pygame.transform.scale(pygame.image.load('tasten/enter.png'), (int(gv.width / 30), int(gv.width / 21)))
 leertaste = pygame.transform.scale(pygame.image.load('tasten/leertaste.png'), (int(gv.width / 9.6), int(gv.width / 48)))
 
 # Schrift auf Surface zeichnen
-text_surface1, rect1 = FONT_SD.render("Level " + str(level_nr) + " ", (255, 255, 0))
+text_surface1, rect1 = FONT_SD.render("Level " + str(level_nr) + "  ", (255, 255, 0))
 text_surface2, rect2 = FONT_SD.render("geschafft!", (0, 255, 255))
+
+
 
 
 def set_level(self, nummer):
     self.level_nr = nummer
-    self.text_surface1, self.rect1 = FONT_SD.render("Level " + str(level_nr + 1) + " ", (255, 255, 0))
+    self.text_surface1, self.rect1 = FONT_SD.render("Level " + str(level_nr + 1) + "  ", (255, 255, 0))
 
 
 def handleinput(event, stage, levelselect, current, flow):
@@ -36,12 +40,15 @@ def handleinput(event, stage, levelselect, current, flow):
 
 
 def render(canvas):
+    stage.count = 2
+    min, sec, dec = t.timer(t, stage.start_time)
+    t.render(min, sec, dec, canvas)
     # Level x
-    canvas.blit(text_surface1, (gv.width / 2 - rect1[2], gv.height / 2 - rect1[3] / 2))
+    canvas.blit(text_surface1, (gv.width / 2 - ((rect1[2] + rect2[2]) / 2), gv.height / 2 - rect1[3] / 2))
     # geschafft!
-    canvas.blit(text_surface2, (gv.width / 2, gv.height / 2 - rect2[3] / 2))
+    canvas.blit(text_surface2, (gv.width / 2 + ((rect1[2] + rect2[2]) / 2) - rect2[2], gv.height / 2 - rect2[3] / 2))
     # Leertaste
-    canvas.blit(leertaste, (gv.width / 2 - leertaste.get_width() - gv.width / 76, gv.height * 3 / 5 + 35))
+    canvas.blit(leertaste, (gv.width / 2 - ((leertaste.get_width() + enter.get_width() + gv.width / 50)/2), gv.height * 5 / 8 + gv.width / 96))
     # Enter
-    canvas.blit(enter, (gv.width / 2 + gv.width / 76, gv.height * 3 / 5))
+    canvas.blit(enter, (gv.width / 2 + ((leertaste.get_width() + enter.get_width() + gv.width / 50)/2) - enter.get_width() - gv.width / 100, gv.height * 5 / 8))
 
