@@ -265,7 +265,6 @@ def render(self, canvas):
         canvas.blit(leertaste, (gv.width / 2 - ((leertaste.get_width() + enter.get_width() + gv.width / 50)/2), gv.height * 5 / 8 + gv.width / 96))
         # Enter
         canvas.blit(enter, (gv.width / 2 + ((leertaste.get_width() + enter.get_width() + gv.width / 50)/2) - enter.get_width() - gv.width / 100, gv.height * 5 / 8))
-
-
-    # Timer
-    t.timer(t, self.start_time, canvas)
+    else:
+        # Timer
+        t.timer(t, self.start_time, canvas)
