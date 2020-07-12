@@ -35,6 +35,8 @@ w_img3 = pygame.transform.scale(pygame.image.load("wall_images/wand3.png"), (gv.
 w_img_halb = pygame.transform.scale(pygame.image.load("wall_images/wand_u.png"), (gv.sc, gv.sc))
 ramp_r_img = pygame.transform.scale(pygame.image.load("wall_images/rampe_r.png"), (gv.sc, gv.sc))
 ramp_l_img = pygame.transform.scale(pygame.image.load("wall_images/rampe_l.png"), (gv.sc, gv.sc))
+ziel_c = pygame.transform.scale(pygame.image.load("wall_images/ziel_c.png"), (gv.sc * 2, gv.sc * 4))
+ziel_f = pygame.transform.scale(pygame.image.load("wall_images/ziel_f.png"), (gv.sc * 2, gv.sc * 4))
 all_wall_imgs = [w_img1, w_img2, w_img3]
 
 # Sprites der Tasten laden und transparenter machen
@@ -100,6 +102,7 @@ def build_level(self, index):
                 interactables.append(Fluid(2, x, y))
                 blocks.append(Block(1, x, y))
                 blocks.append(Block(3, x, y + .5, height=.5))
+
             elif char == "W":
                 blocks.append(Block(0, x, y))
             elif char == "B":  # Halber Block
@@ -146,6 +149,10 @@ def build_level(self, index):
                 self.posCurrent = (x * gv.sc, y * gv.sc)
             elif char == "F":  # Position Flow
                 self.posFlow = (x * gv.sc, y * gv.sc)
+            elif char == "c":  # Ziel Current
+                blocks.append(Block(4, x - 0.5, y - 3, width=2, height=4))
+            elif char == "f":  # Ziel Flow
+                blocks.append(Block(5, x - 0.5, y - 3, width=2, height=4))
 
             elif char == " ":
                 continue
@@ -169,7 +176,10 @@ def handleinput(self, event, current, flow):
         flow.handleinput(event)
 
 
-def update(dt):
+def update(dt, current, flow):
+    if current.in_goal and flow.in_goal:
+        gv.active_stage = -2
+
     # Knöpfe und Türen updaten
     for inter in interactables:
         if inter.__class__ == Button or inter.__class__ == Door:
@@ -214,6 +224,11 @@ def render(self, canvas):
             canvas.blit(ramp_r_img, (block.rect.x, block.rect.y))
         elif block.typ == 2:  # RampeL
             canvas.blit(ramp_l_img, (block.rect.x, block.rect.y))
+
+        elif block.typ == 4:  # Ziel Current
+            canvas.blit(ziel_c, (block.rect.x, block.rect.y))
+        elif block.typ == 5:  # Ziel Flow
+            canvas.blit(ziel_f, (block.rect.x, block.rect.y))
 
     # Verlassen
     canvas.blit(text_surface1, text_rect1)
