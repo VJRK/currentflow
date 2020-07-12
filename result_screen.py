@@ -18,13 +18,18 @@ text_surface1, rect1 = FONT_SD.render("Level " + str(level_nr) + " ", (255, 255,
 text_surface2, rect2 = FONT_SD.render("geschafft!", (0, 255, 255))
 
 
-def handleinput(event, stage, current, flow):
+def set_level(self, nummer):
+    self.level_nr = nummer
+    self.text_surface1, self.rect1 = FONT_SD.render("Level " + str(level_nr + 1) + " ", (255, 255, 0))
+
+
+def handleinput(event, stage, levelselect, current, flow):
     if event.type == pygame.KEYDOWN:
 
         # Bei Enter oder Leertaste zur nächsten Stage wechseln
         if event.key == pygame.K_SPACE or event.key == pygame.K_RETURN:
-            stage.selected_level = level_nr
-            stage.build_level(stage, gv.active_stage - 1)
+            levelselect.selected = levelselect.selected_lev = stage.selected_level = level_nr + 1
+            stage.build_level(stage, stage.selected_level)
             current.reset(stage.posCurrent[0], stage.posCurrent[1])
             flow.reset(stage.posFlow[0], stage.posFlow[1])
             gv.active_stage = 1

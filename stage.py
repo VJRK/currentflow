@@ -65,41 +65,8 @@ def build_level(self, index):
     y = 0
     for row in all_levels[index]:
         for char in row:
-            if char == "è":  # Strom+RampeLinks
-                interactables.append(Fluid(1, x, y))
-                blocks.append(Block(2, x, y))
-                blocks.append(Block(3, x, y + .5, height=.5))
-            elif char == "ê":  # Strom+Boden
-                interactables.append(Fluid(1, x, y))
-                blocks.append(Block(3, x, y + .5, height=.5))
-            elif char == "é":  # Strom+RampeRechts
-                interactables.append(Fluid(1, x, y))
-                blocks.append(Block(1, x, y))
-                blocks.append(Block(3, x, y + .5, height=.5))
-            elif char == "ú":  # Wasser+RampeRechts
-                interactables.append(Fluid(0, x, y))
-                blocks.append(Block(1, x, y))
-                blocks.append(Block(3, x, y + .5, height=.5))
-            elif char == "u":  # Wasser+Boden
-                interactables.append(Fluid(0, x, y))
-                blocks.append(Block(3, x, y + .5, height=.5))
-            elif char == "ù":  # Wasser+RampeLinks
-                interactables.append(Fluid(0, x, y))
-                blocks.append(Block(2, x, y))
-                blocks.append(Block(3, x, y + .5, height=.5))
-            elif char == "A":  # Säure mit Boden
-                interactables.append(Fluid(2, x, y))
-                blocks.append(Block(3, x, y + .5, height=.5))
-            elif char == "Ä":  # Säure+RampeLinks
-                interactables.append(Fluid(2, x, y))
-                blocks.append(Block(2, x, y))
-                blocks.append(Block(3, x, y + .5, height=.5))
-            elif char == "ä":  # Säure+RampeRechts
-                interactables.append(Fluid(2, x, y))
-                blocks.append(Block(1, x, y))
-                blocks.append(Block(3, x, y + .5, height=.5))
 
-            elif char == "W":
+            if char == "W":
                 blocks.append(Block(0, x, y))
             elif char == "B":  # Halber Block
                 blocks.append(Block(3, x, y + .5, height=.5))
@@ -109,38 +76,67 @@ def build_level(self, index):
             elif char == "L":  # Linke Rampe
                 blocks.append(Block(2, x, y))
 
-            elif char == "w":  # Wasser
+            elif char == "u":  # Wasser
                 interactables.append(Fluid(0, x, y))
                 blocks.append(Block(3, x, y + .5, height=.5))
+            elif char == "ù":  # Wasser + linke Rampe
+                interactables.append(Fluid(0, x, y))
+                blocks.append(Block(2, x, y))
+                blocks.append(Block(3, x, y + .5, height=.5))
+            elif char == "ú":  # Wasser + rechte Rampe
+                interactables.append(Fluid(0, x, y))
+                blocks.append(Block(1, x, y))
+                blocks.append(Block(3, x, y + .5, height=.5))
+
             elif char == "e":  # Elektrizität
                 interactables.append(Fluid(1, x, y))
                 blocks.append(Block(3, x, y + .5, height=.5))
+            if char == "è":  # Elektrizität + linke Rampe
+                interactables.append(Fluid(1, x, y))
+                blocks.append(Block(2, x, y))
+                blocks.append(Block(3, x, y + .5, height=.5))
+            elif char == "é":  # Elektrizität + rechte Rampe
+                interactables.append(Fluid(1, x, y))
+                blocks.append(Block(1, x, y))
+                blocks.append(Block(3, x, y + .5, height=.5))
+
             elif char == "a":  # Säure
                 interactables.append(Fluid(2, x, y))
                 blocks.append(Block(3, x, y + .5, height=.5))
+            elif char == "à":  # Säure + linke Rampe
+                interactables.append(Fluid(2, x, y))
+                blocks.append(Block(2, x, y))
+                blocks.append(Block(3, x, y + .5, height=.5))
+            elif char == "á":  # Säure + rechte Rampe
+                interactables.append(Fluid(2, x, y))
+                blocks.append(Block(1, x, y))
+                blocks.append(Block(3, x, y + .5, height=.5))
 
             # Knöpfe und Türen
-            elif char == "1":
+            # Current
+            elif char == "0":  # Knopf
                 interactables.append(Button(1, x, y, activated_by=1))
-            elif char == "2":  # horizontal up
-                interactables.append(Door(1, x, y + 0.5, height=0.5, width=2.5, target_height=-2))
-            elif char == "6":  # horizontal down
-                interactables.append(Door(1, x, y + 0.5, height=0.5, width=2.5, target_height=2.5))
-            elif char == "7":  # vertical down
-                interactables.append(Door(1, x + 0.25, y - 4, height=5, target_height=5.5))
-            elif char == "8":  # vertical up
+            elif char == "1":  # Plattform hoch
+                interactables.append(Door(1, x - 0.75, y + 0.5, height=0.5, width=2.5, target_height=-2))
+            elif char == "2":  # Plattform runter
+                interactables.append(Door(1, x - 0.75, y + 0.5, height=0.5, width=2.5, target_height=2.5))
+            elif char == "3":  # Tür hoch
                 interactables.append((Door(1, x + 0.25, y - 4, height=5, target_height=-5.5)))
-            elif char == "3":
+            elif char == "4":  # Tür runter
+                interactables.append(Door(1, x + 0.25, y - 4, height=5, target_height=5.5))
+            # Flow
+            elif char == "5":  # Knopf
                 interactables.append(Button(2, x, y, activated_by=2))
-            elif char == "4":  # vertical down
-                interactables.append(Door(2, x + 0.25, y - 4, height=5, target_height=5.5))
-            elif char == "9":  # vertical up
+            elif char == "6":  # Plattform hoch
+                interactables.append(Door(2, x - 0.75, y + .5, height=0.5, width=2.75, target_height=-2))
+            elif char == "7":  # Plattform runter
+                interactables.append(Door(2, x - 0.75, y + 0.5, height=0.5, width=2.75, target_height=2.5))
+            elif char == "8":  # Tür hoch
                 interactables.append((Door(2, x + 0.25, y - 4, height=5, target_height=-5.5)))
-            elif char == "5":  # horizontal up
-                interactables.append(Door(2, x, y + .5, height=.5, width=2.5, target_height=-2))
-            elif char == "0":  # horizontal down
-                interactables.append(Door(2, x, y + 0.5, height=0.5, width=2.5, target_height=2.5))
+            elif char == "9":  # Tür runter
+                interactables.append(Door(2, x + 0.25, y - 4, height=5, target_height=5.5))
 
+            # Spieler
             elif char == "C":  # Position Current
                 self.posCurrent = (x * gv.sc, y * gv.sc)
             elif char == "F":  # Position Flow
@@ -172,8 +168,9 @@ def handleinput(self, event, current, flow):
         flow.handleinput(event)
 
 
-def update(dt, current, flow):
+def update(dt, result_screen, current, flow):
     if current.in_goal and flow.in_goal:
+        result_screen.set_level(result_screen, selected_level)
         gv.active_stage = -2
 
     # Knöpfe und Türen updaten

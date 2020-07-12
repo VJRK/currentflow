@@ -38,7 +38,7 @@ while running:
         elif gv.active_stage == -1:
             settings.handleinput(settings, event, window)
         elif gv.active_stage == -2:
-            result_screen.handleinput(event, stage, current, flow)
+            result_screen.handleinput(event, stage, levelselect, current, flow)
         elif gv.active_stage == -3:
             levelselect.handleinput(levelselect, event, current, flow)
         else:
@@ -48,7 +48,7 @@ while running:
     if gv.active_stage != 0:
         flow.update(dt, stage)
         current.update(dt, stage)
-        stage.update(dt, current, flow)
+        stage.update(dt, result_screen, current, flow)
 
     # Render
     canvas.fill((33, 33, 33))
